@@ -8,3 +8,7 @@ nav.json
 index.html
 rows/
 _site/
+
+# Worker のデプロイ作業で出るもの
+.wrangler/
+node_modules/

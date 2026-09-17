@@ -1,0 +1,21 @@
+# 毎日の更新を叩くだけの Worker。GitHub の schedule は予定どおりに発火しない
+# （4回のうち3回が発火せず、残る1回も2時間半遅れ）ので、ワークフロー側の schedule は
+# 外し、起動はここだけにしてある。この Worker が止まれば更新も止まる。
+name = "orukan-cron"
+main = "index.js"
+compatibility_date = "2026-09-15"
+
+# cron でしか動かない（fetch ハンドラが無い）ので、公開 URL は要らない。
+# 既定では workers.dev のURLとプレビューURLが生えるため、明示的に切っている。
+workers_dev = false
+preview_urls = false
+
+# 発火の記録を残す（無料枠に含まれる）。失敗は scheduled が throw するので、
+# ダッシュボードの Logs で「いつ叩いて、いつ落ちたか」を後から追える。
+[observability]
+enabled = true
+
+# Workers の無料枠で動く（Cron Triggers はアカウントで5個まで、1日1回なので
+# リクエスト上限にも当たらない。fetch の待ち時間は CPU 時間に数えられない）。
+[triggers]
+crons = ["20 21 * * *"]  # 06:20 JST。理由は ../README.md

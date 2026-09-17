@@ -1,11 +1,10 @@
 name: Update
 
-# 毎日 06:20 JST（前日 21:20 UTC）。GitHub の schedule は遅れたり飛んだりするが、
-# 飛んだ日はページが前日のまま残るだけなので許容している。
+# 毎日の起動は Cloudflare Worker（tools/cron/）が workflow_dispatch を叩く。
+# 毎日 06:20 JST（前日 21:20 UTC）。GitHub の schedule は発火しない日があるので使わない
+# （予定4回のうち走ったのは1回だけ、それも2時間半遅れ。分をずらしても改善しなかった）。
 # 見た目やスクリプトを変えたときは、Actions の画面から手で実行する。
 on:
-  schedule:
-    - cron: "20 21 * * *"
   workflow_dispatch:
 
 concurrency:
@@ -20,8 +19,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      # 下の「schedule を止めさせない」で使う
-      actions: write
     steps:
       - uses: actions/checkout@v7
 
@@ -72,14 +69,6 @@ jobs:
       - uses: actions/upload-pages-artifact@v5
         with:
           path: _site
-
-      # 公開リポジトリの schedule は、60日間リポジトリに動きが無いと GitHub に止められる。
-      # 毎日のデータはコミットしないので、実行のたびに有効化し直しておく。
-      - name: schedule を止めさせない
-        if: github.event_name == 'schedule'
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: gh api -X PUT "repos/${{ github.repository }}/actions/workflows/update.yml/enable"
 
   deploy:
     needs: build

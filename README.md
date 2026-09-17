@@ -5,7 +5,7 @@
 
 ### 流れ
 
-毎日 06:20 JST に GitHub Actions（`.github/workflows/update.yml`）が次を行い、GitHub Pages に出す。
+毎日 06:20 JST に Cloudflare Worker（`tools/cron/`）が GitHub Actions（`.github/workflows/update.yml`）を起動し、Actions が次を行って GitHub Pages に出す。
 
 1. `build.py` — iShares の保有銘柄ファイルを、Yahoo の最新の株価・為替で計算し直して組入比率を推計する
 2. `nav.py` — オルカンの基準価額の推移を取得する
@@ -26,7 +26,33 @@
 - Yahoo で取れない銘柄（マレーシア株など）や値がおかしい銘柄は、保有ファイルの株価のまま計算する
 - ロンドン株の株価はペンス建てで返るので、ポンドに直している
 - 06:20 なのは、米国市場が閉まってから、アジア市場が開く前だから
-- Actions は大幅に遅れたり、スキップされることもある
+- 毎時0分は混んで遅れやすいので避けている（07:00 にしていたときは1時間半以上遅れた）
+
+### 毎日の起動（`tools/cron/`）
+
+GitHub の `schedule` は高負荷時に遅れるだけでなく丸ごと捨てられる。実際、予定4回のうち
+発火したのは1回だけで、それも2時間半遅れだった（分をずらしても改善しなかった）。
+そこで Cloudflare Workers の Cron Triggers から `workflow_dispatch` を叩いている。
+ワークフロー側の `schedule` は外してあるので、起動はこの Worker だけ。
+止まれば毎日の更新も止まる（ページは前日のデータのまま残る）。
+
+Workers の無料枠に収まる（Cron Triggers はアカウントで5個まで、1日1回なので
+10万リクエスト/日にも当たらない。`fetch` の待ち時間は CPU 時間に数えない）。
+
+デプロイ:
+
+```
+cd tools/cron
+npx wrangler secret put GH_TOKEN   # このリポジトリだけの fine-grained PAT（Actions: write）
+npx wrangler deploy
+npx wrangler tail                  # 発火の確認
+```
+
+PAT の期限が切れると静かに止まるので、`scheduled` は失敗を throw している
+（Workers のダッシュボードにエラーとして出る）。期限を決めたらカレンダーに入れておく。
+
+`tools/cron/` を消しても、デプロイ済みの Worker `orukan-cron` は消えない。
+`npx wrangler delete` するか Cloudflare のダッシュボードで消す（残っても空振りするだけ）。
 
 ### 手元で動かす
 
