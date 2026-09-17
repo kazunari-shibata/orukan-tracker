@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>オルカンの構成銘柄一覧｜全銘柄を毎日更新</title>
+<title>オルカンの構成銘柄一覧</title>
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 <style>
@@ -194,6 +194,7 @@
   .secttl { font-size:1rem; font-weight:650; margin-top:24px; margin-bottom:12px; }
   /* ページの先頭はすでに .wrap の余白があるので、最初の見出しの上は空けない */
   .wrap > .secttl:first-child { margin-top:0; }
+  .copyright { margin-top:72px; color:var(--dim); font-size:.72rem; text-align:center; }
 
   /* タブレット・スマホは列が多く収まりきらないので、企業名を削らず最大幅で止め、
      はみ出る分は .tablewrap の横スクロールにする */
@@ -262,6 +263,8 @@
   </div>
   <div class="stickyhead" id="stickyhead" aria-hidden="true" hidden><table></table></div>
   <nav class="pager" id="pager" aria-label="ページ" data-size="100"></nav>
+
+  <footer class="copyright">© <span id="year">2026</span> Kazunari Shibata</footer>
 </div>
 
 <script>
@@ -339,6 +342,8 @@ function bootNav(d) {
     out.hidden = true; svg.querySelector('#cursor').setAttribute('opacity', '0');
   });
 }
+
+document.getElementById('year').textContent = new Date().getFullYear();
 
 // 100銘柄ずつのページ送り。1ページ目は HTML に書き込み済みで、2ページ目以降は
 // tools/render.py が書き出した rows/<ページ>.json を読み込む。
