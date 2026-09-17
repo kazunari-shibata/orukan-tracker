@@ -1,0 +1,95 @@
+name: Update
+
+# 毎日 06:20 JST（前日 21:20 UTC）。GitHub の schedule は遅れたり飛んだりするが、
+# 飛んだ日はページが前日のまま残るだけなので許容している。
+# 見た目やスクリプトを変えたときは、Actions の画面から手で実行する。
+on:
+  schedule:
+    - cron: "20 21 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: update
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      # 下の「schedule を止めさせない」で使う
+      actions: write
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: tools/requirements.txt
+
+      - run: pip install -r tools/requirements.txt
+
+      # 前日比（順位の上げ下げ）に前回の CSV が要る。git にもファイルにも残さず、
+      # Actions のキャッシュにだけ置く。無ければその日は前日比なしで出す。
+      - name: 前回の推計を復元
+        uses: actions/cache/restore@v6
+        with:
+          path: history
+          key: history-${{ github.run_id }}
+          restore-keys: history-
+
+      - name: 推計を計算
+        run: python tools/build.py --out-dir history
+
+      # 使うのは最新とその前の日だけ
+      - name: 古い推計を捨てる
+        working-directory: history
+        run: |
+          shopt -s nullglob
+          ls ????-??-??.csv | sort | head -n -2 | while read -r csv; do
+            rm "$csv" "${csv%.csv}.meta.json"
+          done
+          ls
+
+      - name: 推計をキャッシュに保存
+        uses: actions/cache/save@v6
+        with:
+          path: history
+          key: history-${{ github.run_id }}
+
+      - name: ページを生成
+        run: |
+          mkdir -p _site
+          python tools/nav.py --out _site/nav.json
+          python tools/render.py --history history --nav _site/nav.json \
+            --page _site/index.html --rows _site/rows
+          cp -R logos favicon.ico _site/
+
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: _site
+
+      # 公開リポジトリの schedule は、60日間リポジトリに動きが無いと GitHub に止められる。
+      # 毎日のデータはコミットしないので、実行のたびに有効化し直しておく。
+      - name: schedule を止めさせない
+        if: github.event_name == 'schedule'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api -X PUT "repos/${{ github.repository }}/actions/workflows/update.yml/enable"
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - id: deploy
+        uses: actions/deploy-pages@v5

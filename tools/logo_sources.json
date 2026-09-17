@@ -1,0 +1,8010 @@
+{
+ "000001.SZ": {
+  "domain": "bank.pingan.com",
+  "px": 16
+ },
+ "0001.HK": {
+  "domain": "ckh.com.hk",
+  "px": 100
+ },
+ "000100.KS": {
+  "domain": "yuhan.co.kr",
+  "px": 0
+ },
+ "000150.KS": {
+  "domain": "doosan.com",
+  "px": 128
+ },
+ "000157.SZ": {
+  "domain": "en.zoomlion.com",
+  "px": 30
+ },
+ "000166.SZ": {
+  "domain": "swhygh.com",
+  "px": 0
+ },
+ "0002.HK": {
+  "domain": "clpgroup.com",
+  "px": 192
+ },
+ "000270.KS": {
+  "domain": "kia.com",
+  "px": 48
+ },
+ "0003.HK": {
+  "domain": "towngas.com",
+  "px": 16
+ },
+ "000333.SZ": {
+  "domain": "mideahk.com",
+  "px": 128
+ },
+ "000338.SZ": {
+  "domain": "weichaipower.com",
+  "px": 0
+ },
+ "000408.SZ": {
+  "domain": "zanggekuangye.com",
+  "px": 32
+ },
+ "000425.SZ": {
+  "domain": "xcmg.com",
+  "px": 16
+ },
+ "000426.SZ": {
+  "domain": "xyyxky.com",
+  "px": 32
+ },
+ "000538.SZ": {
+  "domain": "yunnanbaiyao.com.cn",
+  "px": 32
+ },
+ "000568.SZ": {
+  "domain": "lzlj.com",
+  "px": 51
+ },
+ "000596.SZ": {
+  "domain": "gujing.com",
+  "px": 0
+ },
+ "0006.HK": {
+  "domain": "powerassets.com",
+  "px": 128
+ },
+ "000625.SZ": {
+  "domain": "changan.com.cn",
+  "px": 32
+ },
+ "000651.SZ": {
+  "domain": "gree.com.cn",
+  "px": 48
+ },
+ "000657.SZ": {
+  "domain": "minmetalstungsten.com",
+  "px": 0
+ },
+ "000720.KS": {
+  "domain": "hdec.kr",
+  "px": 16
+ },
+ "000725.SZ": {
+  "domain": "boe.com",
+  "px": 48
+ },
+ "000776.SZ": {
+  "domain": "gf.com.cn",
+  "px": 32
+ },
+ "000792.SZ": {
+  "domain": "qhyhgf.com",
+  "px": 680
+ },
+ "000810.KS": {
+  "domain": "samsungfire.com",
+  "px": 16
+ },
+ "000858.SZ": {
+  "domain": "wuliangye.com.cn",
+  "px": 0
+ },
+ "000876.SZ": {
+  "domain": "newhopeagri.com",
+  "px": 48
+ },
+ "000895.SZ": {
+  "domain": "shuanghui.net",
+  "px": 0
+ },
+ "000938.SZ": {
+  "domain": "thunis.com",
+  "px": 128
+ },
+ "000977.SZ": {
+  "domain": "inspur.com",
+  "px": 32
+ },
+ "000988.SZ": {
+  "domain": "hgtech.com.cn",
+  "px": 32
+ },
+ "0012.HK": {
+  "domain": "hld.com",
+  "px": 256
+ },
+ "001309.SZ": {
+  "domain": "twsc.com.cn",
+  "px": 64
+ },
+ "0016.HK": {
+  "domain": "shkp.com",
+  "px": 192
+ },
+ "0019.HK": {
+  "domain": "swirepacific.com",
+  "px": 16
+ },
+ "001979.SZ": {
+  "domain": "cmsk1979.com",
+  "px": 32
+ },
+ "0020.HK": {
+  "domain": "sensetime.com",
+  "px": 16
+ },
+ "002001.SZ": {
+  "domain": "cnhu.com",
+  "px": 64
+ },
+ "002050.SZ": {
+  "domain": "zjshc.com",
+  "px": 64
+ },
+ "002080.SZ": {
+  "domain": "sinomatech.com",
+  "px": 16
+ },
+ "002142.SZ": {
+  "domain": "nbcb.com.cn",
+  "px": 16
+ },
+ "002156.SZ": {
+  "domain": "tfme.com",
+  "px": 32
+ },
+ "002230.SZ": {
+  "domain": "iflytek.com",
+  "px": 60
+ },
+ "002241.SZ": {
+  "domain": "goertek.com",
+  "px": 32
+ },
+ "002281.SZ": {
+  "domain": "accelink.com",
+  "px": 64
+ },
+ "002304.SZ": {
+  "domain": "chinayanghe.com",
+  "px": 64
+ },
+ "002311.SZ": {
+  "domain": "haid.com.cn",
+  "px": 0
+ },
+ "002352.SZ": {
+  "domain": "sf-express.com",
+  "px": 64
+ },
+ "002353.SZ": {
+  "domain": "jereh.com",
+  "px": 16
+ },
+ "002371.SZ": {
+  "domain": "naura.com",
+  "px": 16
+ },
+ "002384.SZ": {
+  "domain": "dsbj.com",
+  "px": 32
+ },
+ "002422.SZ": {
+  "domain": "kelun.com",
+  "px": 32
+ },
+ "002460.SZ": {
+  "domain": "ganfenglithium.com",
+  "px": 0
+ },
+ "002463.SZ": {
+  "domain": "wustec.com",
+  "px": 0
+ },
+ "002475.SZ": {
+  "domain": "luxshare-ict.com",
+  "px": 60
+ },
+ "002493.SZ": {
+  "domain": "cnrspc.com",
+  "px": 4027
+ },
+ "002594.SZ": {
+  "domain": "bydglobal.com",
+  "px": 64
+ },
+ "002600.SZ": {
+  "domain": "lingyiitech.com",
+  "px": 64
+ },
+ "002602.SZ": {
+  "domain": "sjhuatong.com",
+  "px": 48
+ },
+ "0027.HK": {
+  "domain": "galaxyentertainment.com",
+  "px": 16
+ },
+ "002709.SZ": {
+  "domain": "tinci.com",
+  "px": 32
+ },
+ "002714.SZ": {
+  "domain": "muyuanfoods.com",
+  "px": 86
+ },
+ "002837.SZ": {
+  "domain": "envicool.com",
+  "px": 50
+ },
+ "002916.SZ": {
+  "domain": "scc.com.cn",
+  "px": 0
+ },
+ "002938.SZ": {
+  "domain": "avaryholding.com",
+  "px": 32
+ },
+ "003230.KS": {
+  "domain": "samyangfoods.com",
+  "px": 16
+ },
+ "003490.KS": {
+  "domain": "koreanair.com",
+  "px": 48
+ },
+ "003550.KS": {
+  "domain": "lgcorp.com",
+  "px": 16
+ },
+ "003670.KS": {
+  "domain": "poscofuturem.com",
+  "px": 128
+ },
+ "005380.KS": {
+  "domain": "hyundai.com",
+  "px": 180
+ },
+ "005385.KS": {
+  "domain": "hyundai.com",
+  "px": 180
+ },
+ "005387.KS": {
+  "domain": "hyundai.com",
+  "px": 180
+ },
+ "005490.KS": {
+  "domain": "posco-inc.com",
+  "px": 0
+ },
+ "005830.KS": {
+  "domain": "idbins.com",
+  "px": 16
+ },
+ "005935.KS": {
+  "domain": "samsung.com",
+  "px": 128
+ },
+ "005940.KS": {
+  "domain": "nhqv.com",
+  "px": 32
+ },
+ "006400.KS": {
+  "domain": "samsungsdi.com",
+  "px": 16
+ },
+ "0066.HK": {
+  "domain": "mtr.com.hk",
+  "px": 32
+ },
+ "006800.KS": {
+  "domain": "securities.miraeasset.com",
+  "px": 114
+ },
+ "0083.HK": {
+  "domain": "sino.com",
+  "px": 128
+ },
+ "009150.KS": {
+  "domain": "samsungsem.com",
+  "px": 0
+ },
+ "009540.KS": {
+  "domain": "hdksoe.co.kr",
+  "px": 48
+ },
+ "010120.KS": {
+  "domain": "ls-electric.com",
+  "px": 48
+ },
+ "010140.KS": {
+  "domain": "samsungshi.com",
+  "px": 0
+ },
+ "010950.KS": {
+  "domain": "s-oil.com",
+  "px": 0
+ },
+ "011070.KS": {
+  "domain": "lginnotek.com",
+  "px": 100
+ },
+ "011200.KS": {
+  "domain": "hmm21.com",
+  "px": 32
+ },
+ "012330.KS": {
+  "domain": "mobis.co.kr",
+  "px": 64
+ },
+ "012450.KS": {
+  "domain": "hanwhaaerospace.co.kr",
+  "px": 128
+ },
+ "0126Z0.KS": {
+  "domain": "samsungepisholdings.com",
+  "px": 0
+ },
+ "0135.HK": {
+  "domain": "kunlun.com.hk",
+  "px": 64
+ },
+ "0144.HK": {
+  "domain": "cmport.com.hk",
+  "px": 32
+ },
+ "0148.HK": {
+  "domain": "kingboard.com",
+  "px": 16
+ },
+ "0151.HK": {
+  "domain": "want-want.com",
+  "px": 32
+ },
+ "015760.KS": {
+  "domain": "kepco.co.kr",
+  "px": 128
+ },
+ "0168.HK": {
+  "domain": "tsingtao.com.cn",
+  "px": 32
+ },
+ "0175.HK": {
+  "domain": "geelyauto.com.hk",
+  "px": 128
+ },
+ "017670.KS": {
+  "domain": "sktelecom.com",
+  "px": 48
+ },
+ "018260.KS": {
+  "domain": "samsungsds.com",
+  "px": 64
+ },
+ "0241.HK": {
+  "domain": "alihealth.cn",
+  "px": 100
+ },
+ "024110.KS": {
+  "domain": "ibk.co.kr",
+  "px": 16
+ },
+ "0267.HK": {
+  "domain": "citic.com",
+  "px": 16
+ },
+ "0270.HK": {
+  "domain": "gdi.com.hk",
+  "px": 26
+ },
+ "028260.KS": {
+  "domain": "samsungcnt.com",
+  "px": 48
+ },
+ "028300.KQ": {
+  "domain": "hlbbio.co.kr",
+  "px": 16
+ },
+ "0285.HK": {
+  "domain": "byd-electronics.com",
+  "px": 64
+ },
+ "0288.HK": {
+  "domain": "wh-group.com",
+  "px": 0
+ },
+ "0291.HK": {
+  "domain": "crbeer.com.hk",
+  "px": 64
+ },
+ "0300.HK": {
+  "domain": "mideahk.com",
+  "px": 128
+ },
+ "0316.HK": {
+  "domain": "ooilgroup.com",
+  "px": 16
+ },
+ "0322.HK": {
+  "domain": "masterkong.com.cn",
+  "px": 0
+ },
+ "032640.KS": {
+  "domain": "lguplus.com",
+  "px": 128
+ },
+ "032830.KS": {
+  "domain": "samsunglife.com",
+  "px": 32
+ },
+ "033780.KS": {
+  "domain": "ktng.com",
+  "px": 180
+ },
+ "034020.KS": {
+  "domain": "doosanenerbility.com",
+  "px": 16
+ },
+ "034730.KS": {
+  "domain": "sk-inc.com",
+  "px": 180
+ },
+ "035420.KS": {
+  "domain": "navercorp.com",
+  "px": 256
+ },
+ "035720.KS": {
+  "domain": "kakaocorp.com",
+  "px": 64
+ },
+ "0358.HK": {
+  "domain": "jxcc.com",
+  "px": 735
+ },
+ "0384.HK": {
+  "domain": "chinagasholdings.com.hk",
+  "px": 25
+ },
+ "0386.HK": {
+  "domain": "sinopec.com",
+  "px": 16
+ },
+ "0388.HK": {
+  "domain": "hkex.com.hk",
+  "px": 128
+ },
+ "0390.HK": {
+  "domain": "crec.cn",
+  "px": 48
+ },
+ "0392.HK": {
+  "domain": "behl.com.hk",
+  "px": 0
+ },
+ "042660.KS": {
+  "domain": "hanwhaocean.com",
+  "px": 0
+ },
+ "042700.KS": {
+  "domain": "hanmisemi.com",
+  "px": 128
+ },
+ "047810.KS": {
+  "domain": "koreaaero.com",
+  "px": 128
+ },
+ "051910.KS": {
+  "domain": "lgchem.com",
+  "px": 16
+ },
+ "055550.KS": {
+  "domain": "shinhangroup.com",
+  "px": 128
+ },
+ "064350.KS": {
+  "domain": "hyundai-rotem.co.kr",
+  "px": 48
+ },
+ "066570.KS": {
+  "domain": "lge.co.kr",
+  "px": 256
+ },
+ "0669.HK": {
+  "domain": "ttigroup.com",
+  "px": 150
+ },
+ "068270.KS": {
+  "domain": "celltrion.com",
+  "px": 180
+ },
+ "0688.HK": {
+  "domain": "coli.com.hk",
+  "px": 128
+ },
+ "071050.KS": {
+  "domain": "koreaholdings.com",
+  "px": 128
+ },
+ "0763.HK": {
+  "domain": "zte.com.cn",
+  "px": 16
+ },
+ "0780.HK": {
+  "domain": "tongchengir.com",
+  "px": 256
+ },
+ "0788.HK": {
+  "domain": "china-tower.com",
+  "px": 48
+ },
+ "079550.KS": {
+  "domain": "ligdefenseaerospace.com",
+  "px": 64
+ },
+ "0823.HK": {
+  "domain": "linkreit.com",
+  "px": 128
+ },
+ "0836.HK": {
+  "domain": "cr-power.com",
+  "px": 0
+ },
+ "0857.HK": {
+  "domain": "petrochina.com.cn",
+  "px": 16
+ },
+ "086280.KS": {
+  "domain": "glovis.net",
+  "px": 16
+ },
+ "086520.KQ": {
+  "domain": "",
+  "px": 0
+ },
+ "086790.KS": {
+  "domain": "hanafn.com",
+  "px": 128
+ },
+ "0902.HK": {
+  "domain": "hpi.com.cn",
+  "px": 0
+ },
+ "090430.KS": {
+  "domain": "apgroup.com",
+  "px": 128
+ },
+ "0914.HK": {
+  "domain": "conch.cn",
+  "px": 0
+ },
+ "0916.HK": {
+  "domain": "clypg.com.cn",
+  "px": 128
+ },
+ "0939.HK": {
+  "domain": "ccb.com",
+  "px": 114
+ },
+ "0960.HK": {
+  "domain": "longfor.com",
+  "px": 80
+ },
+ "0966.HK": {
+  "domain": "ctih.cntaiping.com",
+  "px": 16
+ },
+ "096770.KS": {
+  "domain": "skinnovation.com",
+  "px": 32
+ },
+ "0992.HK": {
+  "domain": "lenovo.com",
+  "px": 32
+ },
+ "0998.HK": {
+  "domain": "citicbank.com",
+  "px": 16
+ },
+ "1010.SR": {
+  "domain": "riyadbank.com",
+  "px": 32
+ },
+ "1024.HK": {
+  "domain": "kuaishou.com",
+  "px": 32
+ },
+ "1030.SR": {
+  "domain": "saib.com.sa",
+  "px": 16
+ },
+ "1038.HK": {
+  "domain": "cki.com.hk",
+  "px": 53
+ },
+ "1044.HK": {
+  "domain": "hengan.com",
+  "px": 16
+ },
+ "1050.SR": {
+  "domain": "bsf.sa",
+  "px": 32
+ },
+ "105560.KS": {
+  "domain": "kbfg.com",
+  "px": 128
+ },
+ "1060.SR": {
+  "domain": "sab.com",
+  "px": 57
+ },
+ "1080.SR": {
+  "domain": "anb.com.sa",
+  "px": 0
+ },
+ "1088.HK": {
+  "domain": "csec.com",
+  "px": 0
+ },
+ "1093.HK": {
+  "domain": "cspc.com.hk",
+  "px": 0
+ },
+ "1099.HK": {
+  "domain": "sinopharmgroup.com.cn",
+  "px": 0
+ },
+ "1109.HK": {
+  "domain": "crland.com.hk",
+  "px": 48
+ },
+ "1113.HK": {
+  "domain": "ckah.com",
+  "px": 16
+ },
+ "1120.SR": {
+  "domain": "alrajhibank.com.sa",
+  "px": 32
+ },
+ "1138.HK": {
+  "domain": "energy.coscoshipping.com",
+  "px": 0
+ },
+ "1140.SR": {
+  "domain": "bankalbilad.com.sa",
+  "px": 32
+ },
+ "1150.SR": {
+  "domain": "alinma.com",
+  "px": 48
+ },
+ "1171.HK": {
+  "domain": "yanzhoucoal.com.cn",
+  "px": 64
+ },
+ "1177.HK": {
+  "domain": "sbpgroup.com",
+  "px": 32
+ },
+ "1180.SR": {
+  "domain": "alahli.com",
+  "px": 0
+ },
+ "1193.HK": {
+  "domain": "crcgas.com",
+  "px": 48
+ },
+ "1208.HK": {
+  "domain": "mmg.com",
+  "px": 128
+ },
+ "1209.HK": {
+  "domain": "crmixclifestyle.com.cn",
+  "px": 16
+ },
+ "1211.HK": {
+  "domain": "bydglobal.com",
+  "px": 64
+ },
+ "1211.SR": {
+  "domain": "maaden.com.sa",
+  "px": 180
+ },
+ "1216.TW": {
+  "domain": "uni-president.com.tw",
+  "px": 0
+ },
+ "1258.HK": {
+  "domain": "cnmcl.net",
+  "px": 36
+ },
+ "1288.HK": {
+  "domain": "abchina.com.cn",
+  "px": 16
+ },
+ "1299.HK": {
+  "domain": "aia.com",
+  "px": 180
+ },
+ "1301.TW": {
+  "domain": "fpc.com.tw",
+  "px": 48
+ },
+ "1303.TW": {
+  "domain": "npc.com.tw",
+  "px": 16
+ },
+ "1308.HK": {
+  "domain": "sitc.com",
+  "px": 64
+ },
+ "1326.TW": {
+  "domain": "fcfc.com.tw",
+  "px": 32
+ },
+ "1336.HK": {
+  "domain": "newchinalife.com",
+  "px": 37
+ },
+ "1339.HK": {
+  "domain": "picc.com",
+  "px": 32
+ },
+ "1347.HK": {
+  "domain": "huahonggrace.com",
+  "px": 76
+ },
+ "1378.HK": {
+  "domain": "hongqiaochina.com",
+  "px": 32
+ },
+ "138040.KS": {
+  "domain": "meritzgroup.com",
+  "px": 48
+ },
+ "1398.HK": {
+  "domain": "icbc-ltd.com",
+  "px": 32
+ },
+ "1519.HK": {
+  "domain": "jtexpress.com",
+  "px": 128
+ },
+ "1519.TW": {
+  "domain": "fortune.com.tw",
+  "px": 32
+ },
+ "1530.HK": {
+  "domain": "3sbio.com",
+  "px": 48
+ },
+ "1548.HK": {
+  "domain": "genscript.com",
+  "px": 32
+ },
+ "1585.HK": {
+  "domain": "yadea.com.cn",
+  "px": 382
+ },
+ "1590.TW": {
+  "domain": "airtac.com",
+  "px": 64
+ },
+ "1605.T": {
+  "domain": "inpex.com",
+  "px": 128
+ },
+ "161390.KS": {
+  "domain": "hankooktire.com",
+  "px": 128
+ },
+ "1658.HK": {
+  "domain": "psbc.com",
+  "px": 16
+ },
+ "1766.HK": {
+  "domain": "crrcgc.cc",
+  "px": 32
+ },
+ "1772.HK": {
+  "domain": "ganfenglithium.com",
+  "px": 0
+ },
+ "1776.HK": {
+  "domain": "gf.com.cn",
+  "px": 32
+ },
+ "1787.HK": {
+  "domain": "sdhjgf.com.cn",
+  "px": 32
+ },
+ "1801.HK": {
+  "domain": "innoventbio.com",
+  "px": 0
+ },
+ "1801.T": {
+  "domain": "taisei.co.jp",
+  "px": 152
+ },
+ "1802.T": {
+  "domain": "obayashi.co.jp",
+  "px": 48
+ },
+ "1803.T": {
+  "domain": "shimz.co.jp",
+  "px": 48
+ },
+ "1810.HK": {
+  "domain": "mi.com",
+  "px": 128
+ },
+ "1812.T": {
+  "domain": "kajima.co.jp",
+  "px": 16
+ },
+ "1816.HK": {
+  "domain": "cgnp.com.cn",
+  "px": 0
+ },
+ "1818.HK": {
+  "domain": "zhaojin.com.cn",
+  "px": 128
+ },
+ "1878.T": {
+  "domain": "kentaku.co.jp",
+  "px": 128
+ },
+ "1882.HK": {
+  "domain": "haitianinter.com",
+  "px": 128
+ },
+ "1888.HK": {
+  "domain": "kblaminates.com",
+  "px": 50
+ },
+ "1898.HK": {
+  "domain": "chinacoalenergy.com",
+  "px": 64
+ },
+ "1908.HK": {
+  "domain": "cndintl.com",
+  "px": 16
+ },
+ "1919.HK": {
+  "domain": "hold.coscoshipping.com",
+  "px": 0
+ },
+ "1925.T": {
+  "domain": "daiwahouse.co.jp",
+  "px": 256
+ },
+ "1928.HK": {
+  "domain": "sandschina.com",
+  "px": 16
+ },
+ "1928.T": {
+  "domain": "sekisuihouse.co.jp",
+  "px": 128
+ },
+ "1929.HK": {
+  "domain": "ctfjewellerygroup.com",
+  "px": 200
+ },
+ "196170.KQ": {
+  "domain": "alteogen.com",
+  "px": 69
+ },
+ "1988.HK": {
+  "domain": "cmbc.com.cn",
+  "px": 128
+ },
+ "1997.HK": {
+  "domain": "wharfreic.com",
+  "px": 48
+ },
+ "2002.TW": {
+  "domain": "csc.com.tw",
+  "px": 0
+ },
+ "2010.SR": {
+  "domain": "sabic.com",
+  "px": 16
+ },
+ "2015.HK": {
+  "domain": "lixiang.com",
+  "px": 128
+ },
+ "2018.HK": {
+  "domain": "aactechnologies.com",
+  "px": 2000
+ },
+ "2020.HK": {
+  "domain": "anta.com",
+  "px": 128
+ },
+ "2020.SR": {
+  "domain": "sabic-agrinutrients.com",
+  "px": 16
+ },
+ "2057.HK": {
+  "domain": "zto.com",
+  "px": 64
+ },
+ "2059.TW": {
+  "domain": "kingslide.com",
+  "px": 64
+ },
+ "207940.KS": {
+  "domain": "samsungbiologics.com",
+  "px": 32
+ },
+ "2082.SR": {
+  "domain": "acwapower.com",
+  "px": 128
+ },
+ "2099.HK": {
+  "domain": "chinagoldintl.com",
+  "px": 0
+ },
+ "2207.TW": {
+  "domain": "hotaimotor.com.tw",
+  "px": 32
+ },
+ "2222.SR": {
+  "domain": "aramco.com",
+  "px": 128
+ },
+ "2228.HK": {
+  "domain": "xtalpi.com",
+  "px": 89
+ },
+ "2259.HK": {
+  "domain": "zijingoldintl.com",
+  "px": 32
+ },
+ "2268.HK": {
+  "domain": "wuxixdc.com",
+  "px": 128
+ },
+ "2269.HK": {
+  "domain": "wuxibiologics.com",
+  "px": 32
+ },
+ "2280.SR": {
+  "domain": "almarai.com",
+  "px": 48
+ },
+ "2290.SR": {
+  "domain": "yansab.com.sa",
+  "px": 16
+ },
+ "2301.TW": {
+  "domain": "liteon.com",
+  "px": 64
+ },
+ "2303.TW": {
+  "domain": "umc.com",
+  "px": 16
+ },
+ "2308.TW": {
+  "domain": "deltaww.com",
+  "px": 48
+ },
+ "2313.HK": {
+  "domain": "shenzhouintl.com",
+  "px": 128
+ },
+ "2317.TW": {
+  "domain": "foxconn.com",
+  "px": 64
+ },
+ "2318.HK": {
+  "domain": "pingan.cn",
+  "px": 32
+ },
+ "2319.HK": {
+  "domain": "mengniuir.com",
+  "px": 128
+ },
+ "2327.TW": {
+  "domain": "yageo.com",
+  "px": 32
+ },
+ "2328.HK": {
+  "domain": "property.picc.com",
+  "px": 32
+ },
+ "2331.HK": {
+  "domain": "lining.com",
+  "px": 32
+ },
+ "2333.HK": {
+  "domain": "gwm.com.cn",
+  "px": 32
+ },
+ "2338.HK": {
+  "domain": "weichaipower.com",
+  "px": 0
+ },
+ "2344.TW": {
+  "domain": "winbond.com",
+  "px": 32
+ },
+ "2345.TW": {
+  "domain": "accton.com",
+  "px": 685
+ },
+ "2356.TW": {
+  "domain": "inventec.com",
+  "px": 48
+ },
+ "2357.TW": {
+  "domain": "asus.com",
+  "px": 256
+ },
+ "2359.HK": {
+  "domain": "wuxiapptec.com",
+  "px": 32
+ },
+ "2360.TW": {
+  "domain": "chromaate.com",
+  "px": 16
+ },
+ "2367.HK": {
+  "domain": "xajuzi.com",
+  "px": 64
+ },
+ "2368.TW": {
+  "domain": "gce.com.tw",
+  "px": 0
+ },
+ "2376.TW": {
+  "domain": "gigabyte.com",
+  "px": 128
+ },
+ "2379.TW": {
+  "domain": "realtek.com",
+  "px": 16
+ },
+ "2382.HK": {
+  "domain": "sunnyoptical.com",
+  "px": 16
+ },
+ "2382.SR": {
+  "domain": "adesgroup.com",
+  "px": 128
+ },
+ "2382.TW": {
+  "domain": "quantatw.com",
+  "px": 16
+ },
+ "2383.TW": {
+  "domain": "emctw.com",
+  "px": 0
+ },
+ "2388.HK": {
+  "domain": "bochk.com",
+  "px": 128
+ },
+ "2395.TW": {
+  "domain": "advantech.com",
+  "px": 192
+ },
+ "2408.TW": {
+  "domain": "nanya.com",
+  "px": 0
+ },
+ "2412.TW": {
+  "domain": "cht.com.tw",
+  "px": 128
+ },
+ "2423.HK": {
+  "domain": "bj.ke.com",
+  "px": 24
+ },
+ "2449.TW": {
+  "domain": "kyec.com.tw",
+  "px": 0
+ },
+ "247540.KQ": {
+  "domain": "ecoprobm.co.kr",
+  "px": 0
+ },
+ "2502.T": {
+  "domain": "asahigroup-holdings.com",
+  "px": 128
+ },
+ "2503.T": {
+  "domain": "kirinholdings.com",
+  "px": 180
+ },
+ "2513.HK": {
+  "domain": "zhipuai.cn",
+  "px": 96
+ },
+ "2587.T": {
+  "domain": "suntory.co.jp",
+  "px": 128
+ },
+ "2588.HK": {
+  "domain": "bocaviation.com",
+  "px": 16
+ },
+ "259960.KS": {
+  "domain": "krafton.com",
+  "px": 180
+ },
+ "2600.HK": {
+  "domain": "chalco.com.cn",
+  "px": 0
+ },
+ "2601.HK": {
+  "domain": "cpic.com.cn",
+  "px": 32
+ },
+ "2603.TW": {
+  "domain": "evergreen-marine.com",
+  "px": 256
+ },
+ "2611.HK": {
+  "domain": "gtht.com",
+  "px": 20
+ },
+ "2615.TW": {
+  "domain": "wanhai.com",
+  "px": 0
+ },
+ "2618.HK": {
+  "domain": "ir.jdl.com",
+  "px": 64
+ },
+ "2618.TW": {
+  "domain": "evaair.com",
+  "px": 32
+ },
+ "2628.HK": {
+  "domain": "e-chinalife.com",
+  "px": 128
+ },
+ "267250.KS": {
+  "domain": "hd-hyundai.com",
+  "px": 128
+ },
+ "267260.KS": {
+  "domain": "hd-hyundaielectric.com",
+  "px": 48
+ },
+ "2688.HK": {
+  "domain": "ennenergy.com",
+  "px": 165
+ },
+ "272210.KS": {
+  "domain": "hanwhasystems.com",
+  "px": 16
+ },
+ "278470.KS": {
+  "domain": "apr-in.com",
+  "px": 92
+ },
+ "2801.T": {
+  "domain": "kikkoman.com",
+  "px": 152
+ },
+ "2801.TW": {
+  "domain": "bankchb.com",
+  "px": 0
+ },
+ "2802.T": {
+  "domain": "ajinomoto.co.jp",
+  "px": 128
+ },
+ "2880.TW": {
+  "domain": "hnfhc.com.tw",
+  "px": 0
+ },
+ "2881.TW": {
+  "domain": "fubon.com",
+  "px": 0
+ },
+ "2882.TW": {
+  "domain": "cathayholdings.com",
+  "px": 16
+ },
+ "2883.HK": {
+  "domain": "cosl.com.cn",
+  "px": 77
+ },
+ "2883.TW": {
+  "domain": "kgi.com",
+  "px": 128
+ },
+ "2884.TW": {
+  "domain": "esunfhc.com",
+  "px": 128
+ },
+ "2885.TW": {
+  "domain": "yuanta.com",
+  "px": 128
+ },
+ "2886.TW": {
+  "domain": "megaholdings.com.tw",
+  "px": 128
+ },
+ "2887.TW": {
+  "domain": "tsholdings.com.tw",
+  "px": 0
+ },
+ "2890.TW": {
+  "domain": "sinopac.com",
+  "px": 16
+ },
+ "2891.TW": {
+  "domain": "ctbcholding.com",
+  "px": 0
+ },
+ "2892.TW": {
+  "domain": "firstholding.com.tw",
+  "px": 32
+ },
+ "2899.HK": {
+  "domain": "zjky.cn",
+  "px": 32
+ },
+ "2912.TW": {
+  "domain": "7-11.com.tw",
+  "px": 16
+ },
+ "2914.T": {
+  "domain": "jt.com",
+  "px": 16
+ },
+ "298040.KS": {
+  "domain": "hyosungheavyindustries.com",
+  "px": 48
+ },
+ "300014.SZ": {
+  "domain": "evebattery.com",
+  "px": 16
+ },
+ "300015.SZ": {
+  "domain": "aierchina.com",
+  "px": 16
+ },
+ "300033.SZ": {
+  "domain": "10jqka.com.cn",
+  "px": 114
+ },
+ "300059.SZ": {
+  "domain": "eastmoney.com",
+  "px": 128
+ },
+ "300124.SZ": {
+  "domain": "inovance.com",
+  "px": 16
+ },
+ "300136.SZ": {
+  "domain": "sz-sunway.com",
+  "px": 48
+ },
+ "300274.SZ": {
+  "domain": "sungrowpower.com",
+  "px": 48
+ },
+ "3003.T": {
+  "domain": "hulic.co.jp",
+  "px": 180
+ },
+ "300308.SZ": {
+  "domain": "zj-innolight.com",
+  "px": 32
+ },
+ "300394.SZ": {
+  "domain": "tfcsz.com",
+  "px": 64
+ },
+ "300408.SZ": {
+  "domain": "cctc.cc",
+  "px": 128
+ },
+ "300433.SZ": {
+  "domain": "hnlens.com",
+  "px": 16
+ },
+ "300442.SZ": {
+  "domain": "rangeidc.com",
+  "px": 128
+ },
+ "300475.SZ": {
+  "domain": "shannonxsemi.com",
+  "px": 128
+ },
+ "300476.SZ": {
+  "domain": "shpcb.com",
+  "px": 32
+ },
+ "300498.SZ": {
+  "domain": "wens.com.cn",
+  "px": 16
+ },
+ "300502.SZ": {
+  "domain": "eoptolink.com",
+  "px": 16
+ },
+ "300604.SZ": {
+  "domain": "hzcctech.com",
+  "px": 64
+ },
+ "300750.SZ": {
+  "domain": "catl.com",
+  "px": 156
+ },
+ "300757.SZ": {
+  "domain": "robo-technik.com",
+  "px": 128
+ },
+ "300760.SZ": {
+  "domain": "mindray.com",
+  "px": 48
+ },
+ "3008.TW": {
+  "domain": "largan.com.tw",
+  "px": 32
+ },
+ "300857.SZ": {
+  "domain": "sharetronic.com",
+  "px": 256
+ },
+ "301308.SZ": {
+  "domain": "longsys.com",
+  "px": 0
+ },
+ "301377.SZ": {
+  "domain": "dtechs.cn",
+  "px": 32
+ },
+ "301526.SZ": {
+  "domain": "cpicfiber.com",
+  "px": 32
+ },
+ "3017.TW": {
+  "domain": "avc.co",
+  "px": 16
+ },
+ "3034.TW": {
+  "domain": "novatek.com.tw",
+  "px": 16
+ },
+ "3037.TW": {
+  "domain": "unimicron.com",
+  "px": 0
+ },
+ "3045.TW": {
+  "domain": "taiwanmobile.com",
+  "px": 128
+ },
+ "316140.KS": {
+  "domain": "woorifg.com",
+  "px": 128
+ },
+ "3231.TW": {
+  "domain": "wistron.com",
+  "px": 48
+ },
+ "323410.KS": {
+  "domain": "kakaobank.com",
+  "px": 32
+ },
+ "329180.KS": {
+  "domain": "hhi.co.kr",
+  "px": 16
+ },
+ "3323.HK": {
+  "domain": "cnbmltd.com",
+  "px": 0
+ },
+ "3328.HK": {
+  "domain": "bankcomm.com",
+  "px": 16
+ },
+ "3360.HK": {
+  "domain": "fehorizon.com",
+  "px": 32
+ },
+ "3382.T": {
+  "domain": "7andi.com",
+  "px": 152
+ },
+ "3402.T": {
+  "domain": "toray.co.jp",
+  "px": 128
+ },
+ "3407.T": {
+  "domain": "asahi-kasei.com",
+  "px": 48
+ },
+ "3443.TW": {
+  "domain": "guc-asic.com",
+  "px": 0
+ },
+ "3481.TW": {
+  "domain": "innolux.com",
+  "px": 32
+ },
+ "352820.KS": {
+  "domain": "hybecorp.com",
+  "px": 512
+ },
+ "3533.TW": {
+  "domain": "lotes.cc",
+  "px": 144
+ },
+ "3606.HK": {
+  "domain": "fuyaogroup.com",
+  "px": 127
+ },
+ "3618.HK": {
+  "domain": "cqrcb.com",
+  "px": 45
+ },
+ "3653.TW": {
+  "domain": "jentech.com.tw",
+  "px": 128
+ },
+ "3659.T": {
+  "domain": "nexon.co.jp",
+  "px": 256
+ },
+ "3661.TW": {
+  "domain": "alchip.com",
+  "px": 70
+ },
+ "3665.TW": {
+  "domain": "bizlinktech.com",
+  "px": 128
+ },
+ "3690.HK": {
+  "domain": "meituan.com",
+  "px": 48
+ },
+ "3692.HK": {
+  "domain": "hspharm.com",
+  "px": 32
+ },
+ "3711.TW": {
+  "domain": "aseglobal.com",
+  "px": 128
+ },
+ "373220.KS": {
+  "domain": "lgensol.com",
+  "px": 16
+ },
+ "3750.HK": {
+  "domain": "catl.com",
+  "px": 156
+ },
+ "3808.HK": {
+  "domain": "sinotruk.com",
+  "px": 0
+ },
+ "3888.HK": {
+  "domain": "kingsoft.com",
+  "px": 32
+ },
+ "3898.HK": {
+  "domain": "tec.crrczic.cc",
+  "px": 32
+ },
+ "3908.HK": {
+  "domain": "cicc.com",
+  "px": 16
+ },
+ "3968.HK": {
+  "domain": "cmbchina.com",
+  "px": 114
+ },
+ "3988.HK": {
+  "domain": "boc.cn",
+  "px": 16
+ },
+ "3993.HK": {
+  "domain": "cmoc.com",
+  "px": 0
+ },
+ "3998.HK": {
+  "domain": "company.bosideng.com",
+  "px": 180
+ },
+ "4004.T": {
+  "domain": "resonac.com",
+  "px": 180
+ },
+ "4013.SR": {
+  "domain": "hmg.com",
+  "px": 48
+ },
+ "402340.KS": {
+  "domain": "sksquare.com",
+  "px": 16
+ },
+ "4062.T": {
+  "domain": "ibiden.com",
+  "px": 128
+ },
+ "4063.T": {
+  "domain": "shinetsu.co.jp",
+  "px": 144
+ },
+ "4091.T": {
+  "domain": "jp.nipponsanso.com",
+  "px": 16
+ },
+ "4100.SR": {
+  "domain": "mcdc.com.sa",
+  "px": 48
+ },
+ "4151.T": {
+  "domain": "kyowakirin.com",
+  "px": 128
+ },
+ "4188.T": {
+  "domain": "mcgc.com",
+  "px": 64
+ },
+ "4250.SR": {
+  "domain": "jabalomar.com.sa",
+  "px": 128
+ },
+ "4300.SR": {
+  "domain": "daralarkan.com",
+  "px": 256
+ },
+ "4307.T": {
+  "domain": "nri.com",
+  "px": 48
+ },
+ "4452.T": {
+  "domain": "kao.com",
+  "px": 16
+ },
+ "4502.T": {
+  "domain": "takeda.com",
+  "px": 180
+ },
+ "4503.T": {
+  "domain": "astellas.com",
+  "px": 32
+ },
+ "4507.T": {
+  "domain": "shionogi.com",
+  "px": 256
+ },
+ "4519.T": {
+  "domain": "chugai-pharm.co.jp",
+  "px": 32
+ },
+ "4523.T": {
+  "domain": "eisai.co.jp",
+  "px": 32
+ },
+ "4543.T": {
+  "domain": "terumo.com",
+  "px": 16
+ },
+ "4568.T": {
+  "domain": "daiichisankyo.com",
+  "px": 128
+ },
+ "4578.T": {
+  "domain": "otsuka.com",
+  "px": 128
+ },
+ "4612.T": {
+  "domain": "nipponpaint-holdings.com",
+  "px": 128
+ },
+ "4661.T": {
+  "domain": "olc.co.jp",
+  "px": 32
+ },
+ "4684.T": {
+  "domain": "obic.co.jp",
+  "px": 152
+ },
+ "4689.T": {
+  "domain": "lycorp.co.jp",
+  "px": 128
+ },
+ "4755.T": {
+  "domain": "global.rakuten.com",
+  "px": 128
+ },
+ "4768.T": {
+  "domain": "otsuka-shokai.co.jp",
+  "px": 152
+ },
+ "4901.T": {
+  "domain": "holdings.fujifilm.com",
+  "px": 128
+ },
+ "4904.TW": {
+  "domain": "corporate.fetnet.net",
+  "px": 64
+ },
+ "4911.T": {
+  "domain": "corp.shiseido.com",
+  "px": 32
+ },
+ "4938.TW": {
+  "domain": "pegatroncorp.com",
+  "px": 48
+ },
+ "4958.TW": {
+  "domain": "zdtco.com",
+  "px": 40
+ },
+ "5016.T": {
+  "domain": "jx-nmm.com",
+  "px": 128
+ },
+ "5019.T": {
+  "domain": "idemitsu.com",
+  "px": 128
+ },
+ "5020.T": {
+  "domain": "hd.eneos.co.jp",
+  "px": 128
+ },
+ "5108.T": {
+  "domain": "bridgestone.co.jp",
+  "px": 128
+ },
+ "5110.SR": {
+  "domain": "se.com.sa",
+  "px": 128
+ },
+ "5201.T": {
+  "domain": "agc.com",
+  "px": 180
+ },
+ "5274.TWO": {
+  "domain": "aspeedtech.com",
+  "px": 80
+ },
+ "532483.BO": {
+  "domain": "",
+  "px": 0
+ },
+ "534091.BO": {
+  "domain": "",
+  "px": 0
+ },
+ "5347.TWO": {
+  "domain": "vis.com.tw",
+  "px": 64
+ },
+ "5401.T": {
+  "domain": "nipponsteel.com",
+  "px": 128
+ },
+ "5706.T": {
+  "domain": "mitsui-kinzoku.com",
+  "px": 32
+ },
+ "5713.T": {
+  "domain": "smm.co.jp",
+  "px": 180
+ },
+ "5801.T": {
+  "domain": "furukawa.co.jp",
+  "px": 128
+ },
+ "5802.T": {
+  "domain": "sumitomoelectric.com",
+  "px": 480
+ },
+ "5803.T": {
+  "domain": "fujikura.co.jp",
+  "px": 48
+ },
+ "5871.TW": {
+  "domain": "chaileaseholding.com",
+  "px": 64,
+  "rejected": "既定アイコンが他社と同じ"
+ },
+ "5876.TW": {
+  "domain": "scsb.com.tw",
+  "px": 16
+ },
+ "5880.TW": {
+  "domain": "tcfhc.com.tw",
+  "px": 0
+ },
+ "600000.SS": {
+  "domain": "spdb.com.cn",
+  "px": 32
+ },
+ "600015.SS": {
+  "domain": "hxb.com.cn",
+  "px": 16
+ },
+ "600016.SS": {
+  "domain": "cmbc.com.cn",
+  "px": 128
+ },
+ "600019.SS": {
+  "domain": "baosteel.com",
+  "px": 128
+ },
+ "600028.SS": {
+  "domain": "sinopec.com",
+  "px": 16
+ },
+ "600030.SS": {
+  "domain": "citics.com",
+  "px": 16
+ },
+ "600031.SS": {
+  "domain": "sany.com.cn",
+  "px": 480
+ },
+ "600036.SS": {
+  "domain": "cmbchina.com",
+  "px": 114
+ },
+ "600050.SS": {
+  "domain": "chinaunicom-a.com",
+  "px": 32
+ },
+ "600085.SS": {
+  "domain": "gf.tongrentang.com",
+  "px": 0
+ },
+ "600089.SS": {
+  "domain": "tbea.com",
+  "px": 32
+ },
+ "600104.SS": {
+  "domain": "saicmotor.com",
+  "px": 16
+ },
+ "600111.SS": {
+  "domain": "reht.com",
+  "px": 0
+ },
+ "600115.SS": {
+  "domain": "ceair.com",
+  "px": 32
+ },
+ "600150.SS": {
+  "domain": "csscholdings.cssc.net.cn",
+  "px": 0
+ },
+ "600160.SS": {
+  "domain": "jhgf.com.cn",
+  "px": 0
+ },
+ "600176.SS": {
+  "domain": "jushi.com",
+  "px": 53
+ },
+ "600183.SS": {
+  "domain": "syst.com.cn",
+  "px": 0
+ },
+ "600188.SS": {
+  "domain": "yanzhoucoal.com.cn",
+  "px": 64
+ },
+ "600196.SS": {
+  "domain": "fosunpharma.com",
+  "px": 32
+ },
+ "600276.SS": {
+  "domain": "hengrui.com",
+  "px": 48
+ },
+ "600309.SS": {
+  "domain": "whchem.com",
+  "px": 32
+ },
+ "600346.SS": {
+  "domain": "hengli.com",
+  "px": 32
+ },
+ "600406.SS": {
+  "domain": "naritech.cn",
+  "px": 0
+ },
+ "600418.SS": {
+  "domain": "jac.com.cn",
+  "px": 64
+ },
+ "600436.SS": {
+  "domain": "zzpzh.com",
+  "px": 16
+ },
+ "600438.SS": {
+  "domain": "tongwei.com.cn",
+  "px": 32
+ },
+ "600487.SS": {
+  "domain": "htgd.com.cn",
+  "px": 32
+ },
+ "600489.SS": {
+  "domain": "zjgold.chinagoldgroup.com",
+  "px": 16
+ },
+ "600519.SS": {
+  "domain": "moutaichina.com",
+  "px": 48
+ },
+ "600522.SS": {
+  "domain": "ztt.cn",
+  "px": 16
+ },
+ "600547.SS": {
+  "domain": "sdhjgf.com.cn",
+  "px": 32
+ },
+ "600584.SS": {
+  "domain": "jcetglobal.com",
+  "px": 0
+ },
+ "600585.SS": {
+  "domain": "conch.cn",
+  "px": 0
+ },
+ "600673.SS": {
+  "domain": "hec-al.com",
+  "px": 0
+ },
+ "600674.SS": {
+  "domain": "ctny.com.cn",
+  "px": 128
+ },
+ "600690.SS": {
+  "domain": "smart-home.haier.com",
+  "px": 16
+ },
+ "600703.SS": {
+  "domain": "sanan-e.com",
+  "px": 60
+ },
+ "600795.SS": {
+  "domain": "600795.com.cn",
+  "px": 0
+ },
+ "600809.SS": {
+  "domain": "fenjiu.com.cn",
+  "px": 32
+ },
+ "600875.SS": {
+  "domain": "dec-ltd.cn",
+  "px": 0
+ },
+ "600886.SS": {
+  "domain": "sdicpower.com",
+  "px": 0
+ },
+ "600887.SS": {
+  "domain": "yili.com",
+  "px": 0
+ },
+ "600893.SS": {
+  "domain": "hfdl.aecc.cn",
+  "px": 0
+ },
+ "600900.SS": {
+  "domain": "cypc.com.cn",
+  "px": 72
+ },
+ "600905.SS": {
+  "domain": "ctgne.com",
+  "px": 72
+ },
+ "600919.SS": {
+  "domain": "jsbchina.cn",
+  "px": 31
+ },
+ "600926.SS": {
+  "domain": "hzbank.com.cn",
+  "px": 0
+ },
+ "600958.SS": {
+  "domain": "dfzq.com.cn",
+  "px": 32
+ },
+ "600989.SS": {
+  "domain": "baofengenergy.com",
+  "px": 0
+ },
+ "600999.SS": {
+  "domain": "cmschina.com",
+  "px": 32
+ },
+ "601006.SS": {
+  "domain": "daqintielu.com",
+  "px": 0
+ },
+ "601009.SS": {
+  "domain": "njcb.com.cn",
+  "px": 32
+ },
+ "601012.SS": {
+  "domain": "longi.com",
+  "px": 16
+ },
+ "601066.SS": {
+  "domain": "csc108.com",
+  "px": 64
+ },
+ "601088.SS": {
+  "domain": "csec.com",
+  "px": 0
+ },
+ "601100.SS": {
+  "domain": "henglihydraulics.com",
+  "px": 32
+ },
+ "601127.SS": {
+  "domain": "seres.cn",
+  "px": 128
+ },
+ "601138.SS": {
+  "domain": "fii-foxconn.com",
+  "px": 48
+ },
+ "601166.SS": {
+  "domain": "cib.com.cn",
+  "px": 48
+ },
+ "601169.SS": {
+  "domain": "bankofbeijing.com.cn",
+  "px": 32
+ },
+ "601211.SS": {
+  "domain": "gtht.com",
+  "px": 20
+ },
+ "601225.SS": {
+  "domain": "shxcoal.com",
+  "px": 0
+ },
+ "601229.SS": {
+  "domain": "bosc.cn",
+  "px": 16
+ },
+ "601233.SS": {
+  "domain": "zjtkgf.com",
+  "px": 32
+ },
+ "601288.SS": {
+  "domain": "abchina.com.cn",
+  "px": 16
+ },
+ "601318.SS": {
+  "domain": "pingan.cn",
+  "px": 32
+ },
+ "601328.SS": {
+  "domain": "bankcomm.com",
+  "px": 16
+ },
+ "601336.SS": {
+  "domain": "newchinalife.com",
+  "px": 37
+ },
+ "601398.SS": {
+  "domain": "icbc-ltd.com",
+  "px": 32
+ },
+ "601456.SS": {
+  "domain": "glms.com.cn",
+  "px": 16
+ },
+ "601601.SS": {
+  "domain": "cpic.com.cn",
+  "px": 32
+ },
+ "601628.SS": {
+  "domain": "e-chinalife.com",
+  "px": 128
+ },
+ "601658.SS": {
+  "domain": "psbc.com",
+  "px": 16
+ },
+ "601668.SS": {
+  "domain": "cscecos.com",
+  "px": 0
+ },
+ "601689.SS": {
+  "domain": "tuopu.com",
+  "px": 128
+ },
+ "601727.SS": {
+  "domain": "shanghai-electric.com",
+  "px": 0
+ },
+ "601766.SS": {
+  "domain": "crrcgc.cc",
+  "px": 32
+ },
+ "601816.SS": {
+  "domain": "cr-jh.cn",
+  "px": 32
+ },
+ "601818.SS": {
+  "domain": "cebbank.com",
+  "px": 16
+ },
+ "601825.SS": {
+  "domain": "srcb.com",
+  "px": 32
+ },
+ "601857.SS": {
+  "domain": "petrochina.com.cn",
+  "px": 16
+ },
+ "601868.SS": {
+  "domain": "ceec.net.cn",
+  "px": 256
+ },
+ "601872.SS": {
+  "domain": "cmenergyshipping.com",
+  "px": 52
+ },
+ "601881.SS": {
+  "domain": "chinastock.com.cn",
+  "px": 63
+ },
+ "601888.SS": {
+  "domain": "ctgdutyfree.com.cn",
+  "px": 64
+ },
+ "601899.SS": {
+  "domain": "zjky.cn",
+  "px": 32
+ },
+ "601901.SS": {
+  "domain": "foundersc.com",
+  "px": 16
+ },
+ "601919.SS": {
+  "domain": "hold.coscoshipping.com",
+  "px": 0
+ },
+ "601939.SS": {
+  "domain": "ccb.com",
+  "px": 114
+ },
+ "601985.SS": {
+  "domain": "cnnp.com.cn",
+  "px": 0
+ },
+ "601995.SS": {
+  "domain": "cicc.com",
+  "px": 16
+ },
+ "6030.HK": {
+  "domain": "citics.com",
+  "px": 16
+ },
+ "603228.SS": {
+  "domain": "kinwong.com",
+  "px": 128
+ },
+ "603259.SS": {
+  "domain": "wuxiapptec.com",
+  "px": 32
+ },
+ "603268.SS": {
+  "domain": "songfa.com",
+  "px": 32
+ },
+ "603288.SS": {
+  "domain": "haday.com",
+  "px": 128
+ },
+ "603501.SS": {
+  "domain": "ovt.com",
+  "px": 128
+ },
+ "603799.SS": {
+  "domain": "huayou.com",
+  "px": 0
+ },
+ "603893.SS": {
+  "domain": "rock-chips.com",
+  "px": 48
+ },
+ "603986.SS": {
+  "domain": "gigadevice.com",
+  "px": 96
+ },
+ "603993.SS": {
+  "domain": "cmoc.com",
+  "px": 0
+ },
+ "605117.SS": {
+  "domain": "deye.com.cn",
+  "px": 32
+ },
+ "605499.SS": {
+  "domain": "szeastroc.com",
+  "px": 32
+ },
+ "6146.T": {
+  "domain": "disco.co.jp",
+  "px": 48
+ },
+ "6160.HK": {
+  "domain": "beonemedicines.com",
+  "px": 83
+ },
+ "6178.T": {
+  "domain": "japanpost.jp",
+  "px": 128
+ },
+ "6181.HK": {
+  "domain": "lphj.com",
+  "px": 16
+ },
+ "6186.HK": {
+  "domain": "feihe.com",
+  "px": 128
+ },
+ "6223.TWO": {
+  "domain": "mpi-corporation.com",
+  "px": 128
+ },
+ "6273.T": {
+  "domain": "smcworld.com",
+  "px": 128
+ },
+ "6301.T": {
+  "domain": "komatsu.jp",
+  "px": 48
+ },
+ "6326.T": {
+  "domain": "kubota.co.jp",
+  "px": 152
+ },
+ "6361.T": {
+  "domain": "ebara.co.jp",
+  "px": 128
+ },
+ "6367.T": {
+  "domain": "daikin.com",
+  "px": 32
+ },
+ "6383.T": {
+  "domain": "daifuku.com",
+  "px": 128
+ },
+ "6446.TW": {
+  "domain": "pharmaessentia.com",
+  "px": 128
+ },
+ "6479.T": {
+  "domain": "minebeamitsumi.com",
+  "px": 180
+ },
+ "6488.TWO": {
+  "domain": "sas-globalwafers.com",
+  "px": 128
+ },
+ "6503.T": {
+  "domain": "mitsubishielectric.com",
+  "px": 128
+ },
+ "6504.T": {
+  "domain": "fujielectric.com",
+  "px": 128
+ },
+ "6525.T": {
+  "domain": "kokusai-electric.com",
+  "px": 128
+ },
+ "6586.T": {
+  "domain": "makita.co.jp",
+  "px": 160
+ },
+ "6594.T": {
+  "domain": "nidec.com",
+  "px": 256
+ },
+ "6618.HK": {
+  "domain": "ir.jdhealth.com",
+  "px": 48
+ },
+ "6669.TW": {
+  "domain": "wiwynn.com",
+  "px": 16
+ },
+ "6690.HK": {
+  "domain": "smart-home.haier.com",
+  "px": 16
+ },
+ "6701.T": {
+  "domain": "nec.com",
+  "px": 48
+ },
+ "6702.T": {
+  "domain": "global.fujitsu",
+  "px": 64
+ },
+ "6723.T": {
+  "domain": "renesas.com",
+  "px": 32
+ },
+ "6752.T": {
+  "domain": "holdings.panasonic",
+  "px": 256
+ },
+ "6762.T": {
+  "domain": "tdk.com",
+  "px": 128
+ },
+ "6823.HK": {
+  "domain": "hkt.com",
+  "px": 256,
+  "rejected": "既定アイコンが他社と同じ"
+ },
+ "6841.T": {
+  "domain": "yokogawa.com",
+  "px": 128
+ },
+ "6861.T": {
+  "domain": "keyence.com",
+  "px": 144
+ },
+ "6862.HK": {
+  "domain": "haidilao.com",
+  "px": 64
+ },
+ "6869.HK": {
+  "domain": "yofc.com",
+  "px": 0
+ },
+ "688008.SS": {
+  "domain": "montage-tech.com",
+  "px": 48
+ },
+ "688012.SS": {
+  "domain": "amec-inc.com",
+  "px": 32
+ },
+ "688041.SS": {
+  "domain": "hygon.cn",
+  "px": 64
+ },
+ "688072.SS": {
+  "domain": "piotech.cn",
+  "px": 0
+ },
+ "688082.SS": {
+  "domain": "acmrcsh.com.cn",
+  "px": 0
+ },
+ "6881.HK": {
+  "domain": "chinastock.com.cn",
+  "px": 63
+ },
+ "688111.SS": {
+  "domain": "wps.cn",
+  "px": 32
+ },
+ "688120.SS": {
+  "domain": "hwatsing.com",
+  "px": 128
+ },
+ "688172.SS": {
+  "domain": "ydme.com",
+  "px": 0
+ },
+ "688256.SS": {
+  "domain": "cambricon.com",
+  "px": 128
+ },
+ "688271.SS": {
+  "domain": "united-imaging.com",
+  "px": 128
+ },
+ "688347.SS": {
+  "domain": "huahonggrace.com",
+  "px": 76
+ },
+ "688361.SS": {
+  "domain": "skyverse.cn",
+  "px": 32
+ },
+ "688396.SS": {
+  "domain": "crmicro.com",
+  "px": 64
+ },
+ "688498.SS": {
+  "domain": "yj-semitech.com",
+  "px": 0
+ },
+ "688506.SS": {
+  "domain": "baili-pharm.com",
+  "px": 18
+ },
+ "688521.SS": {
+  "domain": "verisilicon.com",
+  "px": 32
+ },
+ "688525.SS": {
+  "domain": "biwin.com.cn",
+  "px": 128
+ },
+ "688578.SS": {
+  "domain": "allist.com.cn",
+  "px": 56
+ },
+ "6886.HK": {
+  "domain": "htsc.com.cn",
+  "px": 16
+ },
+ "688617.SS": {
+  "domain": "aptmed.com",
+  "px": 91
+ },
+ "688702.SS": {
+  "domain": "centec.com",
+  "px": 200
+ },
+ "6902.T": {
+  "domain": "denso.com",
+  "px": 32
+ },
+ "6920.T": {
+  "domain": "lasertec.co.jp",
+  "px": 152
+ },
+ "6954.T": {
+  "domain": "fanuc.co.jp",
+  "px": 152
+ },
+ "6969.HK": {
+  "domain": "smooreholdings.com",
+  "px": 128
+ },
+ "6971.T": {
+  "domain": "global.kyocera.com",
+  "px": 200
+ },
+ "6981.T": {
+  "domain": "murata.com",
+  "px": 16
+ },
+ "6988.T": {
+  "domain": "nitto.com",
+  "px": 57
+ },
+ "6990.HK": {
+  "domain": "kelun-biotech.com",
+  "px": 0
+ },
+ "7010.SR": {
+  "domain": "stc.com.sa",
+  "px": 128
+ },
+ "7011.T": {
+  "domain": "mhi.com",
+  "px": 128
+ },
+ "7012.T": {
+  "domain": "global.kawasaki.com",
+  "px": 128
+ },
+ "7013.T": {
+  "domain": "ihi.co.jp",
+  "px": 128
+ },
+ "7020.SR": {
+  "domain": "mobily.com.sa",
+  "px": 16
+ },
+ "7181.T": {
+  "domain": "jp-life.japanpost.jp",
+  "px": 48
+ },
+ "7182.T": {
+  "domain": "jp-bank.japanpost.jp",
+  "px": 180
+ },
+ "7186.T": {
+  "domain": "yokohamafg.co.jp",
+  "px": 0
+ },
+ "7201.T": {
+  "domain": "nissan-global.com",
+  "px": 128
+ },
+ "7202.T": {
+  "domain": "isuzu.co.jp",
+  "px": 152
+ },
+ "7203.SR": {
+  "domain": "elm.sa",
+  "px": 0
+ },
+ "7259.T": {
+  "domain": "aisin.com",
+  "px": 128
+ },
+ "7267.T": {
+  "domain": "honda.co.jp",
+  "px": 128
+ },
+ "7269.T": {
+  "domain": "suzuki.co.jp",
+  "px": 152
+ },
+ "7270.T": {
+  "domain": "subaru.co.jp",
+  "px": 128
+ },
+ "7272.T": {
+  "domain": "global.yamaha-motor.com",
+  "px": 349
+ },
+ "7309.T": {
+  "domain": "shimano.com",
+  "px": 192
+ },
+ "7453.T": {
+  "domain": "ryohin-keikaku.jp",
+  "px": 128
+ },
+ "7532.T": {
+  "domain": "ppih.co.jp",
+  "px": 64
+ },
+ "7550.T": {
+  "domain": "zensho.co.jp",
+  "px": 128
+ },
+ "7733.T": {
+  "domain": "olympus.co.jp",
+  "px": 152
+ },
+ "7735.T": {
+  "domain": "screen.co.jp",
+  "px": 128
+ },
+ "7741.T": {
+  "domain": "hoya.com",
+  "px": 128
+ },
+ "7751.T": {
+  "domain": "global.canon",
+  "px": 180
+ },
+ "7769.TW": {
+  "domain": "honprec.com",
+  "px": 128
+ },
+ "7832.T": {
+  "domain": "bandainamco.co.jp",
+  "px": 120
+ },
+ "7911.T": {
+  "domain": "holdings.toppan.com",
+  "px": 128
+ },
+ "7912.T": {
+  "domain": "dnp.co.jp",
+  "px": 256
+ },
+ "7936.T": {
+  "domain": "corp.asics.com",
+  "px": 32
+ },
+ "7974.T": {
+  "domain": "nintendo.co.jp",
+  "px": 260
+ },
+ "8001.T": {
+  "domain": "itochu.co.jp",
+  "px": 128
+ },
+ "8002.T": {
+  "domain": "marubeni.com",
+  "px": 144
+ },
+ "8010.SR": {
+  "domain": "tawuniya.com",
+  "px": 48
+ },
+ "8015.T": {
+  "domain": "toyota-tsusho.com",
+  "px": 128
+ },
+ "8031.T": {
+  "domain": "mitsui.com",
+  "px": 180
+ },
+ "8053.T": {
+  "domain": "sumitomocorp.com",
+  "px": 180
+ },
+ "8058.T": {
+  "domain": "mitsubishicorp.com",
+  "px": 128
+ },
+ "8069.TWO": {
+  "domain": "eink.com",
+  "px": 32
+ },
+ "8113.T": {
+  "domain": "unicharm.co.jp",
+  "px": 128
+ },
+ "8136.T": {
+  "domain": "sanrio.co.jp",
+  "px": 152
+ },
+ "8210.SR": {
+  "domain": "bupa.com.sa",
+  "px": 79
+ },
+ "8267.T": {
+  "domain": "aeon.info",
+  "px": 16
+ },
+ "8299.TWO": {
+  "domain": "phison.com",
+  "px": 150
+ },
+ "8308.T": {
+  "domain": "resona-gr.co.jp",
+  "px": 180
+ },
+ "8309.T": {
+  "domain": "smtg.jp",
+  "px": 16
+ },
+ "8331.T": {
+  "domain": "chibabank.co.jp",
+  "px": 32
+ },
+ "8473.T": {
+  "domain": "sbigroup.co.jp",
+  "px": 16
+ },
+ "8591.T": {
+  "domain": "orix.co.jp",
+  "px": 128
+ },
+ "8593.T": {
+  "domain": "mitsubishi-hc-capital.com",
+  "px": 128
+ },
+ "8601.T": {
+  "domain": "daiwa-grp.jp",
+  "px": 152
+ },
+ "8604.T": {
+  "domain": "nomuraholdings.com",
+  "px": 128
+ },
+ "8630.T": {
+  "domain": "sompo-hd.com",
+  "px": 128
+ },
+ "8697.T": {
+  "domain": "jpx.co.jp",
+  "px": 48
+ },
+ "8725.T": {
+  "domain": "ms-ad-hd.com",
+  "px": 128
+ },
+ "8750.T": {
+  "domain": "daiichilife-group.com",
+  "px": 128
+ },
+ "8766.T": {
+  "domain": "tokiomarinehd.com",
+  "px": 128
+ },
+ "8795.T": {
+  "domain": "td-holdings.co.jp",
+  "px": 16
+ },
+ "8801.T": {
+  "domain": "mitsuifudosan.co.jp",
+  "px": 180
+ },
+ "8802.T": {
+  "domain": "mec.co.jp",
+  "px": 180
+ },
+ "8830.T": {
+  "domain": "sumitomo-rd.co.jp",
+  "px": 180
+ },
+ "8951.T": {
+  "domain": "nbf-m.com",
+  "px": 32
+ },
+ "8RC1.TO": {
+  "domain": "",
+  "px": 0
+ },
+ "900948.SS": {
+  "domain": "yitaicoal.com",
+  "px": 0
+ },
+ "9020.T": {
+  "domain": "jreast.co.jp",
+  "px": 128
+ },
+ "9021.T": {
+  "domain": "westjr.co.jp",
+  "px": 180
+ },
+ "9022.T": {
+  "domain": "jr-central.co.jp",
+  "px": 152
+ },
+ "9042.T": {
+  "domain": "hankyu-hanshin.co.jp",
+  "px": 0
+ },
+ "9101.T": {
+  "domain": "nyk.com",
+  "px": 128
+ },
+ "9104.T": {
+  "domain": "mol.co.jp",
+  "px": 180
+ },
+ "9107.T": {
+  "domain": "kline.co.jp",
+  "px": 128
+ },
+ "9202.T": {
+  "domain": "ana.co.jp",
+  "px": 180
+ },
+ "9432.T": {
+  "domain": "group.ntt",
+  "px": 320
+ },
+ "9433.T": {
+  "domain": "kddi.com",
+  "px": 16
+ },
+ "9434.T": {
+  "domain": "softbank.jp",
+  "px": 128
+ },
+ "9435.T": {
+  "domain": "hikari.co.jp",
+  "px": 16
+ },
+ "9502.T": {
+  "domain": "chuden.co.jp",
+  "px": 128
+ },
+ "9503.T": {
+  "domain": "kepco.co.jp",
+  "px": 180
+ },
+ "9531.T": {
+  "domain": "tokyo-gas.co.jp",
+  "px": 228
+ },
+ "9532.T": {
+  "domain": "osakagas.co.jp",
+  "px": 32
+ },
+ "9602.T": {
+  "domain": "toho.co.jp",
+  "px": 128
+ },
+ "9618.HK": {
+  "domain": "jd.com",
+  "px": 96
+ },
+ "9626.HK": {
+  "domain": "bilibili.com",
+  "px": 128
+ },
+ "9633.HK": {
+  "domain": "nongfuspring.com",
+  "px": 128
+ },
+ "9660.HK": {
+  "domain": "en.horizon.auto",
+  "px": 128
+ },
+ "9697.T": {
+  "domain": "capcom.co.jp",
+  "px": 256
+ },
+ "9698.HK": {
+  "domain": "gds-services.com",
+  "px": 128
+ },
+ "9735.T": {
+  "domain": "secom.co.jp",
+  "px": 192
+ },
+ "9766.T": {
+  "domain": "konami.com",
+  "px": 180
+ },
+ "9843.T": {
+  "domain": "nitorihd.co.jp",
+  "px": 16
+ },
+ "9863.HK": {
+  "domain": "leapmotor.com",
+  "px": 32
+ },
+ "9866.HK": {
+  "domain": "nio.com",
+  "px": 128
+ },
+ "9868.HK": {
+  "domain": "xpeng.com",
+  "px": 32
+ },
+ "9880.HK": {
+  "domain": "ubtrobot.com",
+  "px": 2084
+ },
+ "9888.HK": {
+  "domain": "ir.baidu.com",
+  "px": 64
+ },
+ "9896.HK": {
+  "domain": "miniso.com",
+  "px": 60
+ },
+ "9901.HK": {
+  "domain": "neworiental.org",
+  "px": 0
+ },
+ "9926.HK": {
+  "domain": "akesobio.com",
+  "px": 57
+ },
+ "9961.HK": {
+  "domain": "group.trip.com",
+  "px": 32
+ },
+ "9983.T": {
+  "domain": "fastretailing.com",
+  "px": 128
+ },
+ "9987.HK": {
+  "domain": "yumchina.com",
+  "px": 200
+ },
+ "9992.HK": {
+  "domain": "popmart.com",
+  "px": 64
+ },
+ "9995.HK": {
+  "domain": "remegen.com",
+  "px": 0
+ },
+ "9999.HK": {
+  "domain": "ir.netease.com",
+  "px": 0
+ },
+ "9CI.SI": {
+  "domain": "capitalandinvest.com",
+  "px": 0
+ },
+ "A": {
+  "domain": "agilent.com",
+  "px": 16
+ },
+ "A17U.SI": {
+  "domain": "capitaland-ascendasreit.com",
+  "px": 192
+ },
+ "A5G.IR": {
+  "domain": "aib.ie",
+  "px": 128
+ },
+ "AAF.L": {
+  "domain": "airtel.africa",
+  "px": 30
+ },
+ "AAL.L": {
+  "domain": "angloamerican.com",
+  "px": 16
+ },
+ "ABB.NS": {
+  "domain": "new.abb.com",
+  "px": 128
+ },
+ "ABCAPITAL.NS": {
+  "domain": "adityabirlacapital.com",
+  "px": 180
+ },
+ "ABEV3.SA": {
+  "domain": "ambev.com.br",
+  "px": 0
+ },
+ "ABF.L": {
+  "domain": "abf.co.uk",
+  "px": 16
+ },
+ "ABG.JO": {
+  "domain": "absa.africa",
+  "px": 32
+ },
+ "ABI.BR": {
+  "domain": "ab-inbev.com",
+  "px": 46
+ },
+ "ABN.AS": {
+  "domain": "abnamro.com",
+  "px": 16
+ },
+ "ABNB": {
+  "domain": "airbnb.com",
+  "px": 240
+ },
+ "ABVX.PA": {
+  "domain": "abivax.com",
+  "px": 128
+ },
+ "ABX.TO": {
+  "domain": "barrick.com",
+  "px": 48
+ },
+ "AC.MX": {
+  "domain": "arcacontal.com",
+  "px": 64
+ },
+ "AC.PA": {
+  "domain": "group.accor.com",
+  "px": 180
+ },
+ "ACA.PA": {
+  "domain": "credit-agricole.com",
+  "px": 32
+ },
+ "ACGL": {
+  "domain": "archgroup.com",
+  "px": 128
+ },
+ "ACN": {
+  "domain": "accenture.com",
+  "px": 48
+ },
+ "ACP.WA": {
+  "domain": "asseco.com",
+  "px": 32
+ },
+ "ACS.MC": {
+  "domain": "grupoacs.com",
+  "px": 48
+ },
+ "AD.AS": {
+  "domain": "aholddelhaize.com",
+  "px": 128
+ },
+ "ADANIENSOL.NS": {
+  "domain": "adanienergysolutions.com",
+  "px": 32
+ },
+ "ADANIENT.NS": {
+  "domain": "adanienterprises.com",
+  "px": 32
+ },
+ "ADANIPORTS.NS": {
+  "domain": "adaniports.com",
+  "px": 32
+ },
+ "ADANIPOWER.NS": {
+  "domain": "adanipower.com",
+  "px": 32
+ },
+ "ADBE": {
+  "domain": "adobe.com",
+  "px": 128
+ },
+ "ADDT-B.ST": {
+  "domain": "addtech.com",
+  "px": 128
+ },
+ "ADM": {
+  "domain": "adm.com",
+  "px": 32
+ },
+ "ADM.L": {
+  "domain": "admiralgroup.co.uk",
+  "px": 32
+ },
+ "ADP": {
+  "domain": "adp.com",
+  "px": 128
+ },
+ "ADP.PA": {
+  "domain": "parisaeroport.fr",
+  "px": 48
+ },
+ "ADS.DE": {
+  "domain": "adidas-group.com",
+  "px": 48
+ },
+ "ADSK": {
+  "domain": "autodesk.com",
+  "px": 32
+ },
+ "ADVANC.BK": {
+  "domain": "ais.th",
+  "px": 48
+ },
+ "ADYEN.AS": {
+  "domain": "adyen.com",
+  "px": 128
+ },
+ "AEE": {
+  "domain": "amereninvestors.com",
+  "px": 32
+ },
+ "AEM.TO": {
+  "domain": "agnicoeagle.com",
+  "px": 16
+ },
+ "AENA.MC": {
+  "domain": "aena.es",
+  "px": 180
+ },
+ "AEP": {
+  "domain": "aep.com",
+  "px": 16
+ },
+ "AER": {
+  "domain": "aercap.com",
+  "px": 128
+ },
+ "AFL": {
+  "domain": "aflac.com",
+  "px": 128
+ },
+ "AFRM": {
+  "domain": "affirm.com",
+  "px": 256
+ },
+ "AGI.TO": {
+  "domain": "alamosgold.com",
+  "px": 16
+ },
+ "AGN.AS": {
+  "domain": "aegon.com",
+  "px": 32
+ },
+ "AGS.BR": {
+  "domain": "ageas.com",
+  "px": 48
+ },
+ "AI.PA": {
+  "domain": "airliquide.com",
+  "px": 48
+ },
+ "AIA.NZ": {
+  "domain": "aucklandairport.co.nz",
+  "px": 73
+ },
+ "AIG": {
+  "domain": "aig.com",
+  "px": 32
+ },
+ "AJG": {
+  "domain": "ajg.com",
+  "px": 128
+ },
+ "AKBNK.IS": {
+  "domain": "akbank.com",
+  "px": 32
+ },
+ "AKRBP.OL": {
+  "domain": "akerbp.com",
+  "px": 128
+ },
+ "AKZA.AS": {
+  "domain": "akzonobel.com",
+  "px": 256
+ },
+ "ALA.TO": {
+  "domain": "altagas.ca",
+  "px": 180
+ },
+ "ALAB": {
+  "domain": "asteralabs.com",
+  "px": 128
+ },
+ "ALC.SW": {
+  "domain": "alcon.com",
+  "px": 48
+ },
+ "ALE.WA": {
+  "domain": "allegro.eu",
+  "px": 128
+ },
+ "ALFA.ST": {
+  "domain": "alfalaval.com",
+  "px": 128
+ },
+ "ALKEM.NS": {
+  "domain": "alkemlabs.com",
+  "px": 48
+ },
+ "ALL": {
+  "domain": "allstate.com",
+  "px": 128
+ },
+ "ALL.AX": {
+  "domain": "aristocrat.com",
+  "px": 128
+ },
+ "ALNY": {
+  "domain": "alnylam.com",
+  "px": 16
+ },
+ "ALO.PA": {
+  "domain": "alstom.com",
+  "px": 48
+ },
+ "ALPHA.AT": {
+  "domain": "alpha.gr",
+  "px": 128
+ },
+ "ALWN.AT": {
+  "domain": "allwyn.com",
+  "px": 128
+ },
+ "AM.PA": {
+  "domain": "dassault-aviation.com",
+  "px": 128
+ },
+ "AMBUJACEM.NS": {
+  "domain": "ambujacement.com",
+  "px": 32
+ },
+ "AMCR": {
+  "domain": "amcor.com",
+  "px": 180
+ },
+ "AME": {
+  "domain": "ametek.com",
+  "px": 16
+ },
+ "AMP": {
+  "domain": "ameriprise.com",
+  "px": 128
+ },
+ "AMRZ": {
+  "domain": "amrize.com",
+  "px": 128
+ },
+ "AMS.MC": {
+  "domain": "amadeus.com",
+  "px": 128
+ },
+ "AMT": {
+  "domain": "americantower.com",
+  "px": 480
+ },
+ "AMUN.PA": {
+  "domain": "legroupe.amundi.com",
+  "px": 48
+ },
+ "AMXB.MX": {
+  "domain": "americamovil.com",
+  "px": 16
+ },
+ "ANA.MC": {
+  "domain": "acciona.com",
+  "px": 64
+ },
+ "ANG.JO": {
+  "domain": "anglogoldashanti.com",
+  "px": 128
+ },
+ "ANTO.L": {
+  "domain": "antofagasta.co.uk",
+  "px": 64
+ },
+ "ANZ.AX": {
+  "domain": "anz.com.au",
+  "px": 152
+ },
+ "AON": {
+  "domain": "aon.com",
+  "px": 209
+ },
+ "AOT.BK": {
+  "domain": "airportthai.co.th",
+  "px": 256
+ },
+ "APA.AX": {
+  "domain": "apa.com.au",
+  "px": 180
+ },
+ "APD": {
+  "domain": "airproducts.com",
+  "px": 256
+ },
+ "APLAPOLLO.NS": {
+  "domain": "aplapollo.com",
+  "px": 32
+ },
+ "APO": {
+  "domain": "apollo.com",
+  "px": 251
+ },
+ "APOLLOHOSP.NS": {
+  "domain": "apollohospitals.com",
+  "px": 16
+ },
+ "APP": {
+  "domain": "applovin.com",
+  "px": 128
+ },
+ "ARES": {
+  "domain": "ares.com",
+  "px": 32
+ },
+ "ARGX.BR": {
+  "domain": "argenx.com",
+  "px": 16
+ },
+ "ASELS.IS": {
+  "domain": "aselsan.com",
+  "px": 256
+ },
+ "ASHOKLEY.NS": {
+  "domain": "ashokleyland.com",
+  "px": 32
+ },
+ "ASIANPAINT.NS": {
+  "domain": "asianpaints.com",
+  "px": 16
+ },
+ "ASII.JK": {
+  "domain": "astra.co.id",
+  "px": 32
+ },
+ "ASM.AS": {
+  "domain": "asm.com",
+  "px": 114
+ },
+ "ASRNL.AS": {
+  "domain": "asrnl.com",
+  "px": 128
+ },
+ "ASSA-B.ST": {
+  "domain": "assaabloy.com",
+  "px": 192
+ },
+ "ASTOR.IS": {
+  "domain": "astoras.com.tr",
+  "px": 16
+ },
+ "ASTS": {
+  "domain": "ast-science.com",
+  "px": 128
+ },
+ "ASURB.MX": {
+  "domain": "asur.com.mx",
+  "px": 0
+ },
+ "ASX.AX": {
+  "domain": "asx.com.au",
+  "px": 128
+ },
+ "ATCO-A.ST": {
+  "domain": "atlascopcogroup.com",
+  "px": 192
+ },
+ "ATCO-B.ST": {
+  "domain": "atlascopcogroup.com",
+  "px": 192
+ },
+ "ATD.TO": {
+  "domain": "corporate.couche-tard.com",
+  "px": 600
+ },
+ "ATI": {
+  "domain": "atimaterials.com",
+  "px": 0
+ },
+ "ATO": {
+  "domain": "atmosenergy.com",
+  "px": 32
+ },
+ "ATRL.TO": {
+  "domain": "atkinsrealis.com",
+  "px": 32
+ },
+ "AUBANK.NS": {
+  "domain": "au.bank.in",
+  "px": 1000
+ },
+ "AUGO": {
+  "domain": "auraminerals.com",
+  "px": 128
+ },
+ "AUROPHARMA.NS": {
+  "domain": "aurobindo.com",
+  "px": 48
+ },
+ "AV.L": {
+  "domain": "aviva.com",
+  "px": 180
+ },
+ "AVOL.SW": {
+  "domain": "avoltaworld.com",
+  "px": 128
+ },
+ "AWK": {
+  "domain": "amwater.com",
+  "px": 16
+ },
+ "AXIA15.SA": {
+  "domain": "",
+  "px": 0
+ },
+ "AXIA3.SA": {
+  "domain": "axia.com.br",
+  "px": 128
+ },
+ "AXIA7.SA": {
+  "domain": "axia.com.br",
+  "px": 128
+ },
+ "AXISBANK.NS": {
+  "domain": "axis.bank.in",
+  "px": 16
+ },
+ "AXON": {
+  "domain": "axon.com",
+  "px": 128
+ },
+ "AYV.PA": {
+  "domain": "ayvens.com",
+  "px": 192
+ },
+ "AZO": {
+  "domain": "autozone.com",
+  "px": 128
+ },
+ "AZRG.TA": {
+  "domain": "azrieligroup.com",
+  "px": 48
+ },
+ "B3SA3.SA": {
+  "domain": "b3.com.br",
+  "px": 16
+ },
+ "BA.L": {
+  "domain": "baesystems.com",
+  "px": 33
+ },
+ "BAER.SW": {
+  "domain": "juliusbaer.com",
+  "px": 128
+ },
+ "BAJAJ-AUTO.NS": {
+  "domain": "bajajauto.com",
+  "px": 16
+ },
+ "BAJAJFINSV.NS": {
+  "domain": "bajajfinserv.in",
+  "px": 32
+ },
+ "BAJAJHLDNG.NS": {
+  "domain": "bhil.in",
+  "px": 128
+ },
+ "BAJFINANCE.NS": {
+  "domain": "aboutbajajfinserv.com",
+  "px": 128
+ },
+ "BALL": {
+  "domain": "ball.com",
+  "px": 16
+ },
+ "BAM.TO": {
+  "domain": "bam.brookfield.com",
+  "px": 128
+ },
+ "BAMI.MI": {
+  "domain": "bancobpm.it",
+  "px": 128
+ },
+ "BANKBARODA.NS": {
+  "domain": "bankofbaroda.bank.in",
+  "px": 0
+ },
+ "BAP": {
+  "domain": "grupocredicorp.com",
+  "px": 128
+ },
+ "BARC.L": {
+  "domain": "home.barclays",
+  "px": 180
+ },
+ "BARN.SW": {
+  "domain": "barry-callebaut.com",
+  "px": 128
+ },
+ "BAS.DE": {
+  "domain": "basf.com",
+  "px": 180
+ },
+ "BATS.L": {
+  "domain": "bat.com",
+  "px": 192
+ },
+ "BAYN.DE": {
+  "domain": "bayer.com",
+  "px": 48
+ },
+ "BBAS3.SA": {
+  "domain": "bb.com.br",
+  "px": 48
+ },
+ "BBCA.JK": {
+  "domain": "bca.co.id",
+  "px": 32
+ },
+ "BBD-B.TO": {
+  "domain": "bombardier.com",
+  "px": 128
+ },
+ "BBDC3.SA": {
+  "domain": "banco.bradesco",
+  "px": 256
+ },
+ "BBDC4.SA": {
+  "domain": "banco.bradesco",
+  "px": 256
+ },
+ "BBNI.JK": {
+  "domain": "bni.co.id",
+  "px": 128
+ },
+ "BBRI.JK": {
+  "domain": "bri.co.id",
+  "px": 48
+ },
+ "BBSE3.SA": {
+  "domain": "bbseguridaderi.com.br",
+  "px": 128
+ },
+ "BBY": {
+  "domain": "corporate.bestbuy.com",
+  "px": 152
+ },
+ "BCE.TO": {
+  "domain": "bce.ca",
+  "px": 48
+ },
+ "BCI.SN": {
+  "domain": "bci.cl",
+  "px": 128
+ },
+ "BCP.LS": {
+  "domain": "millenniumbcp.pt",
+  "px": 180
+ },
+ "BCVN.SW": {
+  "domain": "bcv.ch",
+  "px": 128
+ },
+ "BDMS.BK": {
+  "domain": "bdms.co.th",
+  "px": 48
+ },
+ "BDX": {
+  "domain": "bd.com",
+  "px": 128
+ },
+ "BDX.WA": {
+  "domain": "budimex.pl",
+  "px": 128
+ },
+ "BE": {
+  "domain": "bloomenergy.com",
+  "px": 16
+ },
+ "BEAN.SW": {
+  "domain": "belimo.com",
+  "px": 16
+ },
+ "BEI.DE": {
+  "domain": "beiersdorf.com",
+  "px": 32
+ },
+ "BEIJ-B.ST": {
+  "domain": "beijerref.com",
+  "px": 128
+ },
+ "BEL.NS": {
+  "domain": "bel-india.in",
+  "px": 0
+ },
+ "BELA.AT": {
+  "domain": "e-jumbo.gr",
+  "px": 16
+ },
+ "BEPC.TO": {
+  "domain": "bep.brookfield.com",
+  "px": 128
+ },
+ "BESI.AS": {
+  "domain": "besi.com",
+  "px": 16
+ },
+ "BG": {
+  "domain": "bunge.com",
+  "px": 16
+ },
+ "BG.VI": {
+  "domain": "bawaggroup.com",
+  "px": 32
+ },
+ "BHARATFORG.NS": {
+  "domain": "bharatforge.com",
+  "px": 48
+ },
+ "BHARTIARTL.NS": {
+  "domain": "airtel.in",
+  "px": 30
+ },
+ "BHEL.NS": {
+  "domain": "bhel.com",
+  "px": 0
+ },
+ "BID.JO": {
+  "domain": "bidcorpgroup.com",
+  "px": 16
+ },
+ "BIIB": {
+  "domain": "biogen.com",
+  "px": 128
+ },
+ "BIM.PA": {
+  "domain": "biomerieux.com",
+  "px": 192
+ },
+ "BIMAS.IS": {
+  "domain": "bim.com.tr",
+  "px": 256
+ },
+ "BIMBOA.MX": {
+  "domain": "grupobimbo.com",
+  "px": 16
+ },
+ "BIRG.IR": {
+  "domain": "bankofireland.com",
+  "px": 128
+ },
+ "BKR": {
+  "domain": "bakerhughes.com",
+  "px": 64
+ },
+ "BKT.MC": {
+  "domain": "bankinter.com",
+  "px": 32
+ },
+ "BKW.SW": {
+  "domain": "bkw.ch",
+  "px": 32
+ },
+ "BMED.MI": {
+  "domain": "bancamediolanum.it",
+  "px": 128
+ },
+ "BMO.TO": {
+  "domain": "bmo.com",
+  "px": 96
+ },
+ "BMPS.MI": {
+  "domain": "gruppomps.it",
+  "px": 128
+ },
+ "BMRI.JK": {
+  "domain": "bankmandiri.co.id",
+  "px": 64
+ },
+ "BMW.DE": {
+  "domain": "bmwgroup.com",
+  "px": 48
+ },
+ "BN.PA": {
+  "domain": "danone.com",
+  "px": 48
+ },
+ "BN.TO": {
+  "domain": "bn.brookfield.com",
+  "px": 128
+ },
+ "BN4.SI": {
+  "domain": "keppel.com",
+  "px": 180
+ },
+ "BNP.PA": {
+  "domain": "group.bnpparibas",
+  "px": 128
+ },
+ "BNR.DE": {
+  "domain": "brenntag.com",
+  "px": 128
+ },
+ "BNS.TO": {
+  "domain": "scotiabank.com",
+  "px": 48
+ },
+ "BNY": {
+  "domain": "bny.com",
+  "px": 32
+ },
+ "BNZL.L": {
+  "domain": "bunzl.com",
+  "px": 180
+ },
+ "BOL.ST": {
+  "domain": "boliden.com",
+  "px": 128
+ },
+ "BOSCHLTD.NS": {
+  "domain": "bosch.in",
+  "px": 128
+ },
+ "BOUBYAN.KW": {
+  "domain": "boubyan.bankboubyan.com",
+  "px": 0
+ },
+ "BP.L": {
+  "domain": "bp.com",
+  "px": 256
+ },
+ "BPAC11.SA": {
+  "domain": "btgpactual.com",
+  "px": 180
+ },
+ "BPCL.NS": {
+  "domain": "bharatpetroleum.in",
+  "px": 48
+ },
+ "BPE.MI": {
+  "domain": "bper.it",
+  "px": 128
+ },
+ "BR": {
+  "domain": "broadridge.com",
+  "px": 48
+ },
+ "BRITANNIA.NS": {
+  "domain": "britannia.co.in",
+  "px": 16
+ },
+ "BRMS.JK": {
+  "domain": "bumiresourcesminerals.com",
+  "px": 128
+ },
+ "BRO": {
+  "domain": "bbrown.com",
+  "px": 48
+ },
+ "BRPT.JK": {
+  "domain": "barito-pacific.com",
+  "px": 128
+ },
+ "BS6.SI": {
+  "domain": "yzjship.com",
+  "px": 64
+ },
+ "BSANTANDER.SN": {
+  "domain": "banco.santander.cl",
+  "px": 128
+ },
+ "BSE.NS": {
+  "domain": "bseindia.com",
+  "px": 111
+ },
+ "BSX": {
+  "domain": "bostonscientific.com",
+  "px": 128
+ },
+ "BT-A.L": {
+  "domain": "bt.com",
+  "px": 128
+ },
+ "BURL": {
+  "domain": "burlington.com",
+  "px": 128
+ },
+ "BVI.PA": {
+  "domain": "group.bureauveritas.com",
+  "px": 180
+ },
+ "BVN": {
+  "domain": "buenaventura.com",
+  "px": 46
+ },
+ "BVT.JO": {
+  "domain": "bidvest.co.za",
+  "px": 48
+ },
+ "BX": {
+  "domain": "blackstone.com",
+  "px": 128
+ },
+ "BXB.AX": {
+  "domain": "brambles.com",
+  "px": 42
+ },
+ "BZ": {
+  "domain": "ir.zhipin.com",
+  "px": 16
+ },
+ "BZU.MI": {
+  "domain": "buzzi.com",
+  "px": 128
+ },
+ "C38U.SI": {
+  "domain": "cict.com.sg",
+  "px": 128
+ },
+ "C6L.SI": {
+  "domain": "singaporeair.com",
+  "px": 128
+ },
+ "CA.PA": {
+  "domain": "carrefour.com",
+  "px": 48
+ },
+ "CABK.MC": {
+  "domain": "caixabank.com",
+  "px": 36
+ },
+ "CAE.TO": {
+  "domain": "cae.com",
+  "px": 180
+ },
+ "CAH": {
+  "domain": "cardinalhealth.com",
+  "px": 48
+ },
+ "CAP.PA": {
+  "domain": "capgemini.com",
+  "px": 192
+ },
+ "CARL-B.CO": {
+  "domain": "carlsberggroup.com",
+  "px": 16
+ },
+ "CARR": {
+  "domain": "carrier.com",
+  "px": 16
+ },
+ "CASY": {
+  "domain": "caseys.com",
+  "px": 34
+ },
+ "CB": {
+  "domain": "chubb.com",
+  "px": 32
+ },
+ "CBK.DE": {
+  "domain": "commerzbank.de",
+  "px": 128
+ },
+ "CBOE": {
+  "domain": "cboe.com",
+  "px": 180
+ },
+ "CBQK.QA": {
+  "domain": "cbq.qa",
+  "px": 32
+ },
+ "CBRE": {
+  "domain": "cbre.com",
+  "px": 48
+ },
+ "CCEP": {
+  "domain": "cocacolaep.com",
+  "px": 128
+ },
+ "CCH.L": {
+  "domain": "coca-colahellenic.com",
+  "px": 128
+ },
+ "CCI": {
+  "domain": "crowncastle.com",
+  "px": 128
+ },
+ "CCL": {
+  "domain": "carnivalcorp.com",
+  "px": 128
+ },
+ "CCL-B.TO": {
+  "domain": "cclind.com",
+  "px": 2132
+ },
+ "CCO.TO": {
+  "domain": "cameco.com",
+  "px": 128
+ },
+ "CDE": {
+  "domain": "coeur.com",
+  "px": 48
+ },
+ "CDNS": {
+  "domain": "cadence.com",
+  "px": 16
+ },
+ "CDR.WA": {
+  "domain": "cdprojekt.com",
+  "px": 192
+ },
+ "CDW": {
+  "domain": "cdw.com",
+  "px": 128
+ },
+ "CEG": {
+  "domain": "constellationenergy.com",
+  "px": 120
+ },
+ "CEMEXCPO.MX": {
+  "domain": "cemex.com",
+  "px": 48
+ },
+ "CEN.NZ": {
+  "domain": "contact.co.nz",
+  "px": 128
+ },
+ "CENCOSUD.SN": {
+  "domain": "cencosud.com",
+  "px": 16
+ },
+ "CEZ.PR": {
+  "domain": "cez.cz",
+  "px": 128
+ },
+ "CF": {
+  "domain": "cfindustries.com",
+  "px": 128
+ },
+ "CFG": {
+  "domain": "citizensbank.com",
+  "px": 16
+ },
+ "CFR.SW": {
+  "domain": "richemont.com",
+  "px": 128
+ },
+ "CG": {
+  "domain": "carlyle.com",
+  "px": 96
+ },
+ "CGPOWER.NS": {
+  "domain": "cgglobal.com",
+  "px": 32
+ },
+ "CHD": {
+  "domain": "churchdwight.com",
+  "px": 0
+ },
+ "CHILE.SN": {
+  "domain": "bancochile.cl",
+  "px": 16
+ },
+ "CHKP": {
+  "domain": "checkpoint.com",
+  "px": 128
+ },
+ "CHOLAFIN.NS": {
+  "domain": "cholamandalam.com",
+  "px": 0
+ },
+ "CHRW": {
+  "domain": "chrobinson.com",
+  "px": 48
+ },
+ "CHTR": {
+  "domain": "corporate.charter.com",
+  "px": 48
+ },
+ "CI": {
+  "domain": "thecignagroup.com",
+  "px": 32
+ },
+ "CIEN": {
+  "domain": "ciena.com",
+  "px": 128
+ },
+ "CINF": {
+  "domain": "cinfin.com",
+  "px": 16
+ },
+ "CIPLA.NS": {
+  "domain": "cipla.com",
+  "px": 16
+ },
+ "CL": {
+  "domain": "colgatepalmolive.com",
+  "px": 128
+ },
+ "CLNX.MC": {
+  "domain": "cellnex.com",
+  "px": 15
+ },
+ "CLS.JO": {
+  "domain": "clicksgroup.co.za",
+  "px": 128
+ },
+ "CLS.TO": {
+  "domain": "celestica.com",
+  "px": 128
+ },
+ "CM.TO": {
+  "domain": "cibc.com",
+  "px": 192
+ },
+ "CMCSA": {
+  "domain": "corporate.comcast.com",
+  "px": 32
+ },
+ "CME": {
+  "domain": "cmegroup.com",
+  "px": 48
+ },
+ "CMG": {
+  "domain": "chipotle.com",
+  "px": 192
+ },
+ "CMI": {
+  "domain": "cummins.com",
+  "px": 32
+ },
+ "CMIG4.SA": {
+  "domain": "cemig.com.br",
+  "px": 128
+ },
+ "CMS": {
+  "domain": "cmsenergy.com",
+  "px": 16
+ },
+ "CNA.L": {
+  "domain": "centrica.com",
+  "px": 48
+ },
+ "CNC": {
+  "domain": "centene.com",
+  "px": 16
+ },
+ "CNP": {
+  "domain": "centerpointenergy.com",
+  "px": 16
+ },
+ "CNQ.TO": {
+  "domain": "cnrl.com",
+  "px": 40
+ },
+ "CNR.TO": {
+  "domain": "cn.ca",
+  "px": 144
+ },
+ "COALINDIA.NS": {
+  "domain": "coalindia.in",
+  "px": 128
+ },
+ "COF": {
+  "domain": "capitalone.com",
+  "px": 180
+ },
+ "COHR": {
+  "domain": "coherent.com",
+  "px": 128
+ },
+ "COIN": {
+  "domain": "coinbase.com",
+  "px": 512
+ },
+ "COL.AX": {
+  "domain": "colesgroup.com.au",
+  "px": 128
+ },
+ "COLO-B.CO": {
+  "domain": "coloplast.com",
+  "px": 128
+ },
+ "COLPAL.NS": {
+  "domain": "colgatepalmolive.co.in",
+  "px": 128
+ },
+ "COMI.CA": {
+  "domain": "",
+  "px": 0
+ },
+ "CON.DE": {
+  "domain": "continental.com",
+  "px": 32
+ },
+ "COO": {
+  "domain": "coopercos.com",
+  "px": 128
+ },
+ "COPEC.SN": {
+  "domain": "empresascopec.cl",
+  "px": 128
+ },
+ "COR": {
+  "domain": "cencora.com",
+  "px": 400
+ },
+ "COROMANDEL.NS": {
+  "domain": "coromandel.biz",
+  "px": 32
+ },
+ "COV.PA": {
+  "domain": "covivio.eu",
+  "px": 128
+ },
+ "CP.TO": {
+  "domain": "cpkcr.com",
+  "px": 128
+ },
+ "CPALL.BK": {
+  "domain": "cpall.co.th",
+  "px": 44
+ },
+ "CPAY": {
+  "domain": "corpay.com",
+  "px": 64
+ },
+ "CPF.BK": {
+  "domain": "cpfworldwide.com",
+  "px": 128
+ },
+ "CPFE3.SA": {
+  "domain": "cpfl.com.br",
+  "px": 96
+ },
+ "CPG.L": {
+  "domain": "compass-group.com",
+  "px": 128
+ },
+ "CPI.JO": {
+  "domain": "capitecbank.co.za",
+  "px": 32
+ },
+ "CPLE3.SA": {
+  "domain": "copel.com",
+  "px": 128
+ },
+ "CPN.BK": {
+  "domain": "centralpattana.co.th",
+  "px": 48
+ },
+ "CPR.MI": {
+  "domain": "camparigroup.com",
+  "px": 32
+ },
+ "CPRT": {
+  "domain": "copart.com",
+  "px": 48
+ },
+ "CPU.AX": {
+  "domain": "computershare.com",
+  "px": 32
+ },
+ "CRBG": {
+  "domain": "corebridgefinancial.com",
+  "px": 152
+ },
+ "CRCL": {
+  "domain": "circle.com",
+  "px": 128
+ },
+ "CRDO": {
+  "domain": "credosemi.com",
+  "px": 128
+ },
+ "CRH": {
+  "domain": "crh.com",
+  "px": 128
+ },
+ "CRS": {
+  "domain": "carpentertechnology.com",
+  "px": 42
+ },
+ "CRWV": {
+  "domain": "coreweave.com",
+  "px": 128
+ },
+ "CS.PA": {
+  "domain": "axa.com",
+  "px": 100
+ },
+ "CSL.AX": {
+  "domain": "csl.com",
+  "px": 40
+ },
+ "CSU.TO": {
+  "domain": "csisoftware.com",
+  "px": 150
+ },
+ "CSX": {
+  "domain": "csx.com",
+  "px": 16
+ },
+ "CTAS": {
+  "domain": "cintas.com",
+  "px": 32
+ },
+ "CTC-A.TO": {
+  "domain": "corp.canadiantire.ca",
+  "px": 16
+ },
+ "CTSH": {
+  "domain": "cognizant.com",
+  "px": 128
+ },
+ "CTVA": {
+  "domain": "corteva.com",
+  "px": 16
+ },
+ "CU.TO": {
+  "domain": "canadianutilities.com",
+  "px": 48
+ },
+ "CUMMINSIND.NS": {
+  "domain": "cumminsindia.com",
+  "px": 32
+ },
+ "CVC.AS": {
+  "domain": "cvc.com",
+  "px": 180
+ },
+ "CVE.TO": {
+  "domain": "cenovus.com",
+  "px": 16
+ },
+ "CVNA": {
+  "domain": "carvana.com",
+  "px": 128
+ },
+ "CW": {
+  "domain": "curtisswright.com",
+  "px": 16
+ },
+ "D": {
+  "domain": "dominionenergy.com",
+  "px": 48
+ },
+ "DABUR.NS": {
+  "domain": "dabur.com",
+  "px": 48
+ },
+ "DAL": {
+  "domain": "delta.com",
+  "px": 64
+ },
+ "DANSKE.CO": {
+  "domain": "danskebank.com",
+  "px": 128
+ },
+ "DASH": {
+  "domain": "doordash.com",
+  "px": 32
+ },
+ "DB1.DE": {
+  "domain": "deutsche-boerse.com",
+  "px": 16
+ },
+ "DBK.DE": {
+  "domain": "db.com",
+  "px": 128
+ },
+ "DD": {
+  "domain": "dupont.com",
+  "px": 16
+ },
+ "DDOG": {
+  "domain": "datadoghq.com",
+  "px": 256
+ },
+ "DECK": {
+  "domain": "deckers.com",
+  "px": 0
+ },
+ "DELTA.BK": {
+  "domain": "deltathailand.com",
+  "px": 32
+ },
+ "DEMANT.CO": {
+  "domain": "demant.com",
+  "px": 64
+ },
+ "DG": {
+  "domain": "dollargeneral.com",
+  "px": 48
+ },
+ "DG.PA": {
+  "domain": "vinci.com",
+  "px": 32
+ },
+ "DGE.L": {
+  "domain": "diageo.com",
+  "px": 128
+ },
+ "DGX": {
+  "domain": "questdiagnostics.com",
+  "px": 16
+ },
+ "DHER.DE": {
+  "domain": "deliveryhero.com",
+  "px": 128
+ },
+ "DHI": {
+  "domain": "drhorton.com",
+  "px": 256
+ },
+ "DHL.DE": {
+  "domain": "group.dhl.com",
+  "px": 48
+ },
+ "DIE.BR": {
+  "domain": "dieterengroup.com",
+  "px": 256
+ },
+ "DIM.PA": {
+  "domain": "sartorius.com",
+  "px": 48
+ },
+ "DIVISLAB.NS": {
+  "domain": "divislabs.com",
+  "px": 128
+ },
+ "DIXON.NS": {
+  "domain": "dixoninfo.com",
+  "px": 256
+ },
+ "DKS": {
+  "domain": "dickssportinggoods.com",
+  "px": 16
+ },
+ "DLF.NS": {
+  "domain": "dlf.in",
+  "px": 60
+ },
+ "DLR": {
+  "domain": "digitalrealty.com",
+  "px": 48
+ },
+ "DLTR": {
+  "domain": "dollartree.com",
+  "px": 32
+ },
+ "DMART.NS": {
+  "domain": "dmartindia.com",
+  "px": 128
+ },
+ "DNB.OL": {
+  "domain": "dnb.no",
+  "px": 128
+ },
+ "DNP.WA": {
+  "domain": "grupadino.pl",
+  "px": 128
+ },
+ "DOL.TO": {
+  "domain": "dollarama.com",
+  "px": 48
+ },
+ "DOV": {
+  "domain": "dovercorporation.com",
+  "px": 64
+ },
+ "DOW": {
+  "domain": "dow.com",
+  "px": 128
+ },
+ "DPLM.L": {
+  "domain": "diplomaplc.com",
+  "px": 256
+ },
+ "DRI": {
+  "domain": "darden.com",
+  "px": 32
+ },
+ "DRREDDY.NS": {
+  "domain": "drreddys.com",
+  "px": 32
+ },
+ "DSCT.TA": {
+  "domain": "discountbank.co.il",
+  "px": 180
+ },
+ "DSFIR.AS": {
+  "domain": "dsm-firmenich.com",
+  "px": 16
+ },
+ "DSV.CO": {
+  "domain": "dsv.com",
+  "px": 128
+ },
+ "DSY.JO": {
+  "domain": "discovery.co.za",
+  "px": 128
+ },
+ "DSY.PA": {
+  "domain": "3ds.com",
+  "px": 128
+ },
+ "DTE": {
+  "domain": "dteenergy.com",
+  "px": 192
+ },
+ "DTE.DE": {
+  "domain": "telekom.com",
+  "px": 128
+ },
+ "DTG.DE": {
+  "domain": "daimlertruck.com",
+  "px": 180
+ },
+ "DUBK.QA": {
+  "domain": "dukhanbank.com",
+  "px": 32
+ },
+ "DUK": {
+  "domain": "duke-energy.com",
+  "px": 128
+ },
+ "DVN": {
+  "domain": "devonenergy.com",
+  "px": 16
+ },
+ "DXCM": {
+  "domain": "dexcom.com",
+  "px": 128
+ },
+ "EBAY": {
+  "domain": "ebayinc.com",
+  "px": 16
+ },
+ "EBP.WA": {
+  "domain": "erste.pl",
+  "px": 48
+ },
+ "EBS.VI": {
+  "domain": "erstegroup.com",
+  "px": 128
+ },
+ "ECHO": {
+  "domain": "echostar.com",
+  "px": 150
+ },
+ "ECL": {
+  "domain": "ecolab.com",
+  "px": 256
+ },
+ "ED": {
+  "domain": "conedison.com",
+  "px": 180
+ },
+ "EDP.LS": {
+  "domain": "edp.com",
+  "px": 16
+ },
+ "EDPR.LS": {
+  "domain": "edpr-investors.com",
+  "px": 16
+ },
+ "EDV.L": {
+  "domain": "endeavourmining.com",
+  "px": 57
+ },
+ "EFN.TO": {
+  "domain": "elementfleet.com",
+  "px": 128
+ },
+ "EFX": {
+  "domain": "equifax.com",
+  "px": 57
+ },
+ "EG": {
+  "domain": "everestglobal.com",
+  "px": 128
+ },
+ "EGIE3.SA": {
+  "domain": "engie.com.br",
+  "px": 128
+ },
+ "EICHERMOT.NS": {
+  "domain": "eicher.in",
+  "px": 16
+ },
+ "EIX": {
+  "domain": "edison.com",
+  "px": 32
+ },
+ "EL": {
+  "domain": "elcompanies.com",
+  "px": 16
+ },
+ "EL.PA": {
+  "domain": "essilorluxottica.com",
+  "px": 48
+ },
+ "ELE.MC": {
+  "domain": "endesa.com",
+  "px": 16
+ },
+ "ELI.BR": {
+  "domain": "eliagroup.eu",
+  "px": 64
+ },
+ "ELISA.HE": {
+  "domain": "elisa.com",
+  "px": 100
+ },
+ "ELV": {
+  "domain": "elevancehealth.com",
+  "px": 1200
+ },
+ "EMA.TO": {
+  "domain": "emera.com",
+  "px": 16
+ },
+ "EMBJ3.SA": {
+  "domain": "embraer.com",
+  "px": 256
+ },
+ "EME": {
+  "domain": "emcorgroup.com",
+  "px": 200
+ },
+ "EMP-A.TO": {
+  "domain": "empireco.ca",
+  "px": 48
+ },
+ "EMR": {
+  "domain": "emerson.com",
+  "px": 48
+ },
+ "EMSN.SW": {
+  "domain": "ems-group.com",
+  "px": 128
+ },
+ "EN.PA": {
+  "domain": "bouygues.com",
+  "px": 128
+ },
+ "ENB.TO": {
+  "domain": "enbridge.com",
+  "px": 180
+ },
+ "ENEL.MI": {
+  "domain": "enel.com",
+  "px": 180
+ },
+ "ENELCHILE.SN": {
+  "domain": "enel.cl",
+  "px": 30
+ },
+ "ENEV3.SA": {
+  "domain": "eneva.com.br",
+  "px": 32
+ },
+ "ENGI.PA": {
+  "domain": "engie.com",
+  "px": 150
+ },
+ "ENGI11.SA": {
+  "domain": "energisa.com.br",
+  "px": 100
+ },
+ "ENI.MI": {
+  "domain": "eni.com",
+  "px": 128
+ },
+ "ENLT.TA": {
+  "domain": "enlightenergy.co.il",
+  "px": 512
+ },
+ "ENRIN.NS": {
+  "domain": "siemens-energy-india.com",
+  "px": 256
+ },
+ "ENTG": {
+  "domain": "entegris.com",
+  "px": 33
+ },
+ "ENX.PA": {
+  "domain": "euronext.com",
+  "px": 16
+ },
+ "EOAN.DE": {
+  "domain": "eon.com",
+  "px": 128
+ },
+ "EOG": {
+  "domain": "eogresources.com",
+  "px": 100
+ },
+ "EPI-A.ST": {
+  "domain": "epirocgroup.com",
+  "px": 128
+ },
+ "EPI-B.ST": {
+  "domain": "epirocgroup.com",
+  "px": 128
+ },
+ "EQIX": {
+  "domain": "equinix.com",
+  "px": 128
+ },
+ "EQNR.OL": {
+  "domain": "equinor.com",
+  "px": 32
+ },
+ "EQT": {
+  "domain": "eqt.com",
+  "px": 128
+ },
+ "EQT.ST": {
+  "domain": "eqtgroup.com",
+  "px": 48
+ },
+ "EQTL3.SA": {
+  "domain": "equatorialenergia.com.br",
+  "px": 32
+ },
+ "EQX.TO": {
+  "domain": "equinoxgold.com",
+  "px": 73
+ },
+ "EREGL.IS": {
+  "domain": "erdemir.com.tr",
+  "px": 32
+ },
+ "ERF.PA": {
+  "domain": "eurofins.com",
+  "px": 48
+ },
+ "ERIC-B.ST": {
+  "domain": "ericsson.com",
+  "px": 192
+ },
+ "ES": {
+  "domain": "eversource.com",
+  "px": 32
+ },
+ "ESLT.TA": {
+  "domain": "elbitsystems.com",
+  "px": 128
+ },
+ "ESS": {
+  "domain": "essexapartmenthomes.com",
+  "px": 128
+ },
+ "ESSITY-B.ST": {
+  "domain": "essity.com",
+  "px": 128
+ },
+ "ETE.AT": {
+  "domain": "nbg.gr",
+  "px": 48
+ },
+ "ETERNAL.NS": {
+  "domain": "eternal.com",
+  "px": 180
+ },
+ "ETR": {
+  "domain": "entergy.com",
+  "px": 128
+ },
+ "EUROB.AT": {
+  "domain": "eurobank.gr",
+  "px": 128
+ },
+ "EVK.DE": {
+  "domain": "evonik.com",
+  "px": 128
+ },
+ "EVN.AX": {
+  "domain": "evolutionmining.com",
+  "px": 128
+ },
+ "EVO.ST": {
+  "domain": "evolution.com",
+  "px": 32
+ },
+ "EVRG": {
+  "domain": "investors.evergy.com",
+  "px": 75
+ },
+ "EW": {
+  "domain": "edwards.com",
+  "px": 16
+ },
+ "EXC": {
+  "domain": "exeloncorp.com",
+  "px": 32
+ },
+ "EXE": {
+  "domain": "expandenergy.com",
+  "px": 128
+ },
+ "EXO.AS": {
+  "domain": "exor.com",
+  "px": 16
+ },
+ "EXPD": {
+  "domain": "expeditors.com",
+  "px": 32
+ },
+ "EXPE": {
+  "domain": "expediagroup.com",
+  "px": 48
+ },
+ "EXPN.L": {
+  "domain": "experianplc.com",
+  "px": 64
+ },
+ "EXR": {
+  "domain": "extraspace.com",
+  "px": 128
+ },
+ "F": {
+  "domain": "ford.com",
+  "px": 128
+ },
+ "F34.SI": {
+  "domain": "wilmar-international.com",
+  "px": 16
+ },
+ "FALABELLA.SN": {
+  "domain": "falabella.com",
+  "px": 180
+ },
+ "FANG": {
+  "domain": "diamondbackenergy.com",
+  "px": 425
+ },
+ "FAST": {
+  "domain": "fastenal.com",
+  "px": 32
+ },
+ "FBK.MI": {
+  "domain": "it.finecobank.com",
+  "px": 128
+ },
+ "FCNCA": {
+  "domain": "firstcitizens.com",
+  "px": 128
+ },
+ "FCX": {
+  "domain": "fcx.com",
+  "px": 16
+ },
+ "FDX": {
+  "domain": "fedex.com",
+  "px": 32
+ },
+ "FDXF": {
+  "domain": "fedexfreight.com",
+  "px": 32
+ },
+ "FE": {
+  "domain": "firstenergycorp.com",
+  "px": 32
+ },
+ "FEDERALBNK.NS": {
+  "domain": "federal.bank.in",
+  "px": 0
+ },
+ "FEMSAUBD.MX": {
+  "domain": "femsa.com",
+  "px": 0
+ },
+ "FER.MC": {
+  "domain": "ferrovial.com",
+  "px": 128
+ },
+ "FERG": {
+  "domain": "corporate.ferguson.com",
+  "px": 16
+ },
+ "FFH.TO": {
+  "domain": "fairfax.ca",
+  "px": 128
+ },
+ "FFIV": {
+  "domain": "f5.com",
+  "px": 32
+ },
+ "FGR.PA": {
+  "domain": "eiffage.com",
+  "px": 128
+ },
+ "FIBRAPL14.MX": {
+  "domain": "fibraprologis.com",
+  "px": 128
+ },
+ "FICO": {
+  "domain": "fico.com",
+  "px": 128
+ },
+ "FIS": {
+  "domain": "fisglobal.com",
+  "px": 128
+ },
+ "FISV": {
+  "domain": "",
+  "px": 0
+ },
+ "FITB": {
+  "domain": "53.com",
+  "px": 128
+ },
+ "FIX": {
+  "domain": "comfortsystemsusa.com",
+  "px": 120
+ },
+ "FLEX": {
+  "domain": "flex.com",
+  "px": 128
+ },
+ "FLUT": {
+  "domain": "flutter.com",
+  "px": 48
+ },
+ "FM.TO": {
+  "domain": "first-quantum.com",
+  "px": 128
+ },
+ "FME.DE": {
+  "domain": "freseniusmedicalcare.com",
+  "px": 16
+ },
+ "FMG.AX": {
+  "domain": "fortescue.com",
+  "px": 180
+ },
+ "FN": {
+  "domain": "fabrinet.com",
+  "px": 170
+ },
+ "FNF": {
+  "domain": "fnf.com",
+  "px": 64
+ },
+ "FNV.TO": {
+  "domain": "franco-nevada.com",
+  "px": 16
+ },
+ "FORTIS.NS": {
+  "domain": "fortishealthcare.com",
+  "px": 22
+ },
+ "FORTUM.HE": {
+  "domain": "fortum.com",
+  "px": 456
+ },
+ "FOX": {
+  "domain": "foxcorporation.com",
+  "px": 128
+ },
+ "FOXA": {
+  "domain": "foxcorporation.com",
+  "px": 128
+ },
+ "FPH.NZ": {
+  "domain": "fphcare.com",
+  "px": 32
+ },
+ "FRE.DE": {
+  "domain": "fresenius.com",
+  "px": 256
+ },
+ "FRES.L": {
+  "domain": "fresnilloplc.com",
+  "px": 32
+ },
+ "FSLR": {
+  "domain": "firstsolar.com",
+  "px": 16
+ },
+ "FSR.JO": {
+  "domain": "firstrand.co.za",
+  "px": 0
+ },
+ "FTAI": {
+  "domain": "ftaiaviation.com",
+  "px": 16
+ },
+ "FTI": {
+  "domain": "technipfmc.com",
+  "px": 128
+ },
+ "FTNT": {
+  "domain": "fortinet.com",
+  "px": 128
+ },
+ "FTS.TO": {
+  "domain": "fortisinc.com",
+  "px": 48
+ },
+ "FTV": {
+  "domain": "fortive.com",
+  "px": 32
+ },
+ "FUNO11.MX": {
+  "domain": "funo.mx",
+  "px": 256
+ },
+ "FUTU": {
+  "domain": "futuholdings.com",
+  "px": 32
+ },
+ "FWONK": {
+  "domain": "libertymedia.com",
+  "px": 128
+ },
+ "G.MI": {
+  "domain": "generali.com",
+  "px": 16
+ },
+ "G1A.DE": {
+  "domain": "gea.com",
+  "px": 192
+ },
+ "GAIL.NS": {
+  "domain": "gailonline.com",
+  "px": 0
+ },
+ "GALD.SW": {
+  "domain": "galderma.com",
+  "px": 48
+ },
+ "GALP.LS": {
+  "domain": "galp.com",
+  "px": 500
+ },
+ "GAPB.MX": {
+  "domain": "aeropuertosgap.com.mx",
+  "px": 16
+ },
+ "GBLB.BR": {
+  "domain": "gbl.be",
+  "px": 128
+ },
+ "GCARSOA1.MX": {
+  "domain": "carso.com.mx",
+  "px": 128
+ },
+ "GD": {
+  "domain": "gd.com",
+  "px": 128
+ },
+ "GEBN.SW": {
+  "domain": "geberit.com",
+  "px": 128
+ },
+ "GEHC": {
+  "domain": "gehealthcare.com",
+  "px": 128
+ },
+ "GEKTERNA.AT": {
+  "domain": "gekterna.com",
+  "px": 32
+ },
+ "GEN": {
+  "domain": "gendigital.com",
+  "px": 400
+ },
+ "GET.PA": {
+  "domain": "getlinkgroup.com",
+  "px": 32
+ },
+ "GFC.PA": {
+  "domain": "gecina.fr",
+  "px": 181
+ },
+ "GFI.JO": {
+  "domain": "goldfields.com",
+  "px": 71
+ },
+ "GFINBURO.MX": {
+  "domain": "inbursa.com",
+  "px": 32
+ },
+ "GFL.TO": {
+  "domain": "gflenv.com",
+  "px": 128
+ },
+ "GFNORTEO.MX": {
+  "domain": "banorte.com",
+  "px": 16
+ },
+ "GGBR4.SA": {
+  "domain": "www2.gerdau.com",
+  "px": 0
+ },
+ "GIB-A.TO": {
+  "domain": "cgi.com",
+  "px": 128
+ },
+ "GIL.TO": {
+  "domain": "gildancorp.com",
+  "px": 152
+ },
+ "GIS": {
+  "domain": "generalmills.com",
+  "px": 32
+ },
+ "GIVN.SW": {
+  "domain": "givaudan.com",
+  "px": 74
+ },
+ "GJF.OL": {
+  "domain": "gjensidige.com",
+  "px": 180
+ },
+ "GLE.PA": {
+  "domain": "societegenerale.com",
+  "px": 16
+ },
+ "GLEN.L": {
+  "domain": "glencore.com",
+  "px": 32
+ },
+ "GM": {
+  "domain": "gm.com",
+  "px": 192
+ },
+ "GMAB.CO": {
+  "domain": "genmab.com",
+  "px": 60
+ },
+ "GMEXICOB.MX": {
+  "domain": "gmexico.com",
+  "px": 43
+ },
+ "GMG.AX": {
+  "domain": "goodman.com",
+  "px": 180
+ },
+ "GMRAIRPORT.NS": {
+  "domain": "gmraero.com",
+  "px": 48
+ },
+ "GODREJCP.NS": {
+  "domain": "godrejcp.com",
+  "px": 128
+ },
+ "GODREJPROP.NS": {
+  "domain": "godrejproperties.com",
+  "px": 32
+ },
+ "GOOG": {
+  "domain": "google.com",
+  "px": 128
+ },
+ "GPC": {
+  "domain": "genpt.com",
+  "px": 1500
+ },
+ "GPN": {
+  "domain": "globalpayments.com",
+  "px": 92
+ },
+ "GRAB": {
+  "domain": "grab.com",
+  "px": 96
+ },
+ "GRASIM.NS": {
+  "domain": "grasim.com",
+  "px": 64,
+  "rejected": "既定アイコンが他社と同じ"
+ },
+ "GRMN": {
+  "domain": "garmin.com",
+  "px": 128
+ },
+ "GROWW.NS": {
+  "domain": "groww.in",
+  "px": 32
+ },
+ "GRUMAB.MX": {
+  "domain": "gruma.com",
+  "px": 16
+ },
+ "GSK.L": {
+  "domain": "gsk.com",
+  "px": 128
+ },
+ "GULF.BK": {
+  "domain": "gulf.co.th",
+  "px": 33
+ },
+ "GVT&D.NS": {
+  "domain": "gevernova.com",
+  "px": 48
+ },
+ "GWO.TO": {
+  "domain": "greatwestlifeco.com",
+  "px": 128
+ },
+ "GWW": {
+  "domain": "grainger.com",
+  "px": 32
+ },
+ "H": {
+  "domain": "hyatt.com",
+  "px": 32
+ },
+ "H.TO": {
+  "domain": "hydroone.com",
+  "px": 48
+ },
+ "H78.SI": {
+  "domain": "hkland.com",
+  "px": 16
+ },
+ "HAG.DE": {
+  "domain": "hensoldt.net",
+  "px": 180
+ },
+ "HAL": {
+  "domain": "halliburton.com",
+  "px": 48
+ },
+ "HAL.NS": {
+  "domain": "hal-india.co.in",
+  "px": 0
+ },
+ "HAR.JO": {
+  "domain": "harmony.co.za",
+  "px": 16
+ },
+ "HARL.TA": {
+  "domain": "harel-group.co.il",
+  "px": 128
+ },
+ "HAVELLS.NS": {
+  "domain": "havells.com",
+  "px": 24
+ },
+ "HBAN": {
+  "domain": "huntington.com",
+  "px": 128
+ },
+ "HBAN.SW": {
+  "domain": "helvetia-baloise.com",
+  "px": 256
+ },
+ "HCA": {
+  "domain": "hcahealthcare.com",
+  "px": 16
+ },
+ "HCLTECH.NS": {
+  "domain": "hcltech.com",
+  "px": 128
+ },
+ "HDFCAMC.NS": {
+  "domain": "hdfcfund.com",
+  "px": 128
+ },
+ "HDFCBANK.NS": {
+  "domain": "hdfc.bank.in",
+  "px": 16
+ },
+ "HDFCLIFE.NS": {
+  "domain": "hdfclife.com",
+  "px": 2000
+ },
+ "HEI": {
+  "domain": "heico.com",
+  "px": 128
+ },
+ "HEI-A": {
+  "domain": "heico.com",
+  "px": 128
+ },
+ "HEI.DE": {
+  "domain": "heidelbergmaterials.de",
+  "px": 32
+ },
+ "HEIA.AS": {
+  "domain": "theheinekencompany.com",
+  "px": 16
+ },
+ "HEIO.AS": {
+  "domain": "heinekenholding.com",
+  "px": 16
+ },
+ "HEN.DE": {
+  "domain": "henkel.com",
+  "px": 128
+ },
+ "HEN3.DE": {
+  "domain": "henkel.com",
+  "px": 128
+ },
+ "HEROMOTOCO.NS": {
+  "domain": "heromotocorp.com",
+  "px": 32
+ },
+ "HEXA-B.ST": {
+  "domain": "hexagon.com",
+  "px": 140
+ },
+ "HIG": {
+  "domain": "thehartford.com",
+  "px": 128
+ },
+ "HINDALCO.NS": {
+  "domain": "hindalco.com",
+  "px": 16
+ },
+ "HINDPETRO.NS": {
+  "domain": "hindustanpetroleum.com",
+  "px": 16
+ },
+ "HINDUNILVR.NS": {
+  "domain": "hul.co.in",
+  "px": 128
+ },
+ "HLMA.L": {
+  "domain": "halma.com",
+  "px": 32
+ },
+ "HLN.L": {
+  "domain": "haleon.com",
+  "px": 16
+ },
+ "HLT": {
+  "domain": "hilton.com",
+  "px": 144
+ },
+ "HM-B.ST": {
+  "domain": "hmgroup.com",
+  "px": 128
+ },
+ "HNR1.DE": {
+  "domain": "hannover-re.com",
+  "px": 256
+ },
+ "HO.PA": {
+  "domain": "thalesgroup.com",
+  "px": 48
+ },
+ "HOLN.SW": {
+  "domain": "holcim.com",
+  "px": 128
+ },
+ "HON": {
+  "domain": "honeywell.com",
+  "px": 112
+ },
+ "HONA": {
+  "domain": "honeywellaerospace.com",
+  "px": 41
+ },
+ "HOOD": {
+  "domain": "robinhood.com",
+  "px": 128
+ },
+ "HOT.DE": {
+  "domain": "hochtief.com",
+  "px": 64
+ },
+ "HPE": {
+  "domain": "hpe.com",
+  "px": 128
+ },
+ "HPQ": {
+  "domain": "hp.com",
+  "px": 32
+ },
+ "HSY": {
+  "domain": "thehersheycompany.com",
+  "px": 110
+ },
+ "HTHT": {
+  "domain": "hworld.com",
+  "px": 32
+ },
+ "HTO.AT": {
+  "domain": "cosmote.gr",
+  "px": 128
+ },
+ "HUBB": {
+  "domain": "hubbell.com",
+  "px": 180
+ },
+ "HUM": {
+  "domain": "humana.com",
+  "px": 128
+ },
+ "HWM": {
+  "domain": "howmet.com",
+  "px": 121
+ },
+ "IAG.AX": {
+  "domain": "iag.com.au",
+  "px": 128
+ },
+ "IAG.MC": {
+  "domain": "iairgroup.com",
+  "px": 180
+ },
+ "IAG.TO": {
+  "domain": "ia.ca",
+  "px": 180
+ },
+ "IBKR": {
+  "domain": "interactivebrokers.com",
+  "px": 192
+ },
+ "ICE": {
+  "domain": "ice.com",
+  "px": 48
+ },
+ "ICICIBANK.NS": {
+  "domain": "icici.bank.in",
+  "px": 80
+ },
+ "ICICIGI.NS": {
+  "domain": "icicilombard.com",
+  "px": 48
+ },
+ "ICICIPRULI.NS": {
+  "domain": "iciciprulife.com",
+  "px": 32
+ },
+ "ICL.TA": {
+  "domain": "icl-group.com",
+  "px": 130
+ },
+ "IDEA.NS": {
+  "domain": "myvi.in",
+  "px": 128
+ },
+ "IDFCFIRSTB.NS": {
+  "domain": "idfcfirst.bank.in",
+  "px": 48
+ },
+ "IDR.MC": {
+  "domain": "indracompany.com",
+  "px": 512
+ },
+ "IDXX": {
+  "domain": "idexx.com",
+  "px": 128
+ },
+ "IEX": {
+  "domain": "idexcorp.com",
+  "px": 512
+ },
+ "IFC.TO": {
+  "domain": "intactfc.com",
+  "px": 16
+ },
+ "IFF": {
+  "domain": "iff.com",
+  "px": 128
+ },
+ "IFT.NZ": {
+  "domain": "infratil.com",
+  "px": 128
+ },
+ "IFX.DE": {
+  "domain": "infineon.com",
+  "px": 128
+ },
+ "IG.MI": {
+  "domain": "italgas.it",
+  "px": 128
+ },
+ "IGM.TO": {
+  "domain": "igmfinancial.com",
+  "px": 16
+ },
+ "IHG.L": {
+  "domain": "ihgplc.com",
+  "px": 32
+ },
+ "III.L": {
+  "domain": "3i.com",
+  "px": 128
+ },
+ "ILMN": {
+  "domain": "illumina.com",
+  "px": 16
+ },
+ "IMB.L": {
+  "domain": "imperialbrandsplc.com",
+  "px": 32
+ },
+ "IMO.TO": {
+  "domain": "imperialoil.ca",
+  "px": 17
+ },
+ "IMP.JO": {
+  "domain": "implats.co.za",
+  "px": 16
+ },
+ "INCY": {
+  "domain": "incyte.com",
+  "px": 32
+ },
+ "INDHOTEL.NS": {
+  "domain": "ihcltata.com",
+  "px": 48
+ },
+ "INDIANB.NS": {
+  "domain": "indianbank.bank.in",
+  "px": 0
+ },
+ "INDIGO.NS": {
+  "domain": "goindigo.in",
+  "px": 128
+ },
+ "INDT.ST": {
+  "domain": "indutrade.com",
+  "px": 128
+ },
+ "INDU-A.ST": {
+  "domain": "industrivarden.se",
+  "px": 128
+ },
+ "INDU-C.ST": {
+  "domain": "industrivarden.se",
+  "px": 128
+ },
+ "INDUSINDBK.NS": {
+  "domain": "indusind.bank.in",
+  "px": 128
+ },
+ "INDUSTOWER.NS": {
+  "domain": "industowers.com",
+  "px": 32
+ },
+ "INF.L": {
+  "domain": "informa.com",
+  "px": 24
+ },
+ "INFY.NS": {
+  "domain": "infosys.com",
+  "px": 128
+ },
+ "INGA.AS": {
+  "domain": "ing.com",
+  "px": 48
+ },
+ "INPST.AS": {
+  "domain": "inpost.eu",
+  "px": 48
+ },
+ "INSM": {
+  "domain": "insmed.com",
+  "px": 128
+ },
+ "INTU": {
+  "domain": "intuit.com",
+  "px": 128
+ },
+ "INVE-B.ST": {
+  "domain": "investorab.com",
+  "px": 128
+ },
+ "INVH": {
+  "domain": "invitationhomes.com",
+  "px": 32
+ },
+ "IOC.NS": {
+  "domain": "iocl.com",
+  "px": 57
+ },
+ "IOT": {
+  "domain": "samsara.com",
+  "px": 180
+ },
+ "IP": {
+  "domain": "internationalpaper.com",
+  "px": 48
+ },
+ "IPN.PA": {
+  "domain": "ipsen.com",
+  "px": 128
+ },
+ "IQCD.QA": {
+  "domain": "iq.com.qa",
+  "px": 12
+ },
+ "IQV": {
+  "domain": "iqvia.com",
+  "px": 16
+ },
+ "IR": {
+  "domain": "irco.com",
+  "px": 100
+ },
+ "IREN": {
+  "domain": "iren.com",
+  "px": 80
+ },
+ "IRM": {
+  "domain": "ironmountain.com",
+  "px": 33
+ },
+ "ISA.CL": {
+  "domain": "isa.co",
+  "px": 128
+ },
+ "ISCTR.IS": {
+  "domain": "isbank.com.tr",
+  "px": 57
+ },
+ "ISP.MI": {
+  "domain": "intesasanpaolo.com",
+  "px": 16
+ },
+ "ITC.NS": {
+  "domain": "itcportal.com",
+  "px": 16
+ },
+ "ITRK.L": {
+  "domain": "intertek.com",
+  "px": 512
+ },
+ "ITSA4.SA": {
+  "domain": "itausa.com.br",
+  "px": 128
+ },
+ "ITUB4.SA": {
+  "domain": "itau.com.br",
+  "px": 128
+ },
+ "ITW": {
+  "domain": "itw.com",
+  "px": 128
+ },
+ "ITX.MC": {
+  "domain": "inditex.com",
+  "px": 100
+ },
+ "IVN.TO": {
+  "domain": "ivanhoemines.com",
+  "px": 33
+ },
+ "J": {
+  "domain": "jacobs.com",
+  "px": 64
+ },
+ "J36.SI": {
+  "domain": "jardines.com",
+  "px": 128
+ },
+ "JBHT": {
+  "domain": "jbhunt.com",
+  "px": 192
+ },
+ "JBL": {
+  "domain": "jabil.com",
+  "px": 128
+ },
+ "JBS": {
+  "domain": "jbsglobal.com",
+  "px": 64
+ },
+ "JCI": {
+  "domain": "johnsoncontrols.com",
+  "px": 32
+ },
+ "JINDALSTEL.NS": {
+  "domain": "jindalsteel.in",
+  "px": 48
+ },
+ "JIOFIN.NS": {
+  "domain": "jfs.in",
+  "px": 32
+ },
+ "JMT.LS": {
+  "domain": "jeronimomartins.com",
+  "px": 196
+ },
+ "JSL.NS": {
+  "domain": "jindalstainless.com",
+  "px": 128
+ },
+ "JSWENERGY.NS": {
+  "domain": "jsw.in",
+  "px": 80
+ },
+ "JSWSTEEL.NS": {
+  "domain": "jswsteel.in",
+  "px": 80
+ },
+ "K.TO": {
+  "domain": "kinross.com",
+  "px": 16
+ },
+ "KBC.BR": {
+  "domain": "kbc.com",
+  "px": 128
+ },
+ "KBX.DE": {
+  "domain": "knorr-bremse.com",
+  "px": 128
+ },
+ "KCHOL.IS": {
+  "domain": "koc.com.tr",
+  "px": 48
+ },
+ "KDP": {
+  "domain": "keurigdrpepper.com",
+  "px": 128
+ },
+ "KER.PA": {
+  "domain": "kering.com",
+  "px": 128
+ },
+ "KESKOB.HE": {
+  "domain": "kesko.fi",
+  "px": 76
+ },
+ "KEY": {
+  "domain": "key.com",
+  "px": 128
+ },
+ "KEY.TO": {
+  "domain": "keyera.com",
+  "px": 53
+ },
+ "KEYS": {
+  "domain": "keysight.com",
+  "px": 152
+ },
+ "KFH.KW": {
+  "domain": "kfh.com",
+  "px": 128
+ },
+ "KGF.L": {
+  "domain": "kingfisher.com",
+  "px": 16
+ },
+ "KGH.WA": {
+  "domain": "kghm.com",
+  "px": 48
+ },
+ "KHC": {
+  "domain": "kraftheinzcompany.com",
+  "px": 0
+ },
+ "KIM": {
+  "domain": "kimcorealty.com",
+  "px": 32
+ },
+ "KIMBERA.MX": {
+  "domain": "kimberly-clark.com.mx",
+  "px": 64
+ },
+ "KKR": {
+  "domain": "kkr.com",
+  "px": 180
+ },
+ "KLBN11.SA": {
+  "domain": "klabin.com.br",
+  "px": 32
+ },
+ "KMB": {
+  "domain": "kimberly-clark.com",
+  "px": 48
+ },
+ "KMI": {
+  "domain": "kindermorgan.com",
+  "px": 128
+ },
+ "KNEBV.HE": {
+  "domain": "kone.com",
+  "px": 192
+ },
+ "KNIN.SW": {
+  "domain": "kuehne-nagel.com",
+  "px": 32
+ },
+ "KOFUBL.MX": {
+  "domain": "coca-colafemsa.com",
+  "px": 128
+ },
+ "KOG.OL": {
+  "domain": "kongsberg.com",
+  "px": 128
+ },
+ "KOMB.PR": {
+  "domain": "kb.cz",
+  "px": 128
+ },
+ "KOTAKBANK.NS": {
+  "domain": "kotak.bank.in",
+  "px": 16
+ },
+ "KPN.AS": {
+  "domain": "kpn.com",
+  "px": 128
+ },
+ "KR": {
+  "domain": "thekrogerco.com",
+  "px": 180
+ },
+ "KRX.IR": {
+  "domain": "kingspan.com",
+  "px": 16
+ },
+ "KRZ.IR": {
+  "domain": "kerry.com",
+  "px": 32
+ },
+ "KVUE": {
+  "domain": "kenvue.com",
+  "px": 196
+ },
+ "L": {
+  "domain": "loews.com",
+  "px": 32
+ },
+ "L.TO": {
+  "domain": "loblaw.ca",
+  "px": 32
+ },
+ "LAND.L": {
+  "domain": "landsec.com",
+  "px": 128
+ },
+ "LAURUSLABS.NS": {
+  "domain": "lauruslabs.com",
+  "px": 0
+ },
+ "LDO.MI": {
+  "domain": "leonardo.com",
+  "px": 128
+ },
+ "LDOS": {
+  "domain": "leidos.com",
+  "px": 128
+ },
+ "LEGN": {
+  "domain": "legendbiotech.com",
+  "px": 128
+ },
+ "LEN": {
+  "domain": "lennar.com",
+  "px": 128
+ },
+ "LENSKART.NS": {
+  "domain": "lenskart.com",
+  "px": 256
+ },
+ "LGEN.L": {
+  "domain": "group.legalandgeneral.com",
+  "px": 32
+ },
+ "LH": {
+  "domain": "labcorp.com",
+  "px": 256
+ },
+ "LHA.DE": {
+  "domain": "lufthansagroup.com",
+  "px": 128
+ },
+ "LHX": {
+  "domain": "l3harris.com",
+  "px": 256
+ },
+ "LI.PA": {
+  "domain": "klepierre.com",
+  "px": 128
+ },
+ "LIFCO-B.ST": {
+  "domain": "lifco.se",
+  "px": 180
+ },
+ "LII": {
+  "domain": "lennox.com",
+  "px": 64
+ },
+ "LISN.SW": {
+  "domain": "lindt-spruengli.com",
+  "px": 128
+ },
+ "LISP.SW": {
+  "domain": "lindt-spruengli.com",
+  "px": 128
+ },
+ "LITE": {
+  "domain": "lumentum.com",
+  "px": 128
+ },
+ "LLOY.L": {
+  "domain": "lloydsbankinggroup.com",
+  "px": 32
+ },
+ "LMT": {
+  "domain": "lockheedmartin.com",
+  "px": 152
+ },
+ "LNG": {
+  "domain": "cheniere.com",
+  "px": 128
+ },
+ "LNT": {
+  "domain": "alliantenergy.com",
+  "px": 16
+ },
+ "LODHA.NS": {
+  "domain": "lodhagroup.com",
+  "px": 32
+ },
+ "LOGN.SW": {
+  "domain": "logitech.com",
+  "px": 144
+ },
+ "LONN.SW": {
+  "domain": "lonza.com",
+  "px": 48
+ },
+ "LOTB.BR": {
+  "domain": "lotusbakeries.com",
+  "px": 128
+ },
+ "LOW": {
+  "domain": "corporate.lowes.com",
+  "px": 16
+ },
+ "LPLA": {
+  "domain": "lpl.com",
+  "px": 32
+ },
+ "LPP.WA": {
+  "domain": "lpp.com",
+  "px": 512
+ },
+ "LR.PA": {
+  "domain": "legrand.com",
+  "px": 16
+ },
+ "LSEG.L": {
+  "domain": "lseg.com",
+  "px": 48
+ },
+ "LT.NS": {
+  "domain": "larsentoubro.com",
+  "px": 16
+ },
+ "LTF.NS": {
+  "domain": "ltfinance.com",
+  "px": 32
+ },
+ "LTM.NS": {
+  "domain": "ltm.com",
+  "px": 128
+ },
+ "LTM.SN": {
+  "domain": "ir.latam.com",
+  "px": 48
+ },
+ "LUG.TO": {
+  "domain": "lundingold.com",
+  "px": 128
+ },
+ "LUMI.TA": {
+  "domain": "leumi.co.il",
+  "px": 48
+ },
+ "LUN.TO": {
+  "domain": "lundinmining.com",
+  "px": 128
+ },
+ "LUND-B.ST": {
+  "domain": "lundbergforetagen.se",
+  "px": 128
+ },
+ "LUPIN.NS": {
+  "domain": "lupin.com",
+  "px": 16
+ },
+ "LVS": {
+  "domain": "sands.com",
+  "px": 128
+ },
+ "LYB": {
+  "domain": "lyondellbasell.com",
+  "px": 235
+ },
+ "LYC.AX": {
+  "domain": "lynasrareearths.com",
+  "px": 16
+ },
+ "LYV": {
+  "domain": "livenationentertainment.com",
+  "px": 180
+ },
+ "M&M.NS": {
+  "domain": "mahindra.com",
+  "px": 32
+ },
+ "MAA": {
+  "domain": "maac.com",
+  "px": 32
+ },
+ "MABANEE.KW": {
+  "domain": "mabanee.com",
+  "px": 0
+ },
+ "MAERSK-A.CO": {
+  "domain": "maersk.com",
+  "px": 64
+ },
+ "MAERSK-B.CO": {
+  "domain": "maersk.com",
+  "px": 64
+ },
+ "MANKIND.NS": {
+  "domain": "mankindpharma.com",
+  "px": 16
+ },
+ "MAP.MC": {
+  "domain": "mapfre.com",
+  "px": 192
+ },
+ "MAR": {
+  "domain": "marriott.com",
+  "px": 57
+ },
+ "MARICO.NS": {
+  "domain": "marico.com",
+  "px": 32
+ },
+ "MARK.QA": {
+  "domain": "alrayan.com",
+  "px": 200
+ },
+ "MARUTI.NS": {
+  "domain": "marutisuzuki.com",
+  "px": 16
+ },
+ "MAS": {
+  "domain": "masco.com",
+  "px": 128
+ },
+ "MAXHEALTH.NS": {
+  "domain": "maxhealthcare.in",
+  "px": 128
+ },
+ "MBG.DE": {
+  "domain": "group.mercedes-benz.com",
+  "px": 256
+ },
+ "MBK.WA": {
+  "domain": "mbank.pl",
+  "px": 128
+ },
+ "MBRF3.SA": {
+  "domain": "mbrf.com",
+  "px": 128
+ },
+ "MC.PA": {
+  "domain": "lvmh.com",
+  "px": 1800
+ },
+ "MCHP": {
+  "domain": "microchip.com",
+  "px": 256
+ },
+ "MCK": {
+  "domain": "mckesson.com",
+  "px": 63
+ },
+ "MCO": {
+  "domain": "moodys.com",
+  "px": 48
+ },
+ "MDB": {
+  "domain": "mongodb.com",
+  "px": 64
+ },
+ "MDLN": {
+  "domain": "medline.com",
+  "px": 192
+ },
+ "MDLZ": {
+  "domain": "mondelezinternational.com",
+  "px": 128
+ },
+ "MDT": {
+  "domain": "medtronic.com",
+  "px": 48
+ },
+ "MEL.NZ": {
+  "domain": "meridianenergy.co.nz",
+  "px": 128
+ },
+ "MELI": {
+  "domain": "mercadolibre.com",
+  "px": 128
+ },
+ "MET": {
+  "domain": "metlife.com",
+  "px": 48
+ },
+ "METSO.HE": {
+  "domain": "metso.com",
+  "px": 180
+ },
+ "MFC.TO": {
+  "domain": "manulife.com",
+  "px": 128
+ },
+ "MG.TO": {
+  "domain": "magna.com",
+  "px": 100
+ },
+ "MICC.AS": {
+  "domain": "corporate.magnumicecream.com",
+  "px": 256
+ },
+ "MIL.WA": {
+  "domain": "bankmillennium.pl",
+  "px": 96
+ },
+ "MKC": {
+  "domain": "mccormickcorporation.com",
+  "px": 76
+ },
+ "MKL": {
+  "domain": "mklgroup.com",
+  "px": 834
+ },
+ "MKS.L": {
+  "domain": "corporate.marksandspencer.com",
+  "px": 100
+ },
+ "ML.PA": {
+  "domain": "",
+  "px": 0
+ },
+ "MLM": {
+  "domain": "martinmarietta.com",
+  "px": 16
+ },
+ "MMM": {
+  "domain": "3m.com",
+  "px": 128
+ },
+ "MNG.L": {
+  "domain": "group.mandg.com",
+  "px": 128
+ },
+ "MNST": {
+  "domain": "monsterbevcorp.com",
+  "px": 57
+ },
+ "MO": {
+  "domain": "altria.com",
+  "px": 180
+ },
+ "MOH.AT": {
+  "domain": "moh.gr",
+  "px": 128
+ },
+ "MOL.BD": {
+  "domain": "molgroup.info",
+  "px": 16
+ },
+ "MONC.MI": {
+  "domain": "monclergroup.com",
+  "px": 57
+ },
+ "MOTHERSON.NS": {
+  "domain": "motherson.com",
+  "px": 180
+ },
+ "MOTV3.SA": {
+  "domain": "motiva.com.br",
+  "px": 256,
+  "rejected": "既定アイコンが他社と同じ"
+ },
+ "MOWI.OL": {
+  "domain": "mowi.com",
+  "px": 146
+ },
+ "MPC": {
+  "domain": "marathonpetroleum.com",
+  "px": 128
+ },
+ "MPHASIS.NS": {
+  "domain": "mphasis.com",
+  "px": 48
+ },
+ "MPHC.QA": {
+  "domain": "mphc.com.qa",
+  "px": 16
+ },
+ "MPL.AX": {
+  "domain": "medibank.com.au",
+  "px": 64
+ },
+ "MPWR": {
+  "domain": "monolithicpower.com",
+  "px": 32
+ },
+ "MQG.AX": {
+  "domain": "macquarie.com",
+  "px": 32
+ },
+ "MRF.NS": {
+  "domain": "mrftyres.com",
+  "px": 16
+ },
+ "MRK.DE": {
+  "domain": "emdgroup.com",
+  "px": 64
+ },
+ "MRO.L": {
+  "domain": "melroseplc.net",
+  "px": 128
+ },
+ "MRSH": {
+  "domain": "corporate.marsh.com",
+  "px": 256
+ },
+ "MRU.TO": {
+  "domain": "metro.ca",
+  "px": 128
+ },
+ "MSCI": {
+  "domain": "msci.com",
+  "px": 128
+ },
+ "MSI": {
+  "domain": "motorolasolutions.com",
+  "px": 32
+ },
+ "MSTR": {
+  "domain": "strategy.com",
+  "px": 128
+ },
+ "MT.AS": {
+  "domain": "corporate.arcelormittal.com",
+  "px": 256,
+  "rejected": "既定アイコンが他社と同じ"
+ },
+ "MTB": {
+  "domain": "mtb.com",
+  "px": 300
+ },
+ "MTD": {
+  "domain": "mt.com",
+  "px": 128
+ },
+ "MTN.JO": {
+  "domain": "mtn.com",
+  "px": 128
+ },
+ "MTX.DE": {
+  "domain": "mtu.de",
+  "px": 16
+ },
+ "MTZ": {
+  "domain": "mastec.com",
+  "px": 16
+ },
+ "MUTHOOTFIN.NS": {
+  "domain": "muthootfinance.com",
+  "px": 16
+ },
+ "MUV2.DE": {
+  "domain": "munichre.com",
+  "px": 128
+ },
+ "MZTF.TA": {
+  "domain": "mizrahi-tefahot.co.il",
+  "px": 48
+ },
+ "NA.TO": {
+  "domain": "nbc.ca",
+  "px": 180
+ },
+ "NAB.AX": {
+  "domain": "nab.com.au",
+  "px": 691
+ },
+ "NATIONALUM.NS": {
+  "domain": "nalcoindia.com",
+  "px": 128
+ },
+ "NAUKRI.NS": {
+  "domain": "infoedge.in",
+  "px": 0
+ },
+ "NBIS": {
+  "domain": "nebius.com",
+  "px": 180
+ },
+ "NBIX": {
+  "domain": "neurocrine.com",
+  "px": 180
+ },
+ "NBK.KW": {
+  "domain": "nbk.com",
+  "px": 16
+ },
+ "NDA-FI.HE": {
+  "domain": "nordea.com",
+  "px": 32
+ },
+ "NDAQ": {
+  "domain": "nasdaq.com",
+  "px": 180
+ },
+ "NDSN": {
+  "domain": "nordson.com",
+  "px": 180
+ },
+ "NED.JO": {
+  "domain": "nedbank.co.za",
+  "px": 32
+ },
+ "NEM.DE": {
+  "domain": "nemetschek.com",
+  "px": 128
+ },
+ "NESTE.HE": {
+  "domain": "neste.com",
+  "px": 48
+ },
+ "NESTLEIND.NS": {
+  "domain": "nestle.in",
+  "px": 128
+ },
+ "NET": {
+  "domain": "cloudflare.com",
+  "px": 96
+ },
+ "NG.L": {
+  "domain": "nationalgrid.com",
+  "px": 16
+ },
+ "NHPC.NS": {
+  "domain": "nhpcindia.com",
+  "px": 18
+ },
+ "NHY.OL": {
+  "domain": "hydro.com",
+  "px": 180
+ },
+ "NI": {
+  "domain": "nisource.com",
+  "px": 16
+ },
+ "NIBE-B.ST": {
+  "domain": "nibe.com",
+  "px": 128
+ },
+ "NKE": {
+  "domain": "nike.com",
+  "px": 152
+ },
+ "NLY": {
+  "domain": "annaly.com",
+  "px": 16
+ },
+ "NMDC.NS": {
+  "domain": "nmdc.co.in",
+  "px": 256
+ },
+ "NN.AS": {
+  "domain": "nn-group.com",
+  "px": 256
+ },
+ "NOC": {
+  "domain": "northropgrumman.com",
+  "px": 48
+ },
+ "NOKIA.HE": {
+  "domain": "nokia.com",
+  "px": 128
+ },
+ "NOVO-B.CO": {
+  "domain": "novonordisk.com",
+  "px": 48
+ },
+ "NPH.JO": {
+  "domain": "northam.co.za",
+  "px": 0
+ },
+ "NPN.JO": {
+  "domain": "naspers.com",
+  "px": 32
+ },
+ "NRG": {
+  "domain": "nrg.com",
+  "px": 128
+ },
+ "NRP.JO": {
+  "domain": "nepirockcastle.com",
+  "px": 128
+ },
+ "NSC": {
+  "domain": "norfolksouthern.com",
+  "px": 48
+ },
+ "NSIS-B.CO": {
+  "domain": "novonesis.com",
+  "px": 256
+ },
+ "NST.AX": {
+  "domain": "nsrltd.com",
+  "px": 128
+ },
+ "NTAP": {
+  "domain": "netapp.com",
+  "px": 32
+ },
+ "NTGY.MC": {
+  "domain": "naturgy.com",
+  "px": 128
+ },
+ "NTPC.NS": {
+  "domain": "ntpc.co.in",
+  "px": 0
+ },
+ "NTR.TO": {
+  "domain": "nutrien.com",
+  "px": 180
+ },
+ "NTRA": {
+  "domain": "natera.com",
+  "px": 32
+ },
+ "NTRS": {
+  "domain": "northerntrust.com",
+  "px": 128
+ },
+ "NU": {
+  "domain": "nubank.com.br",
+  "px": 256
+ },
+ "NUE": {
+  "domain": "nucor.com",
+  "px": 128
+ },
+ "NVMI.TA": {
+  "domain": "novami.com",
+  "px": 32
+ },
+ "NVR": {
+  "domain": "nvrinc.com",
+  "px": 0
+ },
+ "NVT": {
+  "domain": "nvent.com",
+  "px": 16
+ },
+ "NWG.L": {
+  "domain": "natwestgroup.com",
+  "px": 16
+ },
+ "NWSA": {
+  "domain": "newscorp.com",
+  "px": 128
+ },
+ "NXPI": {
+  "domain": "nxp.com",
+  "px": 100
+ },
+ "NXT.L": {
+  "domain": "nextplc.co.uk",
+  "px": 16
+ },
+ "NYKAA.NS": {
+  "domain": "nykaa.com",
+  "px": 230
+ },
+ "O": {
+  "domain": "realtyincome.com",
+  "px": 100
+ },
+ "O39.SI": {
+  "domain": "ocbc.com",
+  "px": 128
+ },
+ "OBEROIRLTY.NS": {
+  "domain": "oberoirealty.com",
+  "px": 128
+ },
+ "ODFL": {
+  "domain": "odfl.com",
+  "px": 64
+ },
+ "OFSS.NS": {
+  "domain": "oracle.com",
+  "px": 60
+ },
+ "OIL.NS": {
+  "domain": "oil-india.com",
+  "px": 32
+ },
+ "OKE": {
+  "domain": "oneok.com",
+  "px": 180
+ },
+ "OKTA": {
+  "domain": "okta.com",
+  "px": 57
+ },
+ "OMAB.MX": {
+  "domain": "oma.aero",
+  "px": 16
+ },
+ "OMC": {
+  "domain": "omc.com",
+  "px": 128
+ },
+ "OMV.VI": {
+  "domain": "omv.com",
+  "px": 128
+ },
+ "ON": {
+  "domain": "onsemi.com",
+  "px": 32
+ },
+ "ONGC.NS": {
+  "domain": "ongcindia.com",
+  "px": 0
+ },
+ "OPCE.TA": {
+  "domain": "opc-energy.com",
+  "px": 128
+ },
+ "OR.PA": {
+  "domain": "loreal.com",
+  "px": 16
+ },
+ "ORA.PA": {
+  "domain": "orange.com",
+  "px": 32
+ },
+ "ORDS.QA": {
+  "domain": "ooredoo.qa",
+  "px": 300
+ },
+ "ORG.AX": {
+  "domain": "originenergy.com.au",
+  "px": 128
+ },
+ "ORK.OL": {
+  "domain": "orkla.com",
+  "px": 128
+ },
+ "ORLY": {
+  "domain": "oreillyauto.com",
+  "px": 128
+ },
+ "ORNBV.HE": {
+  "domain": "orionpharma.com",
+  "px": 32
+ },
+ "ORSTED.CO": {
+  "domain": "orsted.com",
+  "px": 128
+ },
+ "OTIS": {
+  "domain": "otis.com",
+  "px": 16
+ },
+ "OTP.BD": {
+  "domain": "otpbank.hu",
+  "px": 32
+ },
+ "OUT.JO": {
+  "domain": "outsurance.co.za",
+  "px": 180
+ },
+ "OXY": {
+  "domain": "oxy.com",
+  "px": 180
+ },
+ "P": {
+  "domain": "everpuredata.com",
+  "px": 48
+ },
+ "P911.DE": {
+  "domain": "porsche.com",
+  "px": 128
+ },
+ "PAAS.TO": {
+  "domain": "panamericansilver.com",
+  "px": 80,
+  "rejected": "既定アイコンが他社と同じ"
+ },
+ "PAGEIND.NS": {
+  "domain": "jockey.in",
+  "px": 17
+ },
+ "PAH3.DE": {
+  "domain": "porsche-se.com",
+  "px": 128
+ },
+ "PAYTM.NS": {
+  "domain": "paytm.com",
+  "px": 32
+ },
+ "PAYX": {
+  "domain": "paychex.com",
+  "px": 128
+ },
+ "PCAR": {
+  "domain": "paccar.com",
+  "px": 128
+ },
+ "PCG": {
+  "domain": "pgecorp.com",
+  "px": 32
+ },
+ "PDD": {
+  "domain": "pddholdings.com",
+  "px": 0
+ },
+ "PE&OLES.MX": {
+  "domain": "penoles.com.mx",
+  "px": 128
+ },
+ "PEG": {
+  "domain": "investor.pseg.com",
+  "px": 48
+ },
+ "PEO.WA": {
+  "domain": "pekao.com.pl",
+  "px": 128
+ },
+ "PERSISTENT.NS": {
+  "domain": "persistent.com",
+  "px": 16
+ },
+ "PETR3.SA": {
+  "domain": "petrobras.com.br",
+  "px": 32
+ },
+ "PETR4.SA": {
+  "domain": "petrobras.com.br",
+  "px": 32
+ },
+ "PETRONET.NS": {
+  "domain": "petronetlng.in",
+  "px": 0
+ },
+ "PFC.NS": {
+  "domain": "pfcindia.com",
+  "px": 128
+ },
+ "PFCIBEST.CL": {
+  "domain": "grupocibest.com",
+  "px": 180
+ },
+ "PFG": {
+  "domain": "principal.com",
+  "px": 240
+ },
+ "PGE.WA": {
+  "domain": "gkpge.pl",
+  "px": 0
+ },
+ "PGHN.SW": {
+  "domain": "partnersgroup.com",
+  "px": 220
+ },
+ "PH": {
+  "domain": "parker.com",
+  "px": 48
+ },
+ "PHIA.AS": {
+  "domain": "philips.com",
+  "px": 128
+ },
+ "PHM": {
+  "domain": "pultegroupinc.com",
+  "px": 48
+ },
+ "PHOE.TA": {
+  "domain": "phoenixfinancial.co.il",
+  "px": 128
+ },
+ "PHOENIXLTD.NS": {
+  "domain": "thephoenixmills.com",
+  "px": 16
+ },
+ "PIDILITIND.NS": {
+  "domain": "pidilite.com",
+  "px": 16
+ },
+ "PIIND.NS": {
+  "domain": "piindustries.com",
+  "px": 128
+ },
+ "PKG": {
+  "domain": "packagingcorp.com",
+  "px": 128
+ },
+ "PKN.WA": {
+  "domain": "orlen.pl",
+  "px": 32
+ },
+ "PKO.WA": {
+  "domain": "pkobp.pl",
+  "px": 180
+ },
+ "PLS.AX": {
+  "domain": "pls.com",
+  "px": 180
+ },
+ "PME.AX": {
+  "domain": "promed.com.au",
+  "px": 16
+ },
+ "PNB.NS": {
+  "domain": "pnb.bank.in",
+  "px": 0
+ },
+ "PNC": {
+  "domain": "pnc.com",
+  "px": 128
+ },
+ "PNDORA.CO": {
+  "domain": "pandoragroup.com",
+  "px": 64
+ },
+ "PNFP": {
+  "domain": "pnfp.com",
+  "px": 16
+ },
+ "POLI.TA": {
+  "domain": "bankhapoalim.co.il",
+  "px": 128
+ },
+ "POLICYBZR.NS": {
+  "domain": "pbfintech.in",
+  "px": 0
+ },
+ "POLYCAB.NS": {
+  "domain": "polycab.com",
+  "px": 180
+ },
+ "POW.TO": {
+  "domain": "powercorporation.com",
+  "px": 128
+ },
+ "POWERGRID.NS": {
+  "domain": "powergrid.in",
+  "px": 104
+ },
+ "POWERINDIA.NS": {
+  "domain": "hitachienergy.com",
+  "px": 128
+ },
+ "PPC.AT": {
+  "domain": "ppcgroup.com",
+  "px": 128
+ },
+ "PPG": {
+  "domain": "ppg.com",
+  "px": 32
+ },
+ "PPH.JO": {
+  "domain": "pepkor.co.za",
+  "px": 128
+ },
+ "PPL": {
+  "domain": "pplweb.com",
+  "px": 16
+ },
+ "PPL.TO": {
+  "domain": "pembina.com",
+  "px": 16
+ },
+ "PRESTIGE.NS": {
+  "domain": "prestigeconstructions.com",
+  "px": 128
+ },
+ "PRIO3.SA": {
+  "domain": "prio3.com.br",
+  "px": 28
+ },
+ "PRU": {
+  "domain": "prudential.com",
+  "px": 32
+ },
+ "PRU.L": {
+  "domain": "prudentialplc.com",
+  "px": 32
+ },
+ "PRX.AS": {
+  "domain": "prosus.com",
+  "px": 36
+ },
+ "PRY.MI": {
+  "domain": "prysmian.com",
+  "px": 16
+ },
+ "PSA": {
+  "domain": "publicstorage.com",
+  "px": 640
+ },
+ "PSON.L": {
+  "domain": "plc.pearson.com",
+  "px": 120
+ },
+ "PST.MI": {
+  "domain": "posteitaliane.it",
+  "px": 128
+ },
+ "PSX": {
+  "domain": "phillips66.com",
+  "px": 128
+ },
+ "PTC": {
+  "domain": "ptc.com",
+  "px": 601
+ },
+ "PTT.BK": {
+  "domain": "pttplc.com",
+  "px": 256
+ },
+ "PTTEP.BK": {
+  "domain": "pttep.com",
+  "px": 32
+ },
+ "PUB.PA": {
+  "domain": "publicisgroupe.com",
+  "px": 128
+ },
+ "PWR": {
+  "domain": "quantaservices.com",
+  "px": 32
+ },
+ "PYPL": {
+  "domain": "paypal.com",
+  "px": 128
+ },
+ "PZU.WA": {
+  "domain": "pzu.pl",
+  "px": 64
+ },
+ "Q": {
+  "domain": "qnityelectronics.com",
+  "px": 32
+ },
+ "QAN.AX": {
+  "domain": "qantas.com",
+  "px": 128
+ },
+ "QBE.AX": {
+  "domain": "qbe.com",
+  "px": 128
+ },
+ "QGTS.QA": {
+  "domain": "nakilat.com",
+  "px": 18
+ },
+ "QIA.DE": {
+  "domain": "qiagen.com",
+  "px": 16
+ },
+ "QIBK.QA": {
+  "domain": "qib.com.qa",
+  "px": 128
+ },
+ "QNBK.QA": {
+  "domain": "qnb.com",
+  "px": 16
+ },
+ "QSR.TO": {
+  "domain": "rbi.com",
+  "px": 42
+ },
+ "RAA.DE": {
+  "domain": "rational-online.com",
+  "px": 128
+ },
+ "RACE.MI": {
+  "domain": "ferrari.com",
+  "px": 128
+ },
+ "RADL3.SA": {
+  "domain": "rdsaude.com.br",
+  "px": 128
+ },
+ "RAIL3.SA": {
+  "domain": "rumolog.com",
+  "px": 55
+ },
+ "RBA.TO": {
+  "domain": "rbglobal.com",
+  "px": 47
+ },
+ "RBI.VI": {
+  "domain": "rbinternational.com",
+  "px": 128
+ },
+ "RBLX": {
+  "domain": "corp.roblox.com",
+  "px": 128
+ },
+ "RCI-B.TO": {
+  "domain": "rogers.com",
+  "px": 32
+ },
+ "RCL": {
+  "domain": "rclinvestor.com",
+  "px": 80,
+  "rejected": "既定アイコンが他社と同じ"
+ },
+ "RDDT": {
+  "domain": "redditinc.com",
+  "px": 48
+ },
+ "RDOR3.SA": {
+  "domain": "rededorsaoluiz.com.br",
+  "px": 150
+ },
+ "REA.AX": {
+  "domain": "rea-group.com",
+  "px": 128
+ },
+ "REC.MI": {
+  "domain": "recordati.com",
+  "px": 80,
+  "rejected": "既定アイコンが他社と同じ"
+ },
+ "RECLTD.NS": {
+  "domain": "recindia.nic.in",
+  "px": 64
+ },
+ "RED.MC": {
+  "domain": "ree.es",
+  "px": 133
+ },
+ "REG": {
+  "domain": "regencycenters.com",
+  "px": 180
+ },
+ "REGN": {
+  "domain": "regeneron.com",
+  "px": 48
+ },
+ "REL.L": {
+  "domain": "relx.com",
+  "px": 64
+ },
+ "RELIANCE.NS": {
+  "domain": "ril.com",
+  "px": 16
+ },
+ "REM.JO": {
+  "domain": "remgro.com",
+  "px": 48
+ },
+ "RENT3.SA": {
+  "domain": "localiza.com",
+  "px": 48
+ },
+ "REP.MC": {
+  "domain": "repsol.com",
+  "px": 96
+ },
+ "RF": {
+  "domain": "regions.com",
+  "px": 48
+ },
+ "RHM.DE": {
+  "domain": "rheinmetall.com",
+  "px": 48
+ },
+ "RI.PA": {
+  "domain": "pernod-ricard.com",
+  "px": 128
+ },
+ "RICHTER.BD": {
+  "domain": "",
+  "px": 0
+ },
+ "RIO.AX": {
+  "domain": "riotinto.com",
+  "px": 32
+ },
+ "RIO.L": {
+  "domain": "riotinto.com",
+  "px": 32
+ },
+ "RIVN": {
+  "domain": "rivian.com",
+  "px": 180
+ },
+ "RJF": {
+  "domain": "raymondjames.com",
+  "px": 32
+ },
+ "RKLB": {
+  "domain": "rocketlabcorp.com",
+  "px": 128
+ },
+ "RKT": {
+  "domain": "rocketcompanies.com",
+  "px": 150
+ },
+ "RKT.L": {
+  "domain": "reckitt.com",
+  "px": 128
+ },
+ "RMD": {
+  "domain": "resmed.com",
+  "px": 180
+ },
+ "RMS.PA": {
+  "domain": "finance.hermes.com",
+  "px": 128
+ },
+ "RNI.JO": {
+  "domain": "reinet.com",
+  "px": 0
+ },
+ "RNO.PA": {
+  "domain": "renaultgroup.com",
+  "px": 48
+ },
+ "RO.SW": {
+  "domain": "roche.com",
+  "px": 128
+ },
+ "ROIV": {
+  "domain": "roivant.com",
+  "px": 128
+ },
+ "ROK": {
+  "domain": "rockwellautomation.com",
+  "px": 128
+ },
+ "ROL": {
+  "domain": "rollins.com",
+  "px": 128
+ },
+ "ROP": {
+  "domain": "ropertech.com",
+  "px": 64
+ },
+ "ROST": {
+  "domain": "rossstores.com",
+  "px": 128
+ },
+ "RPRX": {
+  "domain": "royaltypharma.com",
+  "px": 112
+ },
+ "RR.L": {
+  "domain": "rolls-royce.com",
+  "px": 128
+ },
+ "RS": {
+  "domain": "reliance.com",
+  "px": 128
+ },
+ "RSG": {
+  "domain": "republicservices.com",
+  "px": 57
+ },
+ "RTO.L": {
+  "domain": "rentokil-initial.com",
+  "px": 16
+ },
+ "RVMD": {
+  "domain": "revmed.com",
+  "px": 128
+ },
+ "RWE.DE": {
+  "domain": "rwe.com",
+  "px": 128
+ },
+ "RXL.PA": {
+  "domain": "rexel.com",
+  "px": 150
+ },
+ "RYA.IR": {
+  "domain": "ryanair.com",
+  "px": 180
+ },
+ "S32.AX": {
+  "domain": "south32.net",
+  "px": 128
+ },
+ "S63.SI": {
+  "domain": "stengg.com",
+  "px": 16
+ },
+ "S68.SI": {
+  "domain": "sgx.com",
+  "px": 128
+ },
+ "SAAB-B.ST": {
+  "domain": "saab.com",
+  "px": 128
+ },
+ "SAB.MC": {
+  "domain": "grupbancsabadell.com",
+  "px": 16
+ },
+ "SAHOL.IS": {
+  "domain": "sabanci.com",
+  "px": 0
+ },
+ "SALM.OL": {
+  "domain": "salmar.no",
+  "px": 128
+ },
+ "SAMPO.HE": {
+  "domain": "sampo.com",
+  "px": 128
+ },
+ "SAN.PA": {
+  "domain": "sanofi.com",
+  "px": 128
+ },
+ "SAND.ST": {
+  "domain": "home.sandvik",
+  "px": 180
+ },
+ "SAP.TO": {
+  "domain": "saputo.com",
+  "px": 128
+ },
+ "SBAC": {
+  "domain": "sbasite.com",
+  "px": 512
+ },
+ "SBILIFE.NS": {
+  "domain": "sbilife.co.in",
+  "px": 0
+ },
+ "SBIN.NS": {
+  "domain": "sbi.bank.in",
+  "px": 0
+ },
+ "SBK.JO": {
+  "domain": "standardbank.com",
+  "px": 128
+ },
+ "SBRY.L": {
+  "domain": "about.sainsburys.co.uk",
+  "px": 128
+ },
+ "SBSP3.SA": {
+  "domain": "sabesp.com.br",
+  "px": 128
+ },
+ "SBUX": {
+  "domain": "starbucks.com",
+  "px": 180
+ },
+ "SCA-B.ST": {
+  "domain": "sca.com",
+  "px": 180
+ },
+ "SCC.BK": {
+  "domain": "scg.com",
+  "px": 16
+ },
+ "SCCO": {
+  "domain": "southerncoppercorp.com",
+  "px": 32
+ },
+ "SCG.AX": {
+  "domain": "scentregroup.com",
+  "px": 32
+ },
+ "SCHN.SW": {
+  "domain": "group.schindler.com",
+  "px": 128
+ },
+ "SCHP.SW": {
+  "domain": "group.schindler.com",
+  "px": 128
+ },
+ "SCMN.SW": {
+  "domain": "swisscom.ch",
+  "px": 128
+ },
+ "SDLF.L": {
+  "domain": "standardlifeplc.com",
+  "px": 128
+ },
+ "SDR.L": {
+  "domain": "schroders.com",
+  "px": 128
+ },
+ "SDZ.SW": {
+  "domain": "sandoz.com",
+  "px": 128
+ },
+ "SE": {
+  "domain": "sea.com",
+  "px": 48
+ },
+ "SEB-A.ST": {
+  "domain": "sebgroup.com",
+  "px": 180
+ },
+ "SECU-B.ST": {
+  "domain": "securitas.com",
+  "px": 32
+ },
+ "SGE.L": {
+  "domain": "sage.com",
+  "px": 128
+ },
+ "SGH.AX": {
+  "domain": "",
+  "px": 0
+ },
+ "SGO.PA": {
+  "domain": "saint-gobain.com",
+  "px": 16
+ },
+ "SGRO.L": {
+  "domain": "segro.com",
+  "px": 180
+ },
+ "SGSN.SW": {
+  "domain": "sgs.com",
+  "px": 180
+ },
+ "SHB-A.ST": {
+  "domain": "handelsbanken.se",
+  "px": 128
+ },
+ "SHL.DE": {
+  "domain": "siemens-healthineers.com",
+  "px": 128
+ },
+ "SHP.JO": {
+  "domain": "shopriteholdings.co.za",
+  "px": 128
+ },
+ "SHREECEM.NS": {
+  "domain": "shreecement.com",
+  "px": 128
+ },
+ "SHRIRAMFIN.NS": {
+  "domain": "shriramfinance.in",
+  "px": 32
+ },
+ "SHW": {
+  "domain": "sherwin-williams.com",
+  "px": 57
+ },
+ "SIEMENS.NS": {
+  "domain": "siemens.com",
+  "px": 128
+ },
+ "SIG.AX": {
+  "domain": "sigmahealthcare.com.au",
+  "px": 150
+ },
+ "SIGMAFA.MX": {
+  "domain": "sigmafoods.com",
+  "px": 150
+ },
+ "SIKA.SW": {
+  "domain": "sika.com",
+  "px": 128
+ },
+ "SKA-B.ST": {
+  "domain": "group.skanska.com",
+  "px": 32
+ },
+ "SKF-B.ST": {
+  "domain": "skf.com",
+  "px": 180
+ },
+ "SLB": {
+  "domain": "slb.com",
+  "px": 128
+ },
+ "SLF.TO": {
+  "domain": "sunlife.com",
+  "px": 48
+ },
+ "SLHN.SW": {
+  "domain": "swisslife.com",
+  "px": 128
+ },
+ "SLM.JO": {
+  "domain": "sanlamonline.co.za",
+  "px": 16
+ },
+ "SMCI": {
+  "domain": "supermicro.com",
+  "px": 16
+ },
+ "SMIN.L": {
+  "domain": "smiths.com",
+  "px": 64
+ },
+ "SN": {
+  "domain": "sharkninja.com",
+  "px": 196
+ },
+ "SN.L": {
+  "domain": "smith-nephew.com",
+  "px": 48
+ },
+ "SNA": {
+  "domain": "snapon.com",
+  "px": 16
+ },
+ "SNOW": {
+  "domain": "snowflake.com",
+  "px": 128
+ },
+ "SNPS": {
+  "domain": "synopsys.com",
+  "px": 16
+ },
+ "SO": {
+  "domain": "southerncompany.com",
+  "px": 192
+ },
+ "SOBI.ST": {
+  "domain": "sobi.com",
+  "px": 48
+ },
+ "SOF.BR": {
+  "domain": "sofinagroup.com",
+  "px": 32
+ },
+ "SOFI": {
+  "domain": "sofi.com",
+  "px": 152
+ },
+ "SOL.AX": {
+  "domain": "soulpatts.com.au",
+  "px": 0
+ },
+ "SOL.JO": {
+  "domain": "sasol.com",
+  "px": 0
+ },
+ "SOLARINDS.NS": {
+  "domain": "solargroup.com",
+  "px": 50
+ },
+ "SOON.SW": {
+  "domain": "sonova.com",
+  "px": 128
+ },
+ "SPCX": {
+  "domain": "spacex.com",
+  "px": 48
+ },
+ "SPG": {
+  "domain": "simon.com",
+  "px": 180
+ },
+ "SPOT": {
+  "domain": "spotify.com",
+  "px": 57
+ },
+ "SPSN.SW": {
+  "domain": "sps.swiss",
+  "px": 16
+ },
+ "SPX.L": {
+  "domain": "spiraxgroup.com",
+  "px": 128
+ },
+ "SQM-B.SN": {
+  "domain": "sqm.com",
+  "px": 128
+ },
+ "SRE": {
+  "domain": "sempra.com",
+  "px": 128
+ },
+ "SREN.SW": {
+  "domain": "swissre.com",
+  "px": 128
+ },
+ "SRF.NS": {
+  "domain": "srf.com",
+  "px": 0
+ },
+ "SRG.MI": {
+  "domain": "snam.it",
+  "px": 128
+ },
+ "SRT3.DE": {
+  "domain": "sartorius.com",
+  "px": 48
+ },
+ "SSE.L": {
+  "domain": "sse.com",
+  "px": 180
+ },
+ "SSNC": {
+  "domain": "ssctech.com",
+  "px": 48
+ },
+ "SSW.JO": {
+  "domain": "sibanyestillwater.com",
+  "px": 128
+ },
+ "STAN.L": {
+  "domain": "sc.com",
+  "px": 128
+ },
+ "STE": {
+  "domain": "steris.com",
+  "px": 16
+ },
+ "STERV.HE": {
+  "domain": "storaenso.com",
+  "px": 128
+ },
+ "STLAM.MI": {
+  "domain": "stellantis.com",
+  "px": 256
+ },
+ "STLD": {
+  "domain": "steeldynamics.com",
+  "px": 0
+ },
+ "STMN.SW": {
+  "domain": "straumann.com",
+  "px": 128
+ },
+ "STMPA.PA": {
+  "domain": "st.com",
+  "px": 48
+ },
+ "STN.TO": {
+  "domain": "stantec.com",
+  "px": 128
+ },
+ "STO.AX": {
+  "domain": "santos.com",
+  "px": 128
+ },
+ "STT": {
+  "domain": "statestreet.com",
+  "px": 16
+ },
+ "STZ": {
+  "domain": "cbrands.com",
+  "px": 48
+ },
+ "SU.TO": {
+  "domain": "suncor.com",
+  "px": 48
+ },
+ "SUI": {
+  "domain": "suncommunities.com",
+  "px": 16
+ },
+ "SUN.AX": {
+  "domain": "suncorpgroup.com.au",
+  "px": 48
+ },
+ "SUNB": {
+  "domain": "ir.sunbeltrentals.com",
+  "px": 128
+ },
+ "SUNDARMFIN.NS": {
+  "domain": "sundaramfinance.in",
+  "px": 48
+ },
+ "SUNPHARMA.NS": {
+  "domain": "sunpharma.com",
+  "px": 32
+ },
+ "SUPREMEIND.NS": {
+  "domain": "supreme.co.in",
+  "px": 16
+ },
+ "SUZB3.SA": {
+  "domain": "suzano.com.br",
+  "px": 128
+ },
+ "SUZLON.NS": {
+  "domain": "suzlon.com",
+  "px": 128
+ },
+ "SVT.L": {
+  "domain": "severntrent.com",
+  "px": 256
+ },
+ "SW": {
+  "domain": "smurfitwestrock.com",
+  "px": 180
+ },
+ "SW.PA": {
+  "domain": "sodexo.com",
+  "px": 48
+ },
+ "SWED-A.ST": {
+  "domain": "swedbank.com",
+  "px": 32
+ },
+ "SY1.DE": {
+  "domain": "symrise.com",
+  "px": 16
+ },
+ "SYENS.BR": {
+  "domain": "syensqo.com",
+  "px": 32
+ },
+ "SYF": {
+  "domain": "synchrony.com",
+  "px": 128
+ },
+ "SYK": {
+  "domain": "stryker.com",
+  "px": 128
+ },
+ "SYY": {
+  "domain": "sysco.com",
+  "px": 32
+ },
+ "T.TO": {
+  "domain": "telus.com",
+  "px": 0
+ },
+ "TAL": {
+  "domain": "100tal.com",
+  "px": 72
+ },
+ "TATACOMM.NS": {
+  "domain": "tatacommunications.com",
+  "px": 32
+ },
+ "TATACONSUM.NS": {
+  "domain": "tataconsumer.com",
+  "px": 32
+ },
+ "TATAPOWER.NS": {
+  "domain": "tatapower.com",
+  "px": 128
+ },
+ "TATASTEEL.NS": {
+  "domain": "tatasteel.com",
+  "px": 20
+ },
+ "TCELL.IS": {
+  "domain": "turkcell.com.tr",
+  "px": 16
+ },
+ "TCL.AX": {
+  "domain": "transurban.com",
+  "px": 114
+ },
+ "TCS.NS": {
+  "domain": "tcs.com",
+  "px": 48
+ },
+ "TDG": {
+  "domain": "transdigm.com",
+  "px": 128
+ },
+ "TDY": {
+  "domain": "teledyne.com",
+  "px": 16
+ },
+ "TEAM": {
+  "domain": "atlassian.com",
+  "px": 180
+ },
+ "TECHM.NS": {
+  "domain": "techmahindra.com",
+  "px": 128
+ },
+ "TECK-B.TO": {
+  "domain": "teck.com",
+  "px": 64
+ },
+ "TEF.MC": {
+  "domain": "telefonica.com",
+  "px": 196
+ },
+ "TEL": {
+  "domain": "te.com",
+  "px": 16
+ },
+ "TEL.OL": {
+  "domain": "telenor.com",
+  "px": 128
+ },
+ "TEL2-B.ST": {
+  "domain": "tele2.com",
+  "px": 128
+ },
+ "TELIA.ST": {
+  "domain": "teliacompany.com",
+  "px": 128
+ },
+ "TEN.MI": {
+  "domain": "tenaris.com",
+  "px": 16
+ },
+ "TER": {
+  "domain": "teradyne.com",
+  "px": 48
+ },
+ "TEVA": {
+  "domain": "tevapharm.com",
+  "px": 48
+ },
+ "TFC": {
+  "domain": "truist.com",
+  "px": 32
+ },
+ "TFII.TO": {
+  "domain": "tfiintl.com",
+  "px": 128
+ },
+ "TGT": {
+  "domain": "corporate.target.com",
+  "px": 128
+ },
+ "THYAO.IS": {
+  "domain": "turkishairlines.com",
+  "px": 256
+ },
+ "TIGO": {
+  "domain": "millicom.com",
+  "px": 16
+ },
+ "TIH.TO": {
+  "domain": "toromont.com",
+  "px": 0
+ },
+ "TIINDIA.NS": {
+  "domain": "tiindia.com",
+  "px": 50
+ },
+ "TIMS3.SA": {
+  "domain": "tim.com.br",
+  "px": 32
+ },
+ "TIT.MI": {
+  "domain": "gruppotim.it",
+  "px": 21
+ },
+ "TITAN.NS": {
+  "domain": "titancompany.in",
+  "px": 0
+ },
+ "TLC.AX": {
+  "domain": "thelotterycorporation.com",
+  "px": 128
+ },
+ "TLKM.JK": {
+  "domain": "telkom.co.id",
+  "px": 32
+ },
+ "TLS.AX": {
+  "domain": "telstra.com.au",
+  "px": 128
+ },
+ "TLX.DE": {
+  "domain": "talanx.com",
+  "px": 180
+ },
+ "TMCV.NS": {
+  "domain": "cv.tatamotors.com",
+  "px": 16
+ },
+ "TME": {
+  "domain": "tencentmusic.com",
+  "px": 0
+ },
+ "TMGH.CA": {
+  "domain": "",
+  "px": 0
+ },
+ "TMPV.NS": {
+  "domain": "tatamotors.com",
+  "px": 16
+ },
+ "TMUS": {
+  "domain": "t-mobile.com",
+  "px": 32
+ },
+ "TORNTPHARM.NS": {
+  "domain": "torrentpharma.com",
+  "px": 48
+ },
+ "TORNTPOWER.NS": {
+  "domain": "torrentpower.com",
+  "px": 0
+ },
+ "TOST": {
+  "domain": "pos.toasttab.com",
+  "px": 120
+ },
+ "TOU.TO": {
+  "domain": "tourmalineoil.com",
+  "px": 180
+ },
+ "TPEIR.AT": {
+  "domain": "piraeusbank.gr",
+  "px": 48
+ },
+ "TPL": {
+  "domain": "texaspacific.com",
+  "px": 128
+ },
+ "TPR": {
+  "domain": "tapestry.com",
+  "px": 128
+ },
+ "TREL-B.ST": {
+  "domain": "trelleborg.com",
+  "px": 128
+ },
+ "TRENT.NS": {
+  "domain": "trentlimited.com",
+  "px": 0
+ },
+ "TRGP": {
+  "domain": "targaresources.com",
+  "px": 16
+ },
+ "TRI.TO": {
+  "domain": "thomsonreuters.com",
+  "px": 180
+ },
+ "TRN.MI": {
+  "domain": "terna.it",
+  "px": 32
+ },
+ "TROW": {
+  "domain": "troweprice.com",
+  "px": 128
+ },
+ "TRP.TO": {
+  "domain": "tcenergy.com",
+  "px": 128
+ },
+ "TRU": {
+  "domain": "transunion.com",
+  "px": 48
+ },
+ "TRUE.BK": {
+  "domain": "true.th",
+  "px": 48
+ },
+ "TRV": {
+  "domain": "travelers.com",
+  "px": 48
+ },
+ "TRYG.CO": {
+  "domain": "tryg.com",
+  "px": 0
+ },
+ "TSCO": {
+  "domain": "tractorsupply.com",
+  "px": 48
+ },
+ "TSCO.L": {
+  "domain": "tescoplc.com",
+  "px": 16
+ },
+ "TSEM.TA": {
+  "domain": "towersemi.com",
+  "px": 128
+ },
+ "TSN": {
+  "domain": "tysonfoods.com",
+  "px": 128
+ },
+ "TT": {
+  "domain": "tranetechnologies.com",
+  "px": 228
+ },
+ "TTWO": {
+  "domain": "take2games.com",
+  "px": 64
+ },
+ "TUB.BR": {
+  "domain": "financiere-tubize.be",
+  "px": 128
+ },
+ "TUPRS.IS": {
+  "domain": "tupras.com.tr",
+  "px": 16
+ },
+ "TVSMOTOR.NS": {
+  "domain": "tvsmotor.com",
+  "px": 48
+ },
+ "TW": {
+  "domain": "tradeweb.com",
+  "px": 256
+ },
+ "TWLO": {
+  "domain": "twilio.com",
+  "px": 180
+ },
+ "TXT": {
+  "domain": "textron.com",
+  "px": 16
+ },
+ "U11.SI": {
+  "domain": "uobgroup.com",
+  "px": 16
+ },
+ "UAL": {
+  "domain": "united.com",
+  "px": 128
+ },
+ "UCB.BR": {
+  "domain": "ucb.com",
+  "px": 32
+ },
+ "UGPA3.SA": {
+  "domain": "ultra.com.br",
+  "px": 128
+ },
+ "UHR.SW": {
+  "domain": "swatchgroup.com",
+  "px": 32
+ },
+ "ULTA": {
+  "domain": "ulta.com",
+  "px": 1024
+ },
+ "ULTRACEMCO.NS": {
+  "domain": "ultratechcement.com",
+  "px": 24
+ },
+ "UMG.AS": {
+  "domain": "universalmusic.com",
+  "px": 150
+ },
+ "UNI.MI": {
+  "domain": "unipol.it",
+  "px": 128
+ },
+ "UNIONBANK.NS": {
+  "domain": "unionbankofindia.bank.in",
+  "px": 0
+ },
+ "UNITDSPR.NS": {
+  "domain": "diageoindia.com",
+  "px": 128
+ },
+ "UNTR.JK": {
+  "domain": "unitedtractors.com",
+  "px": 100
+ },
+ "UPL.NS": {
+  "domain": "upl-ltd.com",
+  "px": 32
+ },
+ "UPM.HE": {
+  "domain": "upm.com",
+  "px": 128
+ },
+ "UPS": {
+  "domain": "ups.com",
+  "px": 32
+ },
+ "URI": {
+  "domain": "unitedrentals.com",
+  "px": 128
+ },
+ "URW.PA": {
+  "domain": "urw.com",
+  "px": 78
+ },
+ "USB": {
+  "domain": "usbank.com",
+  "px": 120
+ },
+ "UTHR": {
+  "domain": "unither.com",
+  "px": 128
+ },
+ "UU.L": {
+  "domain": "unitedutilities.com",
+  "px": 128
+ },
+ "VACN.SW": {
+  "domain": "vatgroup.com",
+  "px": 128
+ },
+ "VAL.JO": {
+  "domain": "valterraplatinum.com",
+  "px": 256
+ },
+ "VALE3.SA": {
+  "domain": "vale.com",
+  "px": 128
+ },
+ "VAML.NS": {
+  "domain": "",
+  "px": 0
+ },
+ "VAR.OL": {
+  "domain": "varenergi.no",
+  "px": 128
+ },
+ "VBBR3.SA": {
+  "domain": "vibraenergia.com.br",
+  "px": 48
+ },
+ "VBL.NS": {
+  "domain": "varunbeverages.com",
+  "px": 150
+ },
+ "VCX.AX": {
+  "domain": "vicinity.com.au",
+  "px": 256
+ },
+ "VEDL.NS": {
+  "domain": "vedantalimited.com",
+  "px": 30
+ },
+ "VEEV": {
+  "domain": "veeva.com",
+  "px": 48
+ },
+ "VER.VI": {
+  "domain": "verbund.com",
+  "px": 24
+ },
+ "VICI": {
+  "domain": "viciproperties.com",
+  "px": 128
+ },
+ "VIE.PA": {
+  "domain": "veolia.com",
+  "px": 180
+ },
+ "VIPS": {
+  "domain": "vip.com",
+  "px": 16
+ },
+ "VIVT3.SA": {
+  "domain": "telefonica.com.br",
+  "px": 32
+ },
+ "VLO": {
+  "domain": "valero.com",
+  "px": 16
+ },
+ "VLTO": {
+  "domain": "veralto.com",
+  "px": 128
+ },
+ "VMC": {
+  "domain": "vulcanmaterials.com",
+  "px": 48
+ },
+ "VMM.NS": {
+  "domain": "aboutvishal.com",
+  "px": 256
+ },
+ "VMRK": {
+  "domain": "vivmarkresidential.com",
+  "px": 0
+ },
+ "VNA.DE": {
+  "domain": "vonovia.com",
+  "px": 32
+ },
+ "VOD.JO": {
+  "domain": "vodacom.com",
+  "px": 256
+ },
+ "VOD.L": {
+  "domain": "vodafone.com",
+  "px": 16
+ },
+ "VOLTAS.NS": {
+  "domain": "voltas.com",
+  "px": 32
+ },
+ "VOLV-B.ST": {
+  "domain": "volvogroup.com",
+  "px": 64
+ },
+ "VOW3.DE": {
+  "domain": "volkswagen-group.com",
+  "px": 128
+ },
+ "VRSK": {
+  "domain": "verisk.com",
+  "px": 32
+ },
+ "VRSN": {
+  "domain": "verisign.com",
+  "px": 16
+ },
+ "VRT": {
+  "domain": "vertiv.com",
+  "px": 100
+ },
+ "VST": {
+  "domain": "vistracorp.com",
+  "px": 128
+ },
+ "VSURE.ST": {
+  "domain": "verisure.com",
+  "px": 48
+ },
+ "VTR": {
+  "domain": "ventasreit.com",
+  "px": 32
+ },
+ "VWS.CO": {
+  "domain": "vestas.com",
+  "px": 128
+ },
+ "WAAREEENER.NS": {
+  "domain": "waaree.com",
+  "px": 256
+ },
+ "WAB": {
+  "domain": "wabteccorp.com",
+  "px": 32
+ },
+ "WALMEX.MX": {
+  "domain": "walmex.mx",
+  "px": 16
+ },
+ "WARBABANK.KW": {
+  "domain": "warbabank.com",
+  "px": 256
+ },
+ "WAT": {
+  "domain": "waters.com",
+  "px": 192
+ },
+ "WBC.AX": {
+  "domain": "westpac.com.au",
+  "px": 48
+ },
+ "WBD": {
+  "domain": "wbd.com",
+  "px": 64
+ },
+ "WCN": {
+  "domain": "wasteconnections.com",
+  "px": 128
+ },
+ "WCP.TO": {
+  "domain": "wcap.ca",
+  "px": 96
+ },
+ "WDAY": {
+  "domain": "workday.com",
+  "px": 32
+ },
+ "WDS.AX": {
+  "domain": "woodside.com",
+  "px": 128
+ },
+ "WEC": {
+  "domain": "wecenergygroup.com",
+  "px": 16
+ },
+ "WEGE3.SA": {
+  "domain": "weg.net",
+  "px": 128
+ },
+ "WES.AX": {
+  "domain": "wesfarmers.com.au",
+  "px": 16
+ },
+ "WIPRO.NS": {
+  "domain": "wipro.com",
+  "px": 70
+ },
+ "WISE.L": {
+  "domain": "wise.com",
+  "px": 128
+ },
+ "WKL.AS": {
+  "domain": "wolterskluwer.com",
+  "px": 64
+ },
+ "WM": {
+  "domain": "wm.com",
+  "px": 64
+ },
+ "WMB": {
+  "domain": "williams.com",
+  "px": 108
+ },
+ "WN.TO": {
+  "domain": "weston.ca",
+  "px": 32
+ },
+ "WOW.AX": {
+  "domain": "woolworthsgroup.com.au",
+  "px": 128
+ },
+ "WPC": {
+  "domain": "wpcarey.com",
+  "px": 16
+ },
+ "WPM.TO": {
+  "domain": "wheatonpm.com",
+  "px": 229
+ },
+ "WRB": {
+  "domain": "berkley.com",
+  "px": 34
+ },
+ "WRT1V.HE": {
+  "domain": "wartsila.com",
+  "px": 64
+ },
+ "WSM": {
+  "domain": "williams-sonomainc.com",
+  "px": 32
+ },
+ "WSO": {
+  "domain": "watsco.com",
+  "px": 128
+ },
+ "WSP.TO": {
+  "domain": "wsp.com",
+  "px": 128
+ },
+ "WST": {
+  "domain": "westpharma.com",
+  "px": 192
+ },
+ "WTC.AX": {
+  "domain": "wisetechglobal.com",
+  "px": 128
+ },
+ "WTW": {
+  "domain": "wtwco.com",
+  "px": 48
+ },
+ "WY": {
+  "domain": "weyerhaeuser.com",
+  "px": 128
+ },
+ "X.TO": {
+  "domain": "tmx.com",
+  "px": 256
+ },
+ "XEL": {
+  "domain": "my.xcelenergy.com",
+  "px": 16
+ },
+ "XP": {
+  "domain": "xpinc.com",
+  "px": 128
+ },
+ "XPO": {
+  "domain": "xpo.com",
+  "px": 16
+ },
+ "XRO.AX": {
+  "domain": "xero.com",
+  "px": 128
+ },
+ "XYL": {
+  "domain": "xylem.com",
+  "px": 64
+ },
+ "XYZ": {
+  "domain": "block.xyz",
+  "px": 160
+ },
+ "YAR.OL": {
+  "domain": "yara.com",
+  "px": 128
+ },
+ "YESBANK.NS": {
+  "domain": "yes.bank.in",
+  "px": 16
+ },
+ "YKBNK.IS": {
+  "domain": "yapikredi.com.tr",
+  "px": 128
+ },
+ "YMM": {
+  "domain": "fulltruckalliance.com",
+  "px": 48
+ },
+ "YUM": {
+  "domain": "yum.com",
+  "px": 32
+ },
+ "Z74.SI": {
+  "domain": "singtel.com",
+  "px": 16
+ },
+ "ZAB.WA": {
+  "domain": "zabkagroup.com",
+  "px": 128
+ },
+ "ZAIN.KW": {
+  "domain": "zain.com",
+  "px": 16
+ },
+ "ZAL.DE": {
+  "domain": "corporate.zalando.com",
+  "px": 128
+ },
+ "ZBH": {
+  "domain": "zimmerbiomet.com",
+  "px": 64
+ },
+ "ZM": {
+  "domain": "zoom.com",
+  "px": 72
+ },
+ "ZS": {
+  "domain": "zscaler.com",
+  "px": 128
+ },
+ "ZTS": {
+  "domain": "zoetis.com",
+  "px": 128
+ },
+ "ZURN.SW": {
+  "domain": "zurich.com",
+  "px": 32
+ },
+ "ZYDUSLIFE.NS": {
+  "domain": "zyduslife.com",
+  "px": 50
+ }
+}

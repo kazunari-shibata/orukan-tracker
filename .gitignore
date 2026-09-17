@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.DS_Store
+
+# 生成物（Actions で毎回作り直すので保存しない）
+history/
+nav.json
+index.html
+rows/
+_site/

@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>オルカンの構成銘柄一覧｜全銘柄を毎日更新</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<style>
+  :root {
+    /* ライト固定。OS がダークでもスクロールバー等を明るく保つ */
+    color-scheme:light;
+    --bg:#f2f4f7; --panel:#fbfcfe; --line:#dfe3ea;
+    --text:#1f2733; --dim:#666f7b; --sub:#434b57; --accent:#2563a8;
+    --up:#0f7b55; --down:#c0392b;
+  }
+  *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+  body {
+    background:var(--bg); color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;
+    font-size:15px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap { max-width:1180px; margin:0 auto; padding:40px 20px 32px; }
+
+  .nav {
+    background:var(--panel); border:1px solid var(--line); border-radius:12px;
+    padding:16px 18px 10px; margin-bottom:18px;
+  }
+  .navhead { display:flex; flex-wrap:wrap; gap:12px; align-items:flex-end; justify-content:space-between; }
+  /* 枠の中の補足文字は --dim だと薄いので、本文色を和らげた --sub を使う */
+  .fundname { color:var(--sub); font-size:.85rem; }
+  .navnow { font-variant-numeric:tabular-nums; line-height:1.2; margin-top:2px; }
+  .navnow b { font-size:1.6rem; font-weight:650; letter-spacing:-0.01em; }
+  .navunit { color:var(--sub); font-size:.85rem; margin-left:2px; }
+  .chglabel { color:var(--sub); font-size:.82rem; margin-left:12px; }
+  .navnow #navchg { font-size:.95rem; margin-left:5px; font-weight:600; }
+  /* 右側は期間ボタンと、その期間の騰落率（ボタンの下に右寄せ） */
+  .navside { display:flex; flex-direction:column; align-items:flex-end; gap:6px; align-self:flex-start; }
+  .rangeperf { font-variant-numeric:tabular-nums; line-height:1.2; }
+  .rangeperf .chglabel { margin-left:0; }
+  .rangeperf #rangechg { font-size:.95rem; margin-left:5px; font-weight:600; }
+  .ranges { display:flex; gap:4px; }
+  .ranges button {
+    font:inherit; font-size:.8rem; color:var(--sub); cursor:pointer;
+    background:none; border:1px solid var(--line); border-radius:6px; padding:4px 9px;
+  }
+  .ranges button[aria-pressed="true"] { color:var(--panel); background:var(--accent); border-color:var(--accent); }
+  .chartwrap { position:relative; margin-top:10px; }
+  #chart { display:block; width:100%; height:132px; overflow:visible; }
+  .readout {
+    position:absolute; top:0; transform:translateX(-50%);
+    background:var(--text); color:var(--panel); font-size:.72rem;
+    padding:3px 7px; border-radius:5px; white-space:nowrap; pointer-events:none;
+  }
+  /* 国・地域と業種の比率。左右2列（スマホは縦に積む）で、各列は横の積み上げ棒1本＋凡例。色は上位7項目を青の濃淡、その他を灰色 */
+  .mix { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .mixrow { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:14px 18px; }
+  .mixrow h3 { font-size:.85rem; font-weight:600; color:var(--text); margin-bottom:6px; }
+  /* 区切りは 2px の隙間。flex-grow に比率を入れて、隙間を引いた残りを按分する */
+  .stack { display:flex; gap:2px; height:12px; }
+  .stack i { flex-basis:0; min-width:2px; }
+  .stack i:first-child { border-radius:4px 0 0 4px; }
+  .stack i:last-child { border-radius:0 4px 4px 0; }
+  /* 大きい順に濃い青 → 薄い青。その他だけ灰色 */
+  .s1 { background:#1a4f8f; } .s2 { background:#2d6fc0; } .s3 { background:#4f8fdc; }
+  .s4 { background:#75a9e8; } .s5 { background:#97bfee; } .s6 { background:#b5d2f4; }
+  .s7 { background:#d0e3f8; } .sother { background:#dcdfe4; }
+  .mixlegend {
+    list-style:none; display:flex; flex-wrap:wrap; gap:2px 14px; margin-top:7px;
+    font-size:.85rem; color:var(--sub);
+  }
+  .mixlegend li { white-space:nowrap; }
+  .mixlegend a { color:inherit; text-decoration:none; }
+  .mixlegend a:hover { color:var(--accent); }
+  .mixlegend b { font-weight:600; color:var(--text); font-variant-numeric:tabular-nums; }
+  .sw { display:inline-block; width:8px; height:8px; border-radius:2px; margin-right:5px; vertical-align:1px; }
+  /* 列幅は中身なりに決めたうえで、余った幅を各列に配分する（table-layout:auto）。
+     nowrap なので中身より狭くはならず、狭い画面では overflow-x で横に流れる。 */
+  .tablewrap {
+    overflow-x:auto; border:1px solid var(--line); border-radius:12px;
+    background:var(--panel);
+  }
+  table { width:100%; border-collapse:collapse; }
+  th, td { padding:10px 12px; text-align:left; white-space:nowrap; }
+  th {
+    background:var(--panel);
+    font-size:.72rem; font-weight:600; letter-spacing:.04em; color:var(--dim);
+    border-bottom:1px solid var(--line);
+  }
+  td { border-bottom:1px solid var(--line); font-variant-numeric:tabular-nums; }
+  tbody tr:last-child td { border-bottom:0; }
+  /* 行を追いやすいよう、1行おきにごく薄く色を付ける */
+  tbody tr:nth-child(even) { background:color-mix(in srgb, var(--line) 30%, transparent); }
+  .num-rank { color:var(--dim); }
+  .rankdelta { font-size:.68rem; margin-left:5px; font-variant-numeric:tabular-nums; }
+  .rankdelta.new { color:var(--accent); font-weight:600; }
+  /* 企業名の列は余った幅を使い、表が収まらないときはここを削って … で詰める
+     （横スクロールを出さない）。max-width:0 と width:100% で、他の列は中身の幅に保つ。 */
+  th.co, td.co { width:100%; max-width:0; min-width:6em; }
+  .co .nm {
+    display:inline-block; max-width:calc(100% - 31px); overflow:hidden; text-overflow:ellipsis;
+    font-weight:600; vertical-align:middle;
+  }
+  /* ロゴは自前配信。取得できていない銘柄は頭文字のバッジにフォールバックする
+     （img の onerror で中身を消すと ::after の頭文字が見える） */
+  .logo {
+    position:relative; display:inline-block; width:22px; height:22px;
+    margin-right:9px; vertical-align:middle; border-radius:4px; overflow:hidden;
+    background:hsl(var(--seed) 26% 93%);
+  }
+  .logo::after {
+    content:attr(data-letter); position:absolute; inset:0;
+    display:flex; align-items:center; justify-content:center;
+    font-size:.68rem; font-weight:700; color:hsl(var(--seed) 45% 38%);
+  }
+  .logo img { position:relative; width:100%; height:100%; object-fit:contain; }
+  /* ::after は子要素より後に描かれるので、画像が載っている行では明示的に消す。
+     ロゴが読めた行は下地の着色タイルも不要。 */
+  .logo:has(img) { background:none; }
+  .logo:has(img)::after { display:none; }
+  /* 国旗＋国・地域名 */
+  .ccy { color:var(--dim); font-size:.72rem; margin-left:3px; }
+  .sectorcell { color:var(--dim); }
+  .cname { margin-left:6px; }
+  .up { color:var(--up); } .down { color:var(--down); } .flat { color:var(--dim); }
+
+
+  /* 見出し行の固定。表は横スクロールの枠に入っていて position:sticky がページに効かないので、
+     見出し行の複製を画面上端に置き、JS が列幅と横スクロール位置を元の表に合わせる */
+  .stickyhead {
+    position:fixed; top:0; z-index:4; overflow:hidden; background:var(--panel);
+    border-bottom:1px solid var(--line); box-shadow:0 2px 8px rgb(0 0 0 / .05);
+  }
+  .stickyhead table { table-layout:fixed; }
+  .stickyhead th { border-bottom:0; }
+  /* 銘柄検索。候補は表の上に重ねて出す */
+  .filters { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:10px; }
+  .search { position:relative; flex:1 1 240px; max-width:360px; }
+  .search input, #country {
+    width:100%; padding:8px 12px; font:inherit; font-size:.85rem;
+    color:var(--text); background:var(--panel); border:1px solid var(--line); border-radius:8px;
+  }
+  /* Safari は select の縦の padding を効かせず、flex の stretch も無視して
+     中身の高さだけで描くので、入力欄より縦に細くなる。見た目を自前で作って高さをそろえる
+     （appearance:none で矢印も消えるので、矢印も自前で描く） */
+  #country {
+    appearance:none; -webkit-appearance:none;
+    width:auto; max-width:100%; padding-right:30px; cursor:pointer;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%23666f7b' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat:no-repeat; background-position:right 11px center; background-size:10px 6px;
+  }
+  .search input:focus, #country:focus { outline:none; border-color:var(--accent); }
+  /* iOS Safari は 16px 未満の入力欄に触れるとページごと拡大する。
+     タッチ端末だけ 16px にして拡大を止める（マウスの端末は今までどおり小さいまま） */
+  @media (pointer:coarse) {
+    .search input, #country { font-size:16px; }
+  }
+  .results {
+    position:absolute; z-index:5; top:calc(100% + 4px); left:0; width:min(100%, 480px);
+    max-height:60vh; overflow-y:auto; list-style:none; padding:4px;
+    background:var(--panel); border:1px solid var(--line); border-radius:10px;
+    box-shadow:0 8px 24px rgb(0 0 0 / .08);
+  }
+  .results button {
+    display:flex; align-items:baseline; gap:10px; width:100%; padding:8px 10px;
+    font:inherit; font-size:.85rem; color:var(--text); text-align:left;
+    background:none; border:0; border-radius:6px; cursor:pointer;
+  }
+  .results button:hover, .results button[aria-selected="true"] {
+    background:color-mix(in srgb, var(--accent) 8%, transparent);
+  }
+  .results .r { min-width:3.6em; color:var(--dim); font-variant-numeric:tabular-nums; }
+  .results .n { flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-weight:600; }
+  .results .t { color:var(--dim); font-size:.75rem; }
+  .results .w { font-variant-numeric:tabular-nums; }
+  .results .none { padding:8px 10px; color:var(--dim); font-size:.85rem; }
+  /* 検索で飛んだ行を少しのあいだ目立たせる */
+  tbody tr.hit td { background:color-mix(in srgb, var(--accent) 14%, transparent); }
+  tbody tr td { transition:background .6s; }
+  /* 100銘柄ずつのページ送り。JS が中身を作る */
+  .pager {
+    display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:6px;
+    margin-top:16px; font-size:.8rem; font-variant-numeric:tabular-nums;
+  }
+  .pager:empty { display:none; }
+  .pager a, .pager span { min-width:2.1em; padding:5px 8px; border-radius:6px; text-align:center; }
+  .pager a {
+    color:var(--text); text-decoration:none; background:var(--panel); border:1px solid var(--line);
+  }
+  .pager a:hover { border-color:var(--accent); }
+  .pager a[aria-current="page"] { color:var(--panel); background:var(--accent); border-color:var(--accent); }
+  .pager .gap { color:var(--dim); min-width:auto; padding:5px 2px; }
+  .secttl { font-size:1rem; font-weight:650; margin-top:24px; margin-bottom:12px; }
+  /* ページの先頭はすでに .wrap の余白があるので、最初の見出しの上は空けない */
+  .wrap > .secttl:first-child { margin-top:0; }
+  .copyright { margin-top:72px; color:var(--dim); font-size:.72rem; text-align:center; }
+
+  /* タブレット・スマホは列が多く収まりきらないので、企業名を削らず最大幅で止め、
+     はみ出る分は .tablewrap の横スクロールにする */
+  @media (max-width:1024px) {
+    th.co, td.co { width:auto; max-width:none; min-width:0; }
+    .co .nm { max-width:20em; }
+  }
+
+  @media (max-width:720px) {
+    .wrap { padding:28px 12px 24px; }
+    /* 列は省略しない。表は .tablewrap の overflow-x でそのまま横に流す */
+    th, td { padding:9px 8px; font-size:.85rem; }
+    .co .nm { max-width:13em; }   /* スマホは画面が狭いので、タブレットより詰める */
+    .nav { padding:14px 14px 8px; }
+    /* 期間ボタンが価格の下に回るので、同じ行の右端に騰落率を置く */
+    .navside { flex-direction:row; align-items:center; justify-content:space-between; width:100%; }
+    .mix { grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body data-generated="">
+<div class="wrap">
+  <h2 class="secttl">基準価額</h2>
+
+  <section class="nav" id="nav">
+    <div class="navhead">
+      <div><!--ssg:navhead--><!--/ssg:navhead--></div>
+      <div class="navside">
+        <div class="ranges" id="ranges"></div>
+        <div class="rangeperf"><span class="chglabel" id="rangelabel"></span><span id="rangechg"></span></div>
+      </div>
+    </div>
+    <div class="chartwrap"><svg id="chart" preserveAspectRatio="none" aria-hidden="true"></svg>
+      <div class="readout" id="readout" hidden></div>
+    </div>
+  </section>
+
+  <h2 class="secttl">構成比</h2>
+  <div class="mix" id="mix"><!--ssg:mix--><!--/ssg:mix--></div>
+
+  <h2 class="secttl" id="holdings">構成銘柄</h2>
+  <div class="filters">
+    <div class="search" id="search">
+      <input type="search" id="q" placeholder="銘柄名・ティッカーで検索（例: nvidia, 7203）"
+             autocomplete="off" spellcheck="false" aria-label="銘柄を検索" aria-controls="results">
+      <ul class="results" id="results" role="listbox" hidden></ul>
+    </div>
+    <select id="country" aria-label="国・地域で絞り込む"><!--ssg:countries--><!--/ssg:countries--></select>
+  </div>
+  <div class="tablewrap">
+    <table>
+      <thead>
+        <tr>
+          <th class="num-rank">順位</th>
+          <th class="co">企業名</th>
+          <th>組入比率</th>
+          <th>時価総額</th>
+          <th>株価</th>
+          <th>前日比</th>
+          <th class="sectorcell">業種</th>
+          <th class="flagcell">国・地域</th>
+        </tr>
+      </thead>
+      <tbody id="tb"><!--ssg:rows--><!--/ssg:rows--></tbody>
+    </table>
+  </div>
+  <div class="stickyhead" id="stickyhead" aria-hidden="true" hidden><table></table></div>
+  <nav class="pager" id="pager" aria-label="ページ" data-size="100"></nav>
+
+  <footer class="copyright">© <span id="year">2026</span> Kazunari Shibata</footer>
+</div>
+
+<script>
+// これは index.html のひな形。表・更新日時・基準価額の数字は、Pages のビルドで
+// tools/render.py が書き込んで index.html にする（Actions で生成して GitHub Pages に出す）。
+// ここで描くのはチャート（nav.json）とページ送りだけ。
+// 日付は YYYY/M/D で統一する
+const fmtDate = v => {
+  const d = v instanceof Date ? v : new Date(`${v}T00:00:00`);
+  return isNaN(d) ? v : `${d.getFullYear()}/${d.getMonth() + 1}/${d.getDate()}`;
+};
+
+const RANGES = [['1か月', 21], ['6か月', 126], ['1年', 252], ['全期間', Infinity]];
+let NAV = null, navRange = 252;   // 初期表示は1年
+
+function drawNav() {
+  const n = Math.min(NAV.values.length, navRange);
+  const vals = NAV.values.slice(-n), dates = NAV.dates.slice(-n);
+  const lo = Math.min(...vals), hi = Math.max(...vals), span = hi - lo || 1;
+  const W = 1000, H = 132, pad = 6;
+  const x = i => (i / (vals.length - 1)) * W;
+  const y = v => H - pad - ((v - lo) / span) * (H - pad * 2);
+  const path = a => a.map((v, i) => v == null ? '' :
+    ((i && a[i - 1] != null) ? 'L' : 'M') + x(i).toFixed(1) + ' ' + y(v).toFixed(1)).join(' ').trim();
+
+  const line = path(vals);
+  const color = vals.at(-1) >= vals[0] ? 'var(--up)' : 'var(--down)';
+  document.getElementById('chart').innerHTML = `
+    <defs><linearGradient id="g" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="${color}" stop-opacity=".18"/>
+      <stop offset="100%" stop-color="${color}" stop-opacity="0"/>
+    </linearGradient></defs>
+    <path d="${line} L ${W} ${H} L 0 ${H} Z" fill="url(#g)"/>
+    <path d="${line}" fill="none" stroke="${color}" stroke-width="2"
+          vector-effect="non-scaling-stroke" stroke-linejoin="round"/>
+    <line id="cursor" y1="0" y2="${H}" stroke="var(--dim)" stroke-width="1"
+          vector-effect="non-scaling-stroke" opacity="0"/>`;
+  document.getElementById('chart').setAttribute('viewBox', `0 0 ${W} ${H}`);
+
+  const r = (vals.at(-1) / vals[0] - 1) * 100;
+  const label = RANGES.find(([, k]) => k === navRange)?.[0] ?? '';
+  document.getElementById('rangelabel').textContent = label === '全期間' ? '設定来' : label;
+  const rc = document.getElementById('rangechg');
+  rc.textContent = `${r > 0 ? '+' : ''}${r.toFixed(1)}%`;
+  rc.className = r > 0 ? 'up' : r < 0 ? 'down' : 'flat';
+  return { vals, dates, x, W };
+}
+
+function bootNav(d) {
+  NAV = d;
+
+  document.getElementById('ranges').innerHTML = RANGES
+    .map(([label, n]) => `<button data-n="${n}" aria-pressed="${n === navRange}">${label}</button>`).join('');
+  document.querySelectorAll('#ranges button').forEach(b => b.addEventListener('click', () => {
+    navRange = Number(b.dataset.n);
+    document.querySelectorAll('#ranges button')
+      .forEach(o => o.setAttribute('aria-pressed', o === b));
+    view = drawNav();
+  }));
+
+  let view = drawNav();
+  const svg = document.getElementById('chart'), out = document.getElementById('readout');
+  svg.addEventListener('pointermove', e => {
+    const r = svg.getBoundingClientRect();
+    const i = Math.round(((e.clientX - r.left) / r.width) * (view.vals.length - 1));
+    const v = view.vals[i]; if (v == null) return;
+    svg.querySelector('#cursor').setAttribute('opacity', '1');
+    svg.querySelector('#cursor').setAttribute('x1', view.x(i));
+    svg.querySelector('#cursor').setAttribute('x2', view.x(i));
+    out.hidden = false;
+    out.style.left = `${(i / (view.vals.length - 1)) * 100}%`;
+    out.textContent = `${fmtDate(view.dates[i])}  ${v.toLocaleString('ja-JP')}円`;
+  });
+  svg.addEventListener('pointerleave', () => {
+    out.hidden = true; svg.querySelector('#cursor').setAttribute('opacity', '0');
+  });
+}
+
+document.getElementById('year').textContent = new Date().getFullYear();
+
+// 100銘柄ずつのページ送り。1ページ目は HTML に書き込み済みで、2ページ目以降は
+// tools/render.py が書き出した rows/<ページ>.json を読み込む。
+// 国・地域で絞り込んだときは rows/c/<国コード>/<ページ>.json。順位は全体の順位のまま出す。
+// 状態は URL の #page=N / #country=JP&page=N で持つ（戻る・リンクでも開ける）。
+const pager = document.getElementById('pager');
+const PAGE_SIZE = Number(pager.dataset.size) || 100;
+const countrySelect = document.getElementById('country');
+const pageRows = { '/1': document.getElementById('tb').innerHTML };
+let current = { country: '', page: 1 };
+
+const countryInfo = code => {
+  const opt = [...countrySelect.options].find(o => o.value === code) || countrySelect.options[0];
+  return { code: opt.value, pages: Number(opt.dataset.pages) || 1 };
+};
+const stateFromHash = () => {
+  const params = new URLSearchParams(location.hash.slice(1));
+  const info = countryInfo(params.get('country') || '');
+  const page = Math.min(Math.max(Number(params.get('page')) || 1, 1), info.pages);
+  return { country: info.code, page };
+};
+const hashFor = (country, page) => country ? `#country=${country}&page=${page}` : `#page=${page}`;
+
+function drawPager() {
+  const { country, page } = current;
+  const { pages } = countryInfo(country);
+  let html = '';
+  if (pages > 1) {
+    // 先頭・末尾と、今のページの前後だけ番号を出す（間は … で詰める）
+    const nums = [...new Set([1, page - 1, page, page + 1, pages])]
+      .filter(n => n >= 1 && n <= pages).sort((a, b) => a - b);
+    const link = (n, label, attrs = '') => `<a href="${hashFor(country, n)}" ${attrs}>${label}</a>`;
+    if (page > 1) html += link(page - 1, '前へ', 'rel="prev"');
+    nums.forEach((n, i) => {
+      if (i && n - nums[i - 1] > 1) html += '<span class="gap">…</span>';
+      html += link(n, n, n === page ? 'aria-current="page"' : '');
+    });
+    if (page < pages) html += link(page + 1, '次へ', 'rel="next"');
+  }
+  pager.innerHTML = html;
+}
+
+async function showPage({ country, page }, scroll, rank) {
+  const key = `${country}/${page}`;
+  if (!pageRows[key]) {
+    try {
+      const path = country ? `rows/c/${country}/${page}.json` : `rows/${page}.json`;
+      const r = await fetch(`${path}?v=${encodeURIComponent(GENERATED)}`);
+      if (!r.ok) throw new Error(r.status);
+      pageRows[key] = (await r.json()).rows;
+    } catch {
+      return;   // 読めなければ今のページのまま
+    }
+  }
+  current = { country, page };
+  countrySelect.value = country;
+  document.getElementById('tb').innerHTML = pageRows[key];
+  drawPager();
+  syncStickyHead();
+  if (rank) highlightRow(rank);
+  else if (scroll) document.getElementById('holdings').scrollIntoView();
+}
+
+// 検索で選んだ銘柄。ページの切り替え（hashchange）を待ってからその行へ移る
+let pendingRank = null;
+window.addEventListener('hashchange', () => {
+  const next = stateFromHash(), rank = pendingRank;
+  pendingRank = null;
+  if (next.country !== current.country || next.page !== current.page) showPage(next, true, rank);
+  else if (rank) highlightRow(rank);
+});
+countrySelect.addEventListener('change', () => { location.hash = hashFor(countrySelect.value, 1); });
+
+function highlightRow(rank) {
+  const tr = document.querySelector(`#tb tr[data-rank="${rank}"]`);
+  if (!tr) return;
+  tr.scrollIntoView({ block: 'center' });
+  tr.classList.add('hit');
+  setTimeout(() => tr.classList.remove('hit'), 2400);
+}
+
+// 表の見出し行を画面上端に固定する（.stickyhead の CSS の説明を参照）
+const tableWrap = document.querySelector('.tablewrap');
+const stickyHead = document.getElementById('stickyhead');
+const stickyTable = stickyHead.querySelector('table');
+stickyTable.innerHTML = tableWrap.querySelector('thead').outerHTML;
+function syncStickyHead() {
+  const box = tableWrap.getBoundingClientRect();
+  const thead = tableWrap.querySelector('thead');
+  const show = box.top < 0 && box.bottom > thead.getBoundingClientRect().height * 2;
+  stickyHead.hidden = !show;
+  if (!show) return;
+  stickyHead.style.left = `${box.left + tableWrap.clientLeft}px`;
+  stickyHead.style.width = `${tableWrap.clientWidth}px`;
+  const src = thead.querySelectorAll('th');
+  stickyTable.querySelectorAll('th').forEach((th, i) => {
+    th.style.width = th.style.minWidth = th.style.maxWidth = `${src[i].getBoundingClientRect().width}px`;
+  });
+  stickyTable.style.width = `${tableWrap.querySelector('table').getBoundingClientRect().width}px`;
+  stickyTable.style.transform = `translateX(${-tableWrap.scrollLeft}px)`;
+}
+let stickyFrame = 0;
+const queueStickyHead = () => {
+  if (!stickyFrame) stickyFrame = requestAnimationFrame(() => { stickyFrame = 0; syncStickyHead(); });
+};
+window.addEventListener('scroll', queueStickyHead, { passive: true });
+window.addEventListener('resize', queueStickyHead);
+tableWrap.addEventListener('scroll', queueStickyHead, { passive: true });
+
+// 銘柄検索。索引（rows/search.json）は検索欄を使ったときに初めて読む
+const searchBox = document.getElementById('search');
+const q = document.getElementById('q');
+const results = document.getElementById('results');
+const esc = v => String(v).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
+// 大文字小文字・全角半角・記号の違いを無視して比べる（"Amazon.com" と "amazoncom" を同じにする）
+const norm = v => v.normalize('NFKC').toLowerCase().replace(/[\s.\-&,'()]/g, '');
+let searchIndex = null, hits = [], searchTimer = 0;
+
+async function loadSearchIndex() {
+  if (!searchIndex) {
+    try {
+      const r = await fetch(`rows/search.json?v=${encodeURIComponent(GENERATED)}`);
+      searchIndex = (await r.json()).map(([rank, ticker, name, weight]) =>
+        ({ rank, ticker, name, weight, kt: norm(ticker), kn: norm(name) }));
+    } catch {
+      searchIndex = [];
+    }
+  }
+  return searchIndex;
+}
+
+async function runSearch() {
+  const term = norm(q.value);
+  if (!term) { results.hidden = true; return; }
+  const list = await loadSearchIndex();
+  if (norm(q.value) !== term) return;   // 読み込み中に入力が進んでいたら捨てる
+  // ティッカー完全一致 → ティッカーか名前の前方一致 → 名前の部分一致、同じなら順位順
+  // （"nestle" で NESTLEIND のティッカーより、組入比率の大きい NESTLE SA を先に出す）
+  const score = x => x.kt === term ? 0 : x.kt.startsWith(term) || x.kn.startsWith(term) ? 1
+    : x.kn.includes(term) ? 2 : 9;
+  hits = list.map(x => [score(x), x]).filter(([sc]) => sc < 9)
+    .sort((a, b) => a[0] - b[0] || a[1].rank - b[1].rank).slice(0, 20).map(([, x]) => x);
+  results.innerHTML = hits.length
+    ? hits.map((x, i) => `<li><button type="button" role="option" data-rank="${x.rank}"`
+        + ` aria-selected="${i === 0}"><span class="r">${x.rank.toLocaleString('ja-JP')}位</span>`
+        + `<span class="n">${esc(x.name)}</span><span class="t">${esc(x.ticker)}</span>`
+        + `<span class="w">${x.weight.toFixed(3)}%</span></button></li>`).join('')
+    : '<li class="none">見つかりませんでした</li>';
+  results.hidden = false;
+}
+
+function pickResult(rank) {
+  results.hidden = true;
+  q.blur();
+  // 検索は全銘柄が対象なので、絞り込みを解いて全体のページへ移る
+  const page = Math.ceil(rank / PAGE_SIZE);
+  if (!current.country && page === current.page) { highlightRow(rank); return; }
+  pendingRank = rank;
+  location.hash = hashFor('', page);
+}
+
+q.addEventListener('input', () => { clearTimeout(searchTimer); searchTimer = setTimeout(runSearch, 80); });
+q.addEventListener('focus', () => { if (q.value) runSearch(); });
+q.addEventListener('keydown', e => {
+  const buttons = [...results.querySelectorAll('button')];
+  const at = buttons.findIndex(b => b.getAttribute('aria-selected') === 'true');
+  if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+    if (!buttons.length) return;
+    e.preventDefault();
+    const next = (at + (e.key === 'ArrowDown' ? 1 : -1) + buttons.length) % buttons.length;
+    buttons.forEach((b, i) => b.setAttribute('aria-selected', i === next));
+    buttons[next].scrollIntoView({ block: 'nearest' });
+  } else if (e.key === 'Enter') {
+    e.preventDefault();
+    if (buttons[at]) pickResult(Number(buttons[at].dataset.rank));
+  } else if (e.key === 'Escape') {
+    results.hidden = true;
+  }
+});
+results.addEventListener('click', e => {
+  const b = e.target.closest('button');
+  if (b) pickResult(Number(b.dataset.rank));
+});
+document.addEventListener('click', e => { if (!searchBox.contains(e.target)) results.hidden = true; });
+
+// 生成物のバージョン。nav.json と rows/ もこれで引くので、更新がない限りキャッシュが効く。
+const GENERATED = document.body.dataset.generated || '';
+drawPager();
+{
+  const first = stateFromHash();
+  if (first.country || first.page !== 1) showPage(first, false);
+}
+fetch('nav.json?v=' + encodeURIComponent(GENERATED))
+  .then(r => r.json()).then(bootNav).catch(() => {});
+// 生成は1日1回。開きっぱなしのタブ向けに1時間ごとに確かめ、新しくなっていれば読み直す。
+// 中身は読まず、毎回作り直される1ページ目の行データの ETag / Last-Modified の変化だけ見る。
+const dataStamp = () => fetch('rows/1.json', { method: 'HEAD', cache: 'no-store' })
+  .then(r => r.ok ? (r.headers.get('etag') || r.headers.get('last-modified')) : null)
+  .catch(() => null);
+dataStamp().then(first => {
+  if (!first) return;
+  setInterval(() => {
+    dataStamp().then(now => { if (now && now !== first) location.reload(); });
+  }, 60 * 60 * 1000);
+});
+</script>
+</body>
+</html>
