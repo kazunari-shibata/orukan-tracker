@@ -30,7 +30,7 @@ Actions が毎回作り直す。
 2. 前回の `history/` を Actions のキャッシュから復元する（`history-` プレフィックスで最新を拾う）
 3. `build.py` が当日の CSV を書く
 4. 最新2日ぶんだけ残して古い CSV を捨て、`history-<run_id>` として保存し直す
-5. `nav.py` → `render.py` でページを作り、`logos/` と `favicon.ico` を `_site/` に足す
+5. `nav.py` → `render.py` でページを作り、`logos/` を `_site/` に足す
 6. `upload-pages-artifact` → `deploy-pages` で GitHub Pages に出す
 
 前日比（順位の上げ下げ）に前回の CSV が要るが、毎日のデータは git にもファイルにも残さず
