@@ -401,7 +401,7 @@ def main():
         "universe": universe,
         "coveredWeight": round(sum(r["weight"] for r in rows), 2),
         # 米国株の株価の日付（米国東部時間）と、取得時の市場の状態（REGULAR なら取引時間中）。
-        # 推計の答え合わせは、holdingsAsOf がこの日付の保有ファイルと比べる（tools/accuracy.py）。
+        # 推計の答え合わせをするなら、holdingsAsOf がこの日付の保有ファイルと比べる。
         "pricesAsOf": prices_as_of,
         "usMarketState": us_market_state,
         "fx": {k: round(v, 4) for k, v in sorted(fx_live.items())},
