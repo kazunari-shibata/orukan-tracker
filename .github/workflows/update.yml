@@ -42,12 +42,12 @@ jobs:
       - name: 推計を計算
         run: python tools/build.py --out-dir history
 
-      # 使うのは最新とその前の日だけ
+      # 前日比は株価の日付が変わった直近の CSV と比べる。週末や連休をまたげるだけ残す
       - name: 古い推計を捨てる
         working-directory: history
         run: |
           shopt -s nullglob
-          ls ????-??-??.csv | sort | head -n -2 | while read -r csv; do
+          ls ????-??-??.csv | sort | head -n -7 | while read -r csv; do
             rm "$csv" "${csv%.csv}.meta.json"
           done
           ls

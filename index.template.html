@@ -56,6 +56,12 @@
     background:var(--text); color:var(--panel); font-size:.72rem;
     padding:3px 7px; border-radius:5px; white-space:nowrap; pointer-events:none;
   }
+  /* ホバーできない端末（スマホ）で、title をタップして出す吹き出し。見た目は .readout に揃える */
+  .tip {
+    position:fixed; z-index:10; max-width:min(320px, calc(100vw - 16px));
+    background:var(--text); color:var(--panel); font-size:.78rem; line-height:1.4;
+    padding:5px 9px; border-radius:6px; pointer-events:none;
+  }
   /* 国・地域と業種の比率。左右2列（スマホは縦に積む）で、各列は横の積み上げ棒1本＋凡例。色は上位7項目を青の濃淡、その他を灰色 */
   .mix { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
   .mixrow { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:14px 18px; }
@@ -74,8 +80,6 @@
     font-size:.85rem; color:var(--sub);
   }
   .mixlegend li { white-space:nowrap; }
-  .mixlegend a { color:inherit; text-decoration:none; }
-  .mixlegend a:hover { color:var(--accent); }
   .mixlegend b { font-weight:600; color:var(--text); font-variant-numeric:tabular-nums; }
   .sw { display:inline-block; width:8px; height:8px; border-radius:2px; margin-right:5px; vertical-align:1px; }
   /* 列幅は中身なりに決めたうえで、余った幅を各列に配分する（table-layout:auto）。
@@ -585,6 +589,35 @@ function setMode(next) {
 }
 modeButtons.forEach(b => b.addEventListener('click', () => { if (b.dataset.mode !== mode) setMode(b.dataset.mode); }));
 modeButtons.forEach(b => b.setAttribute('aria-pressed', b.dataset.mode === mode));
+
+// ホバーできない端末（スマホ）では、title の付いた箇所をタップすると吹き出しで出す。
+// 行は後から差し替わるので document で拾う。リンクやボタンは押したときの動作を優先する。
+if (matchMedia('(hover: none)').matches) {
+  const tip = document.createElement('div');
+  tip.className = 'tip';
+  tip.hidden = true;
+  tip.setAttribute('role', 'tooltip');
+  document.body.append(tip);
+  let tipFor = null;
+  const hideTip = () => { tip.hidden = true; tipFor = null; };
+  document.addEventListener('click', e => {
+    const el = e.target.closest('[title]');
+    // 同じ箇所をもう一度タップしたら閉じる
+    if (!el || !el.title || el === tipFor || e.target.closest('a, button')) { hideTip(); return; }
+    tip.textContent = el.title;
+    tip.hidden = false;
+    // 上に出す。画面の上端にかかるなら下に出す。どちらも画面からはみ出さないように寄せる
+    // （「その他」の内訳は長いので、下に出すと画面の下端を越えることがある）
+    const r = el.getBoundingClientRect(), w = tip.offsetWidth, h = tip.offsetHeight;
+    const fit = (v, max) => Math.max(8, Math.min(v, max - 8));
+    tip.style.left = fit(r.left + r.width / 2 - w / 2, innerWidth - w) + 'px';
+    tip.style.top = fit(r.top - h - 6 >= 8 ? r.top - h - 6 : r.bottom + 6, innerHeight - h) + 'px';
+    tipFor = el;
+  });
+  // 表の横スクロールも拾えるように capture で
+  addEventListener('scroll', hideTip, { passive: true, capture: true });
+  addEventListener('resize', hideTip);
+}
 
 // 生成物のバージョン。nav.json と rows/ もこれで引くので、更新がない限りキャッシュが効く。
 const GENERATED = document.body.dataset.generated || '';

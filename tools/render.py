@@ -4,7 +4,8 @@ GitHub Actions で実行して GitHub Pages に出す（生成物は git に入�
   - index.template.html の <!--ssg:名前--> 〜 <!--/ssg:名前--> を埋めて index.html を書く
   - 表は100銘柄ずつのページ送り。1ページ目は index.html に直接書き込み、
     全ページぶんの行 HTML を rows/<ページ>.json に書き出す（2ページ目以降はブラウザが読む）
-  - 前日比（順位の上げ下げ）は、最新の CSV とその前の日付の CSV を比べて出す
+  - 前日比（順位の上げ下げ、前日の組入比率）は、最新の CSV と、株価（公表値モードは保有ファイル）の
+    日付が違う直近の CSV を比べて出す
   - 表示は速報値モード（Yahoo の最新の終値と推計）と公表値モード（保有ファイルと公表された
     基準価額）の2通り。ファイルを増やさないよう、両方を同じ HTML と rows/*.json に入れ、
     どちらを見せるかはブラウザが切り替える
@@ -91,8 +92,19 @@ def render_rows(data, rows, logos):
     jpy = (data.get("fx") or {}).get("JPY")
     out = []
     for r in rows:
-        chg_title = ("" if r.get("prevClose") is None
-                     else f'前日終値 {fmt_price(r["prevClose"])} {r["currency"]}')
+        prev_w = r.get("prevWeight")
+        weight_title = ("" if prev_w is None
+                        else f'前日 {prev_w:.3f}%（{round(r["weight"] - prev_w, 3) + 0:+.3f}pt）')
+        # 株価を差し替えられなかった行（速報値モードだけ）は、株価も前日比も推計ではないことを出す
+        if r.get("stale"):
+            price_title = f'株価を取得できなかったので、{md(data.get("holdingsAsOf"))} の保有ファイルの株価'
+        elif r.get("prevClose") is not None:
+            price_title = f'前日終値 {fmt_price(r["prevClose"])} {r["currency"]}'
+        else:
+            price_title = ""
+        diff = r["price"] - r["prevClose"] if r.get("price") and r.get("prevClose") else None
+        chg_title = ("" if diff is None else
+                     f'{"+" if diff > 0 else "-" if diff < 0 else ""}{fmt_price(abs(diff))} {r["currency"]}')
         initial = r["name"].strip()[:1].upper()
         out.append(
             f'<tr data-rank="{r["rank"]}">'
@@ -105,13 +117,13 @@ def render_rows(data, rows, logos):
                ' onerror="this.remove()">' if r["symbol"] in logos else '')
             + '</span>'
             f'<span class="nm">{e(r["name"])}</span></td>'
-            f'<td>{r["weight"]:.3f}%</td>'
+            f'<td title="{e(weight_title)}">{r["weight"]:.3f}%</td>'
             f'<td title="{e(cap_title(r.get("marketCapUsd"), jpy))}">{fmt_cap(r.get("marketCapUsd"), jpy)}</td>'
-            f'<td>{fmt_price(r.get("price"))}'
+            f'<td title="{e(price_title)}">{fmt_price(r.get("price"))}'
             f'<span class="ccy">{e(r["currency"])}</span></td>'
             f'<td class="{cls(r.get("chg1d") or 0)}" title="{e(chg_title)}">{delta(r.get("chg1d"))}</td>'
             f'<td class="sectorcell">{e(r["sector"])}</td>'
-            f'<td class="flagcell" title="{e(r["country"])}">{r["flag"]}'
+            f'<td class="flagcell">{r["flag"]}'
             f'<span class="cname">{e(r["countryJa"])}</span></td>'
             "</tr>"
         )
@@ -197,19 +209,16 @@ def render_mix(rows):
     def stack(items, title):
         head, rest = items[:MIX_TOP], items[MIX_TOP:]
         if rest:
-            names = "、".join(f"{label} {w:.1f}%" for label, _, w in rest)
-            head.append((f"その他（{len(rest)}）", None, sum(w for *_, w in rest), names))
+            names = "、".join(f"{label} {w:.1f}%" for label, w in rest)
+            head.append((f"その他（{len(rest)}）", sum(w for _, w in rest), names))
         segs, legend = [], []
-        for i, (label, href, w, *extra) in enumerate(head):
+        for i, (label, w, *extra) in enumerate(head):
             slot = "other" if extra else i + 1
             tip = extra[0] if extra else f"{label} {w:.1f}%"
             segs.append(f'<i class="s{slot}" style="flex-grow:{w:.3f}" title="{escape(tip)}"></i>')
-            inner = (f'<span class="sw s{slot}"></span>{escape(label)}'
-                     f' <b>{w:.1f}%</b>')
-            # 国は押すと下の表をその国で絞り込む
             legend.append('<li'
                           + (f' title="{escape(extra[0])}"' if extra else '') + '>'
-                          + (f'<a href="{href}">{inner}</a>' if href else inner) + '</li>')
+                          f'<span class="sw s{slot}"></span>{escape(label)} <b>{w:.1f}%</b></li>')
         return (f'<div class="mixrow"><h3>{title}</h3><div class="stack">{"".join(segs)}</div>'
                 f'<ul class="mixlegend">{"".join(legend)}</ul></div>')
 
@@ -220,9 +229,8 @@ def render_mix(rows):
         c[1] += r["weight"] or 0
         by_sector[r["sector"]] = by_sector.get(r["sector"], 0.0) + (r["weight"] or 0)
 
-    countries_ = [(name, f"#country={code}&page=1", w)
-                  for code, (name, w) in sorted(by_country.items(), key=lambda kv: -kv[1][1])]
-    sectors = [(k, None, w) for k, w in sorted(by_sector.items(), key=lambda kv: -kv[1])]
+    countries_ = [(name, w) for name, w in sorted(by_country.values(), key=lambda c: -c[1])]
+    sectors = sorted(by_sector.items(), key=lambda kv: -kv[1])
     return stack(countries_, "国・地域") + stack(sectors, "業種")
 
 
@@ -293,11 +301,11 @@ def pub_order(rows):
 
 
 def mark_changes(rows, prev):
-    """株価の前日比と、順位の上げ下げ（prev は前の日の {symbol: 順位}）を付ける。"""
+    """株価の前日比と、順位の上げ下げ・前日の組入比率を付ける（prev は前の日の {symbol: (順位, 組入比率)}）。"""
     for r in rows:
         r["chg1d"] = (round((r["price"] / r["prevClose"] - 1) * 100, 2)
                       if r["price"] and r["prevClose"] else None)
-        was = prev.get(r["symbol"])
+        was, r["prevWeight"] = prev.get(r["symbol"], (None, None))
         # 正なら順位が上がった
         r["rankDelta"] = was - r["rank"] if was else None
         # 前の日の銘柄数が大きく少なければ（掲載数を増やした直後は）新顔を判定しない。
@@ -306,7 +314,7 @@ def mark_changes(rows, prev):
 
 
 def load_data(history):
-    """最新の日付の CSV を表示用のデータにする。前の日付の CSV があれば順位の上げ下げを付ける。
+    """最新の日付の CSV を表示用のデータにする。前の日の CSV があれば順位の上げ下げと前日の組入比率を付ける。
 
     rows が速報値モード（Yahoo の株価と推計の組入比率）、pubRows が公表値モード
     （保有ファイルの株価と組入比率）。公表値モードの前日比は、前の日付の保有ファイルの株価と比べる。
@@ -315,19 +323,34 @@ def load_data(history):
     if not days:
         raise SystemExit(f"[render] {history} に履歴 CSV がありません")
     meta, rows = read_day(history, days[-1])
-    prev_rows = read_day(history, days[-2])[1] if len(days) > 1 else []
+
+    def before(key):
+        """key（株価か保有ファイルの日付）が今回と違う、直近の CSV の行。
+
+        週末や祝日の実行は株価（公表値モードは保有ファイル）が前回と同じ日付のままなので、
+        すぐ前の CSV と比べると全銘柄が据え置きになる。日付が変わったところまでさかのぼる。
+        """
+        for day in reversed(days[:-1]):
+            m, prev = read_day(history, day)
+            if not m.get(key) or not meta.get(key) or m[key] != meta[key]:
+                return prev
+        return []
+
+    live_prev, pub_prev = before("pricesAsOf"), before("holdingsAsOf")
     for r in rows:
         loc = r["country"]
         r["flag"], r["countryJa"] = COUNTRY.get(loc, ("🏳️", loc))
         r["sector"] = SECTOR_JA.get(r["sector"], r["sector"])
-    mark_changes(rows, {r["symbol"]: r["rank"] for r in prev_rows})
+    mark_changes(rows, {r["symbol"]: (r["rank"], r["weight"]) for r in live_prev})
 
     pub = []
     for i, r in enumerate(pub_order(rows), 1):
         r["pubRank"] = i
         pub.append({**r, "rank": i, "weight": r["baseWeight"] or 0.0, "price": r["basePrice"],
-                    "prevClose": r["basePrevPrice"], "marketCapUsd": r["baseMarketCapUsd"]})
-    mark_changes(pub, {r["symbol"]: i for i, r in enumerate(pub_order(prev_rows), 1)})
+                    "prevClose": r["basePrevPrice"], "marketCapUsd": r["baseMarketCapUsd"],
+                    "stale": False})
+    mark_changes(pub, {r["symbol"]: (i, r["baseWeight"] or 0.0)
+                       for i, r in enumerate(pub_order(pub_prev), 1)})
     return {**meta, "rows": rows, "pubRows": pub}
 
 
