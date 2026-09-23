@@ -28,6 +28,7 @@
 ```
 
 評価額の変化は、公表済みの基準価額が使った相場の日（公表日の前の米国の取引日）から最新の終値まで。
+保有ファイルの日付までは ACWI の NAV の推移、そこから最新の終値までは株価を差し替えた評価額の変化を使う。
 
 ### データの出どころ
 
@@ -41,6 +42,7 @@
 | 元の為替レート | iShares 保有銘柄ファイル | `FX Rate` |
 | 最新株価（現地通貨） | Yahoo Finance | まとめ取得の `regularMarketPrice`。落ちた銘柄は `fast_info` の `lastPrice` で取り直す |
 | 最新の為替レート | Yahoo Finance | `EUR=X`、`JPY=X` などの為替シンボルを株価と同じまとめ取得で取る |
+| ACWI の NAV の推移 | iShares 保有銘柄ファイル | Historical シートの `Non-FV NAV`（権利落ち日は `Ex-Dividends` を足し戻す） |
 | 公表済みの基準価額 | 投資信託協会の投信総合検索ライブラリー | 基準価額の CSV |
 | TTM | 三菱UFJ銀行の公表相場 | 米ドルの (TTS + TTB) / 2 |
 | 今のドル円 | Yahoo Finance | 株価と同じまとめ取得の `JPY=X` |

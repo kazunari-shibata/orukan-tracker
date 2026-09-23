@@ -89,17 +89,15 @@ def load_holdings(path):
     return path.read_text(encoding="utf-8")
 
 
-def parse_holdings(path, raw=None):
-    """iShares の SpreadsheetML を読む。
+def sheet_rows(raw, name):
+    """SpreadsheetML から1シートだけ切り出して、行ごとのセルの文字列のリストにする。
 
-    ファイル全体は免責文の生 HTML のせいで XML として壊れているので、
-    Holdings シートだけを切り出してパースする。
+    ファイル全体は免責文の生 HTML のせいで XML として壊れているので、シートごとに切り出してパースする。
+    シートが無ければ None。
     """
-    if raw is None:
-        raw = load_holdings(path)
-    m = re.search(r'<ss:Worksheet ss:Name="Holdings">.*?</ss:Worksheet>', raw, re.S)
+    m = re.search(rf'<ss:Worksheet ss:Name="{name}">.*?</ss:Worksheet>', raw, re.S)
     if not m:
-        raise SystemExit(f"Holdings シートが見つかりません: {path}")
+        return None
     root = ET.fromstring(
         '<?xml version="1.0"?><r xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet">'
         + m.group(0)
@@ -112,6 +110,16 @@ def parse_holdings(path, raw=None):
             d = c.find("ss:Data", NS)
             cells.append((d.text or "") if d is not None else "")
         rows.append(cells)
+    return rows
+
+
+def parse_holdings(path, raw=None):
+    """iShares の SpreadsheetML の Holdings シートを読む。"""
+    if raw is None:
+        raw = load_holdings(path)
+    rows = sheet_rows(raw, "Holdings")
+    if rows is None:
+        raise SystemExit(f"Holdings シートが見つかりません: {path}")
 
     raw_as_of = next((r[1] for r in rows if r and r[0] == "Fund Holdings as of"), "")
     as_of = to_iso(raw_as_of)
@@ -119,6 +127,29 @@ def parse_holdings(path, raw=None):
     header = rows[hi]
     recs = [dict(zip(header, r)) for r in rows[hi + 1:] if len(r) >= len(header)]
     return as_of, recs
+
+
+def parse_historical(raw):
+    """Historical シート（ACWI の日々の NAV）を読む。[(日付, Non-FV NAV, 分配金)] の古い順。
+
+    Non-FV NAV は各市場の終値そのままで計算した NAV（NAV per Share は米国の引けに合わせて
+    海外株を補正している）。オルカンも各市場の終値で評価するので Non-FV を使う。
+    分配金は権利落ち日の行に入っていて、その行の NAV はもう分配金のぶん下がっている。
+    """
+    rows = sheet_rows(raw, "Historical") or []
+    if not rows:
+        return []
+    col = {name: i for i, name in enumerate(rows[0])}
+    if not {"As Of", "Non-FV NAV", "Ex-Dividends"} <= col.keys():
+        return []
+    out = []
+    for r in rows[1:]:
+        if len(r) < len(col):
+            continue
+        nav = num(r[col["Non-FV NAV"]])
+        if nav:
+            out.append((to_iso(r[col["As Of"]]), nav, num(r[col["Ex-Dividends"]]) or 0.0))
+    return sorted(out)
 
 
 JST = timezone(timedelta(hours=9))
@@ -130,7 +161,7 @@ CSV_FIELDS = ["rank", "symbol", "ticker", "name", "sector", "country", "currency
               "price", "prev_close", "market_cap_usd", "base_weight", "weight", "stale",
               "base_price", "base_prev_price", "base_market_cap_usd"]
 
-# 評価額の水準（meta の levels）を残す日数。基準価額の推計が、公表済みの基準価額が
+# 評価額の水準（meta の levels）に入れる米国の取引日数。基準価額の推計が、公表済みの基準価額が
 # 使った相場の日までさかのぼるのに使う。年末年始の連休をまたげる長さにしてある。
 LEVELS_KEEP = 30
 
@@ -317,31 +348,27 @@ def check_weights(prev_meta, prev_rows, holdings_day, rows):
     }
 
 
-def latest_levels(out_dir):
-    """直近の meta.json に残っている評価額の水準。同じ日の再実行なら今日の分を引き継ぐ。"""
-    metas = sorted(out_dir.glob("????-??-??.meta.json"))
-    try:
-        return json.loads(metas[-1].read_text()).get("levels") or {} if metas else {}
-    except (OSError, ValueError):
-        return {}
+def acwi_levels(hist, holdings_day, prices_day, ratio):
+    """評価額の水準を米国の日付ごとに出す。{日付: 水準}。nav.py が基準価額の推計に使う。
 
-
-def chain_levels(levels, holdings_day, prices_day, ratio):
-    """評価額の水準を米国の日付ごとにつなぐ。{日付: 水準}。
-
-    ratio は保有ファイルの日付の終値から、最新の終値までの評価額の変化（total / fund_total）。
-    水準は日付どうしの比にだけ意味がある。保有ファイルの日付の水準が無ければ（キャッシュが
-    消えた、実行が飛んだ）そこから数え直し、比べられない古い日付は捨てる。
+    保有ファイルの日付までは ACWI の Non-FV NAV の推移（parse_historical）、そこから最新の終値までは
+    ratio（total / fund_total）でつなぐ。水準は日付どうしの比にだけ意味があり、保有ファイルの日付を 1 とする。
+    オルカンは分配しないので、ACWI の権利落ち日は分配金を足し戻して、落ちたぶんを戻す
+    （オルカンが受け取る配当は源泉税が引かれるので、足し戻すぶんだけわずかに上振れる）。
+    保有ファイルの日付の NAV が無ければ（シートが無い、形が変わった）空にして、推計を出さない。
     """
-    if not holdings_day or not prices_day or prices_day < holdings_day:
-        return levels
-    if holdings_day not in levels:
-        levels = {holdings_day: 1.0}
-    levels = dict(levels)
-    # 保有ファイルがもう最新の終値の日付なら、つなぐものが無い
-    if prices_day != holdings_day:
-        levels[prices_day] = round(levels[holdings_day] * ratio, 8)
-    return dict(sorted(levels.items())[-LEVELS_KEEP:])
+    days = [d for d, _, _ in hist]
+    if holdings_day not in days:
+        return {}
+    end = days.index(holdings_day)
+    kept = hist[max(0, end - LEVELS_KEEP + 1):end + 1]
+    levels = {holdings_day: 1.0}
+    # 新しい日から古い日へ。前の日の水準 ＝ その日の水準 × 前の日の NAV ÷（その日の NAV ＋ 分配金）
+    for (day, nav, div), (prev_day, prev_nav, _) in zip(reversed(kept), reversed(kept[:-1])):
+        levels[prev_day] = levels[day] * prev_nav / (nav + div)
+    if prices_day and prices_day > holdings_day:
+        levels[prices_day] = ratio
+    return {d: round(v, 8) for d, v in sorted(levels.items())}
 
 
 def main():
@@ -394,7 +421,7 @@ def main():
     units = {r["_sym"]: (r["_ccy"], r["_divisor"]) for r in picks if r["_sym"]}
 
     print(f"[orukan] {len(picks)} 銘柄（うち Yahoo で取得 {len(units)}）…", file=sys.stderr)
-    # 為替も同じまとめ取得で取る。JPY は時価総額を円で表示するので日本株がなくても要る。
+    # 為替も同じまとめ取得で取る。JPY は基準価額の推計に使うので日本株がなくても要る。
     fx_pairs = {f"{c}=X": c for c in ({p["_ccy"] for p in picks} | {"JPY"}) - {"USD"}}
     mismatched = {}
     wanted = {**units, **{s: (c, 1) for s, c in fx_pairs.items()}}
@@ -497,7 +524,10 @@ def main():
 
     prices_as_of, us_market_state = us_price_stamp(
         stamps, [r["_sym"] for r in picks if r["_sym"] and r.get("Location") == "United States"])
-    levels = chain_levels(latest_levels(args.out_dir), as_of, prices_as_of, total / fund_total)
+    levels = acwi_levels(parse_historical(raw), as_of, prices_as_of, total / fund_total)
+    if not levels:
+        print(f"::warning::[orukan] Historical シートに {as_of} の Non-FV NAV が無いので、"
+              "基準価額の推計に使う水準を出しません", file=sys.stderr)
     meta = {
         "date": day,
         "generatedAt": generated.isoformat(timespec="seconds"),
@@ -511,7 +541,7 @@ def main():
         "pricesAsOf": prices_as_of,
         "usMarketState": us_market_state,
         "fx": {k: round(v, 4) for k, v in sorted(fx_live.items())},
-        # 米国の日付ごとの評価額の水準。nav.py が基準価額の推計に使う（chain_levels 参照）
+        # 米国の日付ごとの評価額の水準。nav.py が基準価額の推計に使う（acwi_levels 参照）
         "levels": levels,
         # 前回の推計の答え合わせ（check_weights 参照）
         "check": check_weights(prev_meta, prev_rows, as_of, rows),

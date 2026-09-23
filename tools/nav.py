@@ -138,7 +138,8 @@ def estimate(history, nav_day, nav_value):
     推計 ＝ 公表済みの基準価額 × 評価額の変化 × 今のドル円 ÷ 公表日の TTM
 
     評価額の変化は、公表済みの基準価額が使った相場の日（nav_day より前の最後の米国の取引日）
-    から最新の終値の日まで。build.py が meta.json に残す levels（米国の日付ごとの水準）で引く。
+    から最新の終値の日まで。build.py が meta.json に書く levels（米国の日付ごとの水準。保有ファイルの
+    日付までは ACWI の NAV の推移、そこから最新の終値までは株価の差し替え）で引く。
     オルカンは海外株を前日の終値、円換算を当日の TTM で計算するので、それに合わせている。
     """
     # TTM は推計できない日も取ってログに出す（取れているかを毎日確かめられるように）
@@ -149,7 +150,7 @@ def estimate(history, nav_day, nav_value):
     jpy = (meta.get("fx") or {}).get("JPY")
     base_days = [d for d in levels if d < nav_day]
     if not base_days or prices_day not in levels or not jpy:
-        raise ValueError("評価額の水準がまだたまっていません")
+        raise ValueError("評価額の水準が、公表済みの基準価額の相場の日か最新の終値の日を含んでいません")
     base_day = max(base_days)
     # 公表済みの基準価額のほうが新しい相場を使っている（株価の取得が止まっている）
     if prices_day < base_day:
