@@ -104,16 +104,22 @@
   .rankdelta.new { color:var(--accent); font-weight:600; }
   /* 企業名の列は余った幅を使い、表が収まらないときはここを削って … で詰める
      （横スクロールを出さない）。max-width:0 と width:100% で、他の列は中身の幅に保つ。 */
-  th.co, td.co { width:100%; max-width:0; min-width:6em; }
+  th.co, td.co { width:100%; max-width:0; min-width:6em; padding-left:0; }
   .co .nm {
-    display:inline-block; max-width:calc(100% - 31px); overflow:hidden; text-overflow:ellipsis;
+    display:inline-block; max-width:100%; overflow:hidden; text-overflow:ellipsis;
     font-weight:600; vertical-align:middle;
   }
   /* ロゴは自前配信。取得できていない銘柄は頭文字のバッジにフォールバックする
      （img の onerror で中身を消すと ::after の頭文字が見える） */
+  /* ロゴの列は横スクロールしても左端に残す（右の列を見ているときも、どの行の会社か分かるように）。
+     下の列が透けないよう、背景は行の縞や検索のハイライトと同じ色を不透明で塗る */
+  /* ロゴと企業名の間隔はロゴの列の右の余白で取る（横スクロールしたとき、隣の列がロゴに接して見えないように） */
+  th.lg, td.lg { position:sticky; left:0; z-index:1; padding-right:9px; background:var(--panel); }
+  tbody tr:nth-child(even) td.lg { background:color-mix(in srgb, var(--line) 30%, var(--panel)); }
+  tbody tr.hit td.lg { background:color-mix(in srgb, var(--accent) 14%, var(--panel)); }
   .logo {
     position:relative; display:inline-block; width:22px; height:22px;
-    margin-right:9px; vertical-align:middle; border-radius:4px; overflow:hidden;
+    vertical-align:middle; border-radius:4px; overflow:hidden;
     background:hsl(var(--seed) 26% 93%);
   }
   .logo::after {
@@ -275,6 +281,7 @@
       <thead>
         <tr>
           <th class="num-rank">順位</th>
+          <th class="lg"></th>
           <th class="co">企業名</th>
           <th>組入比率</th>
           <th>時価総額</th>
@@ -590,8 +597,8 @@ function setMode(next) {
 modeButtons.forEach(b => b.addEventListener('click', () => { if (b.dataset.mode !== mode) setMode(b.dataset.mode); }));
 modeButtons.forEach(b => b.setAttribute('aria-pressed', b.dataset.mode === mode));
 
-// ホバーできない端末（スマホ）では、title の付いた箇所をタップすると吹き出しで出す。
-// 行は後から差し替わるので document で拾う。リンクやボタンは押したときの動作を優先する。
+// ホバーできない端末（スマホ）では、title の付いた箇所（構成銘柄の企業名、構成比の積み上げ棒）をタップすると吹き出しで出す。
+// リンクやボタンは押したときの動作を優先する。
 if (matchMedia('(hover: none)').matches) {
   const tip = document.createElement('div');
   tip.className = 'tip';

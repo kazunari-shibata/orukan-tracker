@@ -4,7 +4,7 @@ GitHub Actions で実行して GitHub Pages に出す（生成物は git に入�
   - index.template.html の <!--ssg:名前--> 〜 <!--/ssg:名前--> を埋めて index.html を書く
   - 表は100銘柄ずつのページ送り。1ページ目は index.html に直接書き込み、
     全ページぶんの行 HTML を rows/<ページ>.json に書き出す（2ページ目以降はブラウザが読む）
-  - 前日比（順位の上げ下げ、前日の組入比率）は、最新の CSV と、株価（公表値モードは保有ファイル）の
+  - 前日比（順位の上げ下げ）は、最新の CSV と、株価（公表値モードは保有ファイル）の
     日付が違う直近の CSV を比べて出す
   - 表示は速報値モード（Yahoo の最新の終値と推計）と公表値モード（保有ファイルと公表された
     基準価額）の2通り。ファイルを増やさないよう、両方を同じ HTML と rows/*.json に入れ、
@@ -53,20 +53,12 @@ def cls(v):
     return "up" if v > 0.005 else "down" if v < -0.005 else "flat"
 
 
-def fmt_cap(usd, jpy):
-    # 時価総額は USD 建てで持っておき、表示時に円へ直す。
-    # 為替が取れていなければドルのまま出す（単位を偽らない）。
+def fmt_cap(usd):
+    # 時価総額はドル建てで出す（円に直すと為替の動きが混ざる）。
+    # 1兆ドル = 1万億ドルなので、兆ドルは小数2桁まで出して億ドルとの桁の差を埋める
     if usd is None:
         return "—"
-    v, tril, bil = (usd * jpy, "兆円", "億円") if jpy else (usd, "兆ドル", "億ドル")
-    return f"{v / 1e12:.1f}{tril}" if v >= 1e12 else f"{round(v / 1e8):,}{bil}"
-
-
-def cap_title(usd, jpy):
-    # 円で出しているときは、マウスを乗せると元のドル建てが見えるようにする
-    if usd is None or not jpy:
-        return ""
-    return fmt_cap(usd, None)
+    return f"{usd / 1e12:.2f}兆ドル" if usd >= 1e12 else f"{round(usd / 1e8):,}億ドル"
 
 
 def hue(sym):
@@ -89,39 +81,29 @@ def rank_mark(r):
 
 def render_rows(data, rows, logos):
     e = lambda v: escape(str(v if v is not None else ""))
-    jpy = (data.get("fx") or {}).get("JPY")
     out = []
     for r in rows:
-        prev_w = r.get("prevWeight")
-        weight_title = ("" if prev_w is None
-                        else f'前日 {prev_w:.3f}%（{round(r["weight"] - prev_w, 3) + 0:+.3f}pt）')
-        # 株価を差し替えられなかった行（速報値モードだけ）は、株価も前日比も推計ではないことを出す
-        if r.get("stale"):
-            price_title = f'株価を取得できなかったので、{md(data.get("holdingsAsOf"))} の保有ファイルの株価'
-        elif r.get("prevClose") is not None:
-            price_title = f'前日終値 {fmt_price(r["prevClose"])} {r["currency"]}'
-        else:
-            price_title = ""
-        diff = r["price"] - r["prevClose"] if r.get("price") and r.get("prevClose") else None
-        chg_title = ("" if diff is None else
-                     f'{"+" if diff > 0 else "-" if diff < 0 else ""}{fmt_price(abs(diff))} {r["currency"]}')
         initial = r["name"].strip()[:1].upper()
+        name_title = f'{e(r["name"])}（{e(r["ticker"])}）'
         out.append(
             f'<tr data-rank="{r["rank"]}">'
             f'<td class="num-rank">{r["rank"]}{rank_mark(r)}</td>'
-            # 企業名は … で切れることがあるので、マウスを乗せると全体とティッカーが見えるようにする
-            f'<td class="co" title="{e(r["name"])}（{e(r["ticker"])}）">'
+            # ロゴは横スクロールしても左端に残す列なので、企業名とは別のセルにする。
+            # 企業名は … で切れることがあり、ロゴだけ見えている状態でも社名が分かるよう、
+            # どちらもマウスを乗せる（スマホはタップする）と全体とティッカーが見えるようにする
+            f'<td class="lg" title="{name_title}">'
             f'<span class="logo" style="--seed:{hue(r["symbol"])}" data-letter="{e(initial)}">'
             # ロゴがある会社だけ img を出す。無い会社（大半）で 404 を大量に出さないため。
             + (f'<img src="logos/{e(r["symbol"])}.png" alt="" loading="lazy" decoding="async"'
                ' onerror="this.remove()">' if r["symbol"] in logos else '')
-            + '</span>'
+            + '</span></td>'
+            f'<td class="co" title="{name_title}">'
             f'<span class="nm">{e(r["name"])}</span></td>'
-            f'<td title="{e(weight_title)}">{r["weight"]:.3f}%</td>'
-            f'<td title="{e(cap_title(r.get("marketCapUsd"), jpy))}">{fmt_cap(r.get("marketCapUsd"), jpy)}</td>'
-            f'<td title="{e(price_title)}">{fmt_price(r.get("price"))}'
+            f'<td>{r["weight"]:.3f}%</td>'
+            f'<td>{fmt_cap(r.get("marketCapUsd"))}</td>'
+            f'<td>{fmt_price(r.get("price"))}'
             f'<span class="ccy">{e(r["currency"])}</span></td>'
-            f'<td class="{cls(r.get("chg1d") or 0)}" title="{e(chg_title)}">{delta(r.get("chg1d"))}</td>'
+            f'<td class="{cls(r.get("chg1d") or 0)}">{delta(r.get("chg1d"))}</td>'
             f'<td class="sectorcell">{e(r["sector"])}</td>'
             f'<td class="flagcell">{r["flag"]}'
             f'<span class="cname">{e(r["countryJa"])}</span></td>'
@@ -301,11 +283,11 @@ def pub_order(rows):
 
 
 def mark_changes(rows, prev):
-    """株価の前日比と、順位の上げ下げ・前日の組入比率を付ける（prev は前の日の {symbol: (順位, 組入比率)}）。"""
+    """株価の前日比と、順位の上げ下げを付ける（prev は前の日の {symbol: 順位}）。"""
     for r in rows:
         r["chg1d"] = (round((r["price"] / r["prevClose"] - 1) * 100, 2)
                       if r["price"] and r["prevClose"] else None)
-        was, r["prevWeight"] = prev.get(r["symbol"], (None, None))
+        was = prev.get(r["symbol"])
         # 正なら順位が上がった
         r["rankDelta"] = was - r["rank"] if was else None
         # 前の日の銘柄数が大きく少なければ（掲載数を増やした直後は）新顔を判定しない。
@@ -314,7 +296,7 @@ def mark_changes(rows, prev):
 
 
 def load_data(history):
-    """最新の日付の CSV を表示用のデータにする。前の日の CSV があれば順位の上げ下げと前日の組入比率を付ける。
+    """最新の日付の CSV を表示用のデータにする。前の日の CSV があれば順位の上げ下げを付ける。
 
     rows が速報値モード（Yahoo の株価と推計の組入比率）、pubRows が公表値モード
     （保有ファイルの株価と組入比率）。公表値モードの前日比は、前の日付の保有ファイルの株価と比べる。
@@ -341,7 +323,7 @@ def load_data(history):
         loc = r["country"]
         r["flag"], r["countryJa"] = COUNTRY.get(loc, ("🏳️", loc))
         r["sector"] = SECTOR_JA.get(r["sector"], r["sector"])
-    mark_changes(rows, {r["symbol"]: (r["rank"], r["weight"]) for r in live_prev})
+    mark_changes(rows, {r["symbol"]: r["rank"] for r in live_prev})
 
     pub = []
     for i, r in enumerate(pub_order(rows), 1):
@@ -349,8 +331,7 @@ def load_data(history):
         pub.append({**r, "rank": i, "weight": r["baseWeight"] or 0.0, "price": r["basePrice"],
                     "prevClose": r["basePrevPrice"], "marketCapUsd": r["baseMarketCapUsd"],
                     "stale": False})
-    mark_changes(pub, {r["symbol"]: (i, r["baseWeight"] or 0.0)
-                       for i, r in enumerate(pub_order(pub_prev), 1)})
+    mark_changes(pub, {r["symbol"]: i for i, r in enumerate(pub_order(pub_prev), 1)})
     return {**meta, "rows": rows, "pubRows": pub}
 
 
