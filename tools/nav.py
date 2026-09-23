@@ -18,9 +18,10 @@ import json
 import re
 import sys
 import urllib.request
-from datetime import date
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
+JST = timezone(timedelta(hours=9))
 TOUSHIN_URL = ("https://toushin-lib.fwg.ne.jp/FdsWeb/FDST030000/csv-file-download"
                "?isinCd=JP90C000H1T1&associFundCd=0331418A")
 # 三菱UFJ銀行の公表相場（三菱UFJリサーチ&コンサルティングのサイト）。Shift-JIS。
@@ -28,6 +29,10 @@ MUFG_TTM_URL = "https://www.murc-kawasesouba.jp/fx/past/index.php?id={:%y%m%d}"
 MONTHS = {m: i for i, m in enumerate(
     "January February March April May June July August September October November December".split(), 1)}
 FUND = "eMAXIS Slim 全世界株式（オール・カントリー）"
+# 出した推計を残すファイル（--history の中）。翌日以降、公表された基準価額と答え合わせする。
+# 土日の朝の推計は3回とも月曜分と比べるので、連休をまたげるだけ残す。
+ESTIMATES_FILE = "nav-estimates.json"
+ESTIMATES_KEEP = 10
 
 
 def load(src, encoding="shift_jis"):
@@ -76,6 +81,57 @@ def fetch_ttm(day):
     return (float(m.group(1)) + float(m.group(2))) / 2
 
 
+def latest_meta(history):
+    metas = sorted(Path(history).glob("????-??-??.meta.json"))
+    if not metas:
+        raise ValueError(f"{history} に meta.json がありません")
+    return json.loads(metas[-1].read_text())
+
+
+def load_estimates(history):
+    try:
+        return json.loads((Path(history) / ESTIMATES_FILE).read_text())
+    except (OSError, ValueError):
+        return []
+
+
+def save_estimate(history, est):
+    """今日の推計を残す。同じ日の再実行なら置き換える。"""
+    kept = [e for e in load_estimates(history) if e.get("madeOn") != est["madeOn"]] + [est]
+    (Path(history) / ESTIMATES_FILE).write_text(
+        json.dumps(kept[-ESTIMATES_KEEP:], ensure_ascii=False, indent=1) + "\n")
+
+
+def check_estimates(history, dates, values):
+    """残っている推計を、同じ相場の日を使って公表された基準価額と答え合わせする。
+
+    公表日 d の基準価額が使う相場の日は、d より前の最後の米国の取引日（estimate() の
+    base_day と同じ引き方）。推計の pricesAsOf がそれと一致すれば同じ相場の日の値。
+    答え合わせできた中で一番新しい公表日の分を返す。日本の平日の祝日の朝の推計は、
+    その日の終値を使う基準価額が無いので、どれとも一致しない。
+    """
+    estimates = load_estimates(history)
+    if not estimates:
+        return None
+    levels = latest_meta(history).get("levels") or {}
+    for day, value in reversed(list(zip(dates, values))):
+        before = [d for d in levels if d < day]
+        if not before:
+            break
+        base_day = max(before)
+        hits = [e for e in estimates if e["pricesAsOf"] == base_day and e["madeOn"] <= day]
+        if hits:
+            return {
+                "navDate": day,
+                "published": value,
+                "pricesAsOf": base_day,
+                # 推計を出した日ごとの誤差（%）。土日の朝の推計はドル円が古いぶん外れやすい
+                "estimates": [{"madeOn": e["madeOn"], "value": e["value"],
+                               "diff": round((e["value"] / value - 1) * 100, 3)} for e in hits],
+            }
+    return None
+
+
 def estimate(history, nav_day, nav_value):
     """最新の終値で計算したら基準価額がいくらになるかを推計する。
 
@@ -88,10 +144,7 @@ def estimate(history, nav_day, nav_value):
     # TTM は推計できない日も取ってログに出す（取れているかを毎日確かめられるように）
     ttm = fetch_ttm(nav_day)
     print(f"[nav] {nav_day} の TTM（米ドル）: {ttm}", file=sys.stderr)
-    metas = sorted(Path(history).glob("????-??-??.meta.json"))
-    if not metas:
-        raise ValueError(f"{history} に meta.json がありません")
-    meta = json.loads(metas[-1].read_text())
+    meta = latest_meta(history)
     levels, prices_day = meta.get("levels") or {}, meta.get("pricesAsOf")
     jpy = (meta.get("fx") or {}).get("JPY")
     base_days = [d for d in levels if d < nav_day]
@@ -146,8 +199,23 @@ def main():
         "values": values,
     }
     if args.history:
+        # 答え合わせは今日の推計を残す前に。同じ日の再実行で今日の推計と比べないように
+        try:
+            check = check_estimates(args.history, dates, values)
+        except Exception as e:
+            check = None
+            print(f"::warning::[nav] 基準価額の推計の答え合わせに失敗しました: {e}", file=sys.stderr)
+        if check:
+            out["check"] = check
+            diffs = ", ".join(f"{e['madeOn']} の推計 {e['value']:,}円（{e['diff']:+}%）"
+                              for e in check["estimates"])
+            print(f"::notice::[nav] 基準価額の答え合わせ（{check['navDate']} 公表 "
+                  f"{check['published']:,}円）: {diffs}", file=sys.stderr)
         try:
             out["estimate"] = estimate(args.history, dates[-1], last)
+            save_estimate(args.history, {"madeOn": datetime.now(JST).date().isoformat(),
+                                         **{k: out["estimate"][k] for k in
+                                            ("value", "pricesAsOf", "baseAsOf", "ttm", "usdjpy")}})
         except Exception as e:
             # 推計が出せなくても公表値は出す。ページの速報値モードは公表値に落とす
             print(f"::warning::[nav] 基準価額を推計できなかったので、速報値モードも公表値を出します: {e}",

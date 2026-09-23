@@ -134,6 +134,9 @@ CSV_FIELDS = ["rank", "symbol", "ticker", "name", "sector", "country", "currency
 # 使った相場の日までさかのぼるのに使う。年末年始の連休をまたげる長さにしてある。
 LEVELS_KEEP = 30
 
+# 組入比率の答え合わせで、全銘柄とは別に見る上位の銘柄数（実際の順位で数える）
+CHECK_TOP = 100
+
 
 def fetch_quotes_batch(units, mismatched, retry=False, stamps=None, nocap=None):
     """現在値・前日終値・時価総額を、Yahoo のクオートからまとめて取る。
@@ -270,6 +273,48 @@ def previous_day(out_dir, day):
             return meta, {r["symbol"]: r for r in csv.DictReader(f)}
     except (OSError, ValueError):
         return None, {}
+
+
+def check_weights(prev_meta, prev_rows, holdings_day, rows):
+    """前回の推計（組入比率・順位）を、その株価の日付の保有ファイルと答え合わせする。
+
+    前回の株価の日付が今回の保有ファイルの日付と同じときだけ比べる。前回が推計していない
+    （保有ファイルがもう株価と同じ日付だった）ときや、日付が合わないときは None。
+    比率の誤差からは、株価を差し替えられなかった行（stale）を外す。ファイルの値のままなので
+    誤差が小さく見えるため。どちらかにしか無い銘柄は突き合わせられないので数えない。
+    """
+    if (not prev_meta or prev_meta.get("pricesAsOf") != holdings_day
+            or prev_meta.get("holdingsAsOf") == holdings_day):
+        return None
+    actual = sorted(rows, key=lambda r: -r["base_weight"])
+    pairs = []
+    for rank, r in enumerate(actual, 1):
+        p = prev_rows.get(r["symbol"])
+        if p:
+            pairs.append({"symbol": r["symbol"], "rank": rank, "est_rank": int(p["rank"]),
+                          "weight": r["base_weight"], "est_weight": float(p["weight"]),
+                          "stale": p["stale"] == "1"})
+
+    def summary(ps):
+        if not ps:
+            return None
+        errs = sorted((abs(p["est_weight"] - p["weight"]), p["symbol"]) for p in ps if not p["stale"])
+        gaps = sorted(abs(p["est_rank"] - p["rank"]) for p in ps)
+        return {
+            "n": len(ps),
+            "absSum": round(sum(e for e, _ in errs), 4),     # 比率の誤差の絶対値の合計（%）
+            "absMax": round(errs[-1][0], 4) if errs else None,
+            "absMaxSymbol": errs[-1][1] if errs else None,
+            "rankMatch": round(sum(g == 0 for g in gaps) / len(gaps) * 100, 1),   # 順位の一致率（%）
+            "rankGapMedian": gaps[len(gaps) // 2],
+        }
+
+    return {
+        "estimatedOn": prev_meta.get("date"),
+        "pricesAsOf": holdings_day,
+        "all": summary(pairs),
+        f"top{CHECK_TOP}": summary([p for p in pairs if p["rank"] <= CHECK_TOP]),
+    }
 
 
 def latest_levels(out_dir):
@@ -468,6 +513,8 @@ def main():
         "fx": {k: round(v, 4) for k, v in sorted(fx_live.items())},
         # 米国の日付ごとの評価額の水準。nav.py が基準価額の推計に使う（chain_levels 参照）
         "levels": levels,
+        # 前回の推計の答え合わせ（check_weights 参照）
+        "check": check_weights(prev_meta, prev_rows, as_of, rows),
     }
     args.out_dir.mkdir(parents=True, exist_ok=True)
     with open(args.out_dir / f"{day}.csv", "w", newline="", encoding="utf-8") as f:
@@ -479,6 +526,14 @@ def main():
         json.dumps(meta, ensure_ascii=False, indent=1) + "\n")
     print(f"[orukan] {args.out_dir}/{day}.csv を書き出しました "
           f"({len(rows)}銘柄 / 合計ウェイト {meta['coveredWeight']}%)", file=sys.stderr)
+    check = meta["check"]
+    if check:
+        top, whole = check[f"top{CHECK_TOP}"], check["all"]
+        print(f"::notice::[orukan] 組入比率の答え合わせ（{check['estimatedOn']} の推計 vs "
+              f"{check['pricesAsOf']} の保有ファイル）: 上位{CHECK_TOP} 誤差合計 {top['absSum']}% / "
+              f"順位一致 {top['rankMatch']}%、全{whole['n']}銘柄 誤差合計 {whole['absSum']}% / "
+              f"最大 {whole['absMax']}%（{whole['absMaxSymbol']}）/ 順位のずれの中央値 {whole['rankGapMedian']}",
+              file=sys.stderr)
     if mismatched:
         print(f"[orukan] 建値の通貨が想定と違うため使わなかった: "
               f"{', '.join(f'{k}({v})' for k, v in mismatched.items())}", file=sys.stderr)

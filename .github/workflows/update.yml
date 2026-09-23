@@ -52,6 +52,11 @@ jobs:
           done
           ls
 
+      # nav.py は基準価額の推計を history/nav-estimates.json に残し、翌日以降に答え合わせする。
+      # キャッシュに入れるため、保存より前に動かす
+      - name: 基準価額を取得
+        run: python tools/nav.py --out _site/nav.json --history history
+
       - name: 推計をキャッシュに保存
         uses: actions/cache/save@v6
         with:
@@ -61,7 +66,6 @@ jobs:
       - name: ページを生成
         run: |
           mkdir -p _site
-          python tools/nav.py --out _site/nav.json --history history
           python tools/render.py --history history --nav _site/nav.json \
             --page _site/index.html --rows _site/rows
           cp -R logos _site/

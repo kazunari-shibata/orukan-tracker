@@ -29,9 +29,11 @@ Actions が毎回作り直す。
 1. 06:20 JST に Cloudflare Worker `orukan-cron` が `workflow_dispatch` を叩く（下記）
 2. 前回の `history/` を Actions のキャッシュから復元する（`history-` プレフィックスで最新を拾う）
 3. `build.py` が当日の CSV を書く
-4. 最新2日ぶんだけ残して古い CSV を捨て、`history-<run_id>` として保存し直す
-5. `nav.py`（`--history history` で推計も）→ `render.py` でページを作り、`logos/` を `_site/` に足す
-6. `upload-pages-artifact` → `deploy-pages` で GitHub Pages に出す
+4. 最新2日ぶんだけ残して古い CSV を捨てる
+5. `nav.py`（`--history history` で推計と答え合わせも）が `nav.json` と `history/nav-estimates.json` を書く
+6. `history/` を `history-<run_id>` として保存し直す
+7. `render.py` でページを作り、`logos/` を `_site/` に足す
+8. `upload-pages-artifact` → `deploy-pages` で GitHub Pages に出す
 
 前日比（順位の上げ下げ）に前回の CSV が要るが、毎日のデータは git にもファイルにも残さず
 Actions のキャッシュにだけ置く。キャッシュが無い日は前日比なしで出す。
@@ -99,6 +101,22 @@ iShares の保有銘柄ファイル（数量・為替・評価額）を土台に
 公表値との差の中央値が 0.13%、9割の日が 0.39% 以内、前日比の向きの一致が 91.5%。
 差の大半は、06:20 から TTM が決まる 10時ごろまでのドル円の動きと、日本株（約5%）だけが
 当日の終値で評価されることによる。公表値とは一致しないので、画面には「推計」と出す。
+
+## 推計の答え合わせ
+
+直前の推計を、同じ相場の日の公表データと1回ずつ比べる。長く貯めはしない（キャッシュの2日ぶんで足りる）。
+結果は Actions の実行画面に `::notice::` で出る。
+
+- 組入比率（`build.py` の `check_weights`）: 前回の CSV の `weight` と順位を、今回の保有ファイルの
+  `Weight (%)` と順位で比べ、`meta.json` の `check` に入れる。前回の `pricesAsOf` が今回の
+  `holdingsAsOf` と同じ日だけ。全銘柄と上位100銘柄（`CHECK_TOP`、実際の順位で数える）のそれぞれで、
+  比率の誤差の絶対値の合計と最大、順位の一致率、順位のずれの中央値。比率の誤差から `stale` の行は外す
+- 基準価額（`nav.py` の `check_estimates`）: 出した推計を `history/nav-estimates.json` に10件残し、
+  公表日の相場の日（`estimate()` の `base_day` と同じ引き方）と `pricesAsOf` が一致する推計を探して
+  `nav.json` の `check` に入れる。土日の朝の推計は3回とも月曜分と比べる。
+  日本の平日の祝日の朝の推計は、その日の終値を使う基準価額が無いので答え合わせされない
+
+答え合わせの相手は iShares の保有ファイルとオルカンの公表値。組入比率はオルカンの実際の比率ではない。
 
 ## 株価の取得
 
@@ -182,7 +200,8 @@ base_price, base_prev_price, base_market_cap_usd
 ### `history/<日付>.meta.json`
 
 `date`、`generatedAt`、`holdingsAsOf`（保有ファイルの日付）、`count`、`universe`、
-`coveredWeight`、`fx`、`levels`（基準価額の推計用。上の節）、それに `pricesAsOf` と `usMarketState`。
+`coveredWeight`、`fx`、`levels`（基準価額の推計用。上の節）、`check`（前回の推計の答え合わせ）、
+それに `pricesAsOf` と `usMarketState`。
 
 `pricesAsOf` は米国株の株価がいつの値かを多数決で決めた米国東部時間の日付。
 `usMarketState` が `REGULAR` なら取引時間中の株価（終値ではない）なので答え合わせには使えない。
@@ -195,7 +214,8 @@ base_price, base_prev_price, base_market_cap_usd
 
 分配金再投資ベースの列は無いが、オルカンは無分配なので基準価額と一致する。
 
-`--history` を渡すと `estimate`（推計値、公表値との差、どの日の終値で推計したか、使った TTM とドル円）も入れる。
+`--history` を渡すと `estimate`（推計値、公表値との差、どの日の終値で推計したか、使った TTM とドル円）と
+`check`（前の推計の答え合わせ。上の節）も入れる。
 
 ## ページ生成（`render.py`）
 
