@@ -12,3 +12,6 @@ _site/
 # Worker のデプロイ作業で出るもの
 .wrangler/
 node_modules/
+
+# Claude のアプリの作業用（プレビューの起動設定など）
+.claude/
