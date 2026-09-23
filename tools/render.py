@@ -5,6 +5,9 @@ GitHub Actions で実行して GitHub Pages に出す（生成物は git に入�
   - 表は100銘柄ずつのページ送り。1ページ目は index.html に直接書き込み、
     全ページぶんの行 HTML を rows/<ページ>.json に書き出す（2ページ目以降はブラウザが読む）
   - 前日比（順位の上げ下げ）は、最新の CSV とその前の日付の CSV を比べて出す
+  - 表示は速報値モード（Yahoo の最新の終値と推計）と公表値モード（保有ファイルと公表された
+    基準価額）の2通り。ファイルを増やさないよう、両方を同じ HTML と rows/*.json に入れ、
+    どちらを見せるかはブラウザが切り替える
 
 ページの見た目を変えるときは index.template.html を、データ部分の HTML を変えるときは
 このファイルを編集する。手元で確かめるときもこれを実行してから配信する。
@@ -115,17 +118,40 @@ def render_rows(data, rows, logos):
     return "\n".join(out)
 
 
+def md(iso):
+    """"2026-09-18" -> "9/18"。"""
+    try:
+        _, m, d = iso.split("-")
+        return f"{int(m)}/{int(d)}"
+    except (AttributeError, ValueError):
+        return iso or "—"
+
+
 def render_navhead(nav):
+    """基準価額の数字。速報値モードは推計値（無ければ公表値）、公表値モードは公表値。"""
     if not nav:
         return ""
-    amt = nav["chgAmount"]
-    return (
-        f'<div class="fundname" id="fundname">{escape(nav["fund"])}</div>'
-        f'<div class="navnow"><b id="navprice">{nav["latest"]:,}</b><span class="navunit">円</span>'
-        ' <span class="chglabel">前日比</span>'
-        f'<span id="navchg" class="{cls(nav["chg1d"])}">'
-        f'{"+" if amt > 0 else ""}{amt:,}円 ({pct(nav["chg1d"])})</span></div>'
-    )
+
+    def block(mode, value, amt, chg):
+        return (f'<div class="navnow m-{mode}"><b>{value:,}</b><span class="navunit">円</span>'
+                ' <span class="chglabel">前日比</span>'
+                f'<span class="navchg {cls(chg)}">{"+" if amt > 0 else ""}{amt:,}円 ({pct(chg)})</span></div>')
+
+    official = (nav["latest"], nav["chgAmount"], nav["chg1d"])
+    est = nav.get("estimate")
+    # 推計の前日比は、公表済みの最新の基準価額との差
+    live = (est["value"], est["chgAmount"], est["chg"]) if est else official
+    return (f'<div class="fundname" id="fundname">{escape(nav["fund"])}</div>'
+            + block("live", *live) + block("pub", *official))
+
+
+def render_modebar(data, nav):
+    """切り替えボタンの横に出す、両モードの数字がいつの値かの説明。"""
+    t = datetime.fromisoformat(data["generatedAt"]).astimezone(JST)
+    text = (f'速報値は {t.month}/{t.day} {t.hour}:{t.minute:02d} JST 時点の推計、'
+            f'公表値は {md(data.get("holdingsAsOf"))} 時点の保有銘柄'
+            + (f'と {md(nav["asOf"])} の基準価額' if nav else '') + 'の公表データ。')
+    return escape(text)
 
 
 def fill(html, name, content):
@@ -200,32 +226,37 @@ def render_mix(rows):
     return stack(countries_, "国・地域") + stack(sectors, "業種")
 
 
+def render_page(data, live, pub, n, logos):
+    """n ページ目の行 HTML。{"rows": 速報値モード, "pub": 公表値モード}。並び順はモードごとに違う。"""
+    part = lambda rows: render_rows(data, rows[(n - 1) * PAGE_SIZE:n * PAGE_SIZE], logos)
+    return json.dumps({"rows": part(live), "pub": part(pub)}, ensure_ascii=False, separators=(",", ":"))
+
+
 def write_pages(data, logos, out_dir):
-    """全ページぶんの行 HTML を rows/<ページ>.json に書き出す。{"rows": 行 HTML}。
+    """全ページぶんの行 HTML を rows/<ページ>.json に書き出す（中身は render_page）。
 
     国・地域で絞り込んだページも rows/c/<国コード>/<ページ>.json に書く（順位は全体の順位のまま）。
 
-    あわせて、銘柄検索用の索引 rows/search.json（[順位, ティッカー, 名前, 組入比率]）も書く。
+    あわせて、銘柄検索用の索引 rows/search.json
+    （[順位, ティッカー, 名前, 組入比率, 公表値モードの順位, 公表値モードの組入比率]）も書く。
     検索欄を使ったときにだけブラウザが読む。
     """
-    rows = data["rows"]
+    rows, pub = data["rows"], data["pubRows"]
     pages = max(1, -(-len(rows) // PAGE_SIZE))
     out_dir.mkdir(parents=True, exist_ok=True)
     for n in range(1, pages + 1):
-        chunk = rows[(n - 1) * PAGE_SIZE:n * PAGE_SIZE]
-        body = {"rows": render_rows(data, chunk, logos)}
-        (out_dir / f"{n}.json").write_text(json.dumps(body, ensure_ascii=False, separators=(",", ":")))
+        (out_dir / f"{n}.json").write_text(render_page(data, rows, pub, n, logos))
     # 国・地域ごとのページ。国が減ったときに古いファイルが残らないよう、毎回作り直す
     shutil.rmtree(out_dir / "c", ignore_errors=True)
     for code, *_ in countries(rows):
         mine = [r for r in rows if country_code(r) == code]
+        mine_pub = [r for r in pub if country_code(r) == code]
         (out_dir / "c" / code).mkdir(parents=True)
         for n in range(1, -(-len(mine) // PAGE_SIZE) + 1):
-            body = {"rows": render_rows(data, mine[(n - 1) * PAGE_SIZE:n * PAGE_SIZE], logos)}
-            (out_dir / "c" / code / f"{n}.json").write_text(
-                json.dumps(body, ensure_ascii=False, separators=(",", ":")))
+            (out_dir / "c" / code / f"{n}.json").write_text(render_page(data, mine, mine_pub, n, logos))
 
-    index = [[r["rank"], r["ticker"], r["name"], round(r["weight"], 3)] for r in rows]
+    index = [[r["rank"], r["ticker"], r["name"], round(r["weight"], 3),
+              r["pubRank"], round(r["baseWeight"] or 0, 3)] for r in rows]
     (out_dir / "search.json").write_text(json.dumps(index, ensure_ascii=False, separators=(",", ":")))
     # 銘柄数が減ってページが減ったら、余ったページを消す
     for p in out_dir.glob("*.json"):
@@ -249,30 +280,55 @@ def read_day(history, day):
             "prevClose": num(r["prev_close"]), "marketCapUsd": num(r["market_cap_usd"], int),
             "baseWeight": num(r["base_weight"]), "weight": num(r["weight"]),
             "stale": r["stale"] == "1",
+            # 公表値モード用（この列ができる前の CSV には無い）
+            "basePrice": num(r.get("base_price")), "basePrevPrice": num(r.get("base_prev_price")),
+            "baseMarketCapUsd": num(r.get("base_market_cap_usd"), int),
         } for r in csv.DictReader(f)]
     return meta, rows
 
 
-def load_data(history):
-    """最新の日付の CSV を表示用のデータにする。前の日付の CSV があれば順位の上げ下げを付ける。"""
-    days = sorted(p.name[:-len(".csv")] for p in history.glob("????-??-??.csv"))
-    if not days:
-        raise SystemExit(f"[render] {history} に履歴 CSV がありません")
-    meta, rows = read_day(history, days[-1])
-    prev = {r["symbol"]: r["rank"] for r in read_day(history, days[-2])[1]} if len(days) > 1 else {}
+def pub_order(rows):
+    """公表値モードの並び。保有ファイルの組入比率の大きい順。"""
+    return sorted(rows, key=lambda r: (-(r["baseWeight"] or 0), r["rank"]))
+
+
+def mark_changes(rows, prev):
+    """株価の前日比と、順位の上げ下げ（prev は前の日の {symbol: 順位}）を付ける。"""
     for r in rows:
-        loc = r["country"]
-        r["flag"], r["countryJa"] = COUNTRY.get(loc, ("🏳️", loc))
-        r["sector"] = SECTOR_JA.get(r["sector"], r["sector"])
         r["chg1d"] = (round((r["price"] / r["prevClose"] - 1) * 100, 2)
-                      if r["prevClose"] else None)
+                      if r["price"] and r["prevClose"] else None)
         was = prev.get(r["symbol"])
         # 正なら順位が上がった
         r["rankDelta"] = was - r["rank"] if was else None
         # 前の日の銘柄数が大きく少なければ（掲載数を増やした直後は）新顔を判定しない。
         # 日々の入れ替えで数銘柄増減するのは普通なので、1割までの差は許す。
         r["rankNew"] = bool(prev) and len(prev) >= len(rows) * 0.9 and not was
-    return {**meta, "rows": rows}
+
+
+def load_data(history):
+    """最新の日付の CSV を表示用のデータにする。前の日付の CSV があれば順位の上げ下げを付ける。
+
+    rows が速報値モード（Yahoo の株価と推計の組入比率）、pubRows が公表値モード
+    （保有ファイルの株価と組入比率）。公表値モードの前日比は、前の日付の保有ファイルの株価と比べる。
+    """
+    days = sorted(p.name[:-len(".csv")] for p in history.glob("????-??-??.csv"))
+    if not days:
+        raise SystemExit(f"[render] {history} に履歴 CSV がありません")
+    meta, rows = read_day(history, days[-1])
+    prev_rows = read_day(history, days[-2])[1] if len(days) > 1 else []
+    for r in rows:
+        loc = r["country"]
+        r["flag"], r["countryJa"] = COUNTRY.get(loc, ("🏳️", loc))
+        r["sector"] = SECTOR_JA.get(r["sector"], r["sector"])
+    mark_changes(rows, {r["symbol"]: r["rank"] for r in prev_rows})
+
+    pub = []
+    for i, r in enumerate(pub_order(rows), 1):
+        r["pubRank"] = i
+        pub.append({**r, "rank": i, "weight": r["baseWeight"] or 0.0, "price": r["basePrice"],
+                    "prevClose": r["basePrevPrice"], "marketCapUsd": r["baseMarketCapUsd"]})
+    mark_changes(pub, {r["symbol"]: i for i, r in enumerate(pub_order(prev_rows), 1)})
+    return {**meta, "rows": rows, "pubRows": pub}
 
 
 def main():
@@ -288,12 +344,15 @@ def main():
     nav = json.loads(args.nav.read_text()) if args.nav.exists() else None
 
     html = args.template.read_text()
+    html = fill(html, "modebar", render_modebar(data, nav))
     html = fill(html, "navhead", render_navhead(nav))
     logos = {p.stem for p in (ROOT / "logos").glob("*.png")}
     html = fill(html, "rows", render_rows(data, data["rows"][:PAGE_SIZE], logos))
+    html = fill(html, "rowspub", render_rows(data, data["pubRows"][:PAGE_SIZE], logos))
     pages = write_pages(data, logos, args.rows)
     html = fill(html, "countries", render_countries(data["rows"]))
-    html = fill(html, "mix", render_mix(data["rows"]))
+    html = fill(html, "mix", f'<div class="m-live">{render_mix(data["rows"])}</div>'
+                             f'<div class="m-pub">{render_mix(data["pubRows"])}</div>')
     html = re.sub(r'<nav class="pager" id="pager"[^>]*>',
                   f'<nav class="pager" id="pager" aria-label="ページ" data-size="{PAGE_SIZE}">', html, count=1)
     # 基準価額が無いときは欄ごと隠す（チャートは JS が nav.json から描く）

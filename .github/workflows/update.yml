@@ -61,7 +61,7 @@ jobs:
       - name: ページを生成
         run: |
           mkdir -p _site
-          python tools/nav.py --out _site/nav.json
+          python tools/nav.py --out _site/nav.json --history history
           python tools/render.py --history history --nav _site/nav.json \
             --page _site/index.html --rows _site/rows
           cp -R logos _site/

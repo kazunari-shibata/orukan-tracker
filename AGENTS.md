@@ -13,7 +13,7 @@
 | `.github/workflows/update.yml` | 毎日の更新。GitHub がこのパスしか見ないので動かせない |
 | `tools/cron/` | 更新を時刻どおりに始める Cloudflare Worker |
 | `tools/build.py` | 組入比率の推計。`history/<日付>.csv` と `.meta.json` を書く |
-| `tools/nav.py` | 基準価額の推移。`nav.json` を書く |
+| `tools/nav.py` | 基準価額の推移と、最新の終値での推計。`nav.json` を書く |
 | `tools/render.py` | `index.template.html` を埋めて `index.html` と `rows/` を書く |
 | `tools/symbols.py` | iShares のティッカー/取引所 → Yahoo のシンボル、取引所 → 通貨と除数 |
 | `tools/labels.py` | 国・業種の日本語名と国旗（表示用） |
@@ -30,7 +30,7 @@ Actions が毎回作り直す。
 2. 前回の `history/` を Actions のキャッシュから復元する（`history-` プレフィックスで最新を拾う）
 3. `build.py` が当日の CSV を書く
 4. 最新2日ぶんだけ残して古い CSV を捨て、`history-<run_id>` として保存し直す
-5. `nav.py` → `render.py` でページを作り、`logos/` を `_site/` に足す
+5. `nav.py`（`--history history` で推計も）→ `render.py` でページを作り、`logos/` を `_site/` に足す
 6. `upload-pages-artifact` → `deploy-pages` で GitHub Pages に出す
 
 前日比（順位の上げ下げ）に前回の CSV が要るが、毎日のデータは git にもファイルにも残さず
@@ -55,6 +55,50 @@ iShares の保有銘柄ファイル（数量・為替・評価額）を土台に
 
 `.meta.json` の `universe.securities` は評価額が残っている銘柄数、`regions` はその `Location` の数。
 評価額ゼロで残っているだけの銘柄（ロシア株など）は数えない。
+
+## 表示モード（速報値 / 公表値）
+
+ページの上のボタンで切り替える。選んだモードはブラウザの `localStorage` に残す。
+どちらのモードでも、表示する数字が同じ相場の日の値になるように分けてある。
+
+| | 速報値（既定） | 公表値 |
+|---|---|---|
+| 株価・前日比 | Yahoo の最新の終値と前日終値 | 保有ファイルの株価と、前の日付の保有ファイルの株価 |
+| 組入比率・順位 | 推計（上の節） | 保有ファイルの `Weight (%)` の大きい順 |
+| 時価総額 | Yahoo の値 | Yahoo の値を保有ファイルの株価と為替で引き直した値 |
+| 基準価額 | 推計（下の節）。出せなければ公表値 | 公表値 |
+| グラフ | 公表値の推移の後ろに推計値を1点足す | 公表値の推移 |
+
+オルカンの基準価額は前日の海外の終値で計算されるので、平日なら「公表された基準価額」と
+「前営業日の保有ファイル」が同じ相場の日を指す。06:20 JST の時点で iShares の保有ファイルは
+前営業日の分（その日の終値の分はまだ出ていない）なので、公表値モードはそろう。
+祝日をまたぐとずれるので、どちらのモードも各数字がいつの値かを切り替えボタンの横に出す。
+
+ファイルは増やさない。両方のモードの中身を同じ `index.html` と `rows/*.json` に入れ、
+`html` の `data-mode` で片方を隠す（`.m-live` / `.m-pub`）。表の並び順がモードで違うので、
+`rows/<ページ>.json` は `{"rows": 速報値の行 HTML, "pub": 公表値の行 HTML}` を持つ。
+
+## 基準価額の推計
+
+```
+推計 ＝ 公表済みの基準価額 × 評価額の変化 × 今のドル円 ÷ 公表日の TTM
+```
+
+- 評価額の変化は、公表済みの基準価額が使った相場の日（公表日より前の最後の米国の取引日）から
+  最新の終値の日まで。`build.py` が毎回 `total / fund_total`（保有ファイルの日付 → 最新の終値）で
+  米国の日付ごとの水準をつなぎ、`meta.json` の `levels` に30件残す（`chain_levels`）。
+  保有ファイルの日付の水準が無ければ（キャッシュが消えた、実行が飛んだ）数え直す。
+  数え直した直後や、つながった日付が公表済みの基準価額の相場の日に届かないうちは推計を出さない
+- 今のドル円は、株価と同じまとめ取得の `JPY=X`。Yahoo への取得は増えない
+- TTM は三菱UFJ銀行の公表相場（`nav.py` の `MUFG_TTM_URL`）の米ドルの (TTS + TTB) / 2。
+  オルカンは当日の TTM で円に直すので、公表日の TTM で割って戻す
+- 推計できない（TTM が取れない、水準が足りない、公表値から15%以上離れた）日は `::warning::` を出し、
+  速報値モードも公表値を出す
+
+2023-12〜2026-09 の556営業日で、ACWI の Non-FV NAV を評価額の代わりに使ったバックテストでは、
+公表値との差の中央値が 0.13%、9割の日が 0.39% 以内、前日比の向きの一致が 91.5%。
+差の大半は、06:20 から TTM が決まる 10時ごろまでのドル円の動きと、日本株（約5%）だけが
+当日の終値で評価されることによる。公表値とは一致しないので、画面には「推計」と出す。
 
 ## 株価の取得
 
@@ -125,16 +169,20 @@ iShares の保有銘柄ファイル（数量・為替・評価額）を土台に
 
 ```
 rank, symbol, ticker, name, sector, country, currency,
-price, prev_close, market_cap_usd, base_weight, weight, stale
+price, prev_close, market_cap_usd, base_weight, weight, stale,
+base_price, base_prev_price, base_market_cap_usd
 ```
 
 `symbol` は Yahoo のシンボル、引けない銘柄は `<ティッカー>@<取引所>`。ロゴのファイル名にも使う。
 `base_weight` は保有ファイルの `Weight (%)`、`weight` が推計値。`stale` は株価を差し替えられなかった行。
+`base_price` 以降は公表値モード用。`base_price` は保有ファイルの現地通貨建て株価、`base_prev_price` は
+前の日付の保有ファイルの株価（保有ファイルが前回と同じ日付なら、前回の比較相手を引き継ぐ）、
+`base_market_cap_usd` は時価総額を保有ファイルの株価と為替で引き直した値。
 
 ### `history/<日付>.meta.json`
 
 `date`、`generatedAt`、`holdingsAsOf`（保有ファイルの日付）、`count`、`universe`、
-`coveredWeight`、`fx`、それに `pricesAsOf` と `usMarketState`。
+`coveredWeight`、`fx`、`levels`（基準価額の推計用。上の節）、それに `pricesAsOf` と `usMarketState`。
 
 `pricesAsOf` は米国株の株価がいつの値かを多数決で決めた米国東部時間の日付。
 `usMarketState` が `REGULAR` なら取引時間中の株価（終値ではない）なので答え合わせには使えない。
@@ -147,16 +195,19 @@ price, prev_close, market_cap_usd, base_weight, weight, stale
 
 分配金再投資ベースの列は無いが、オルカンは無分配なので基準価額と一致する。
 
+`--history` を渡すと `estimate`（推計値、公表値との差、どの日の終値で推計したか、使った TTM とドル円）も入れる。
+
 ## ページ生成（`render.py`）
 
 `index.template.html` の `<!--ssg:名前--> 〜 <!--/ssg:名前-->` を埋める。
-マーカーが無ければ止まる。差し込み口は `navhead`、`rows`、`countries`、`mix`。
+マーカーが無ければ止まる。差し込み口は `modebar`、`navhead`、`rows`、`rowspub`、`countries`、`mix`。
 
 - 表は100銘柄ずつ（`PAGE_SIZE`）。1ページ目だけ `index.html` に直接書き、
   全ページぶんの行 HTML を `rows/<ページ>.json` に書く（2ページ目以降はブラウザが読む）
 - 国・地域で絞ったページは `rows/c/<国コード>/<ページ>.json`。順位は全体の順位のまま。
   国が減ったときに古いファイルが残らないよう、毎回作り直す
-- 銘柄検索の索引は `rows/search.json`（`[順位, ティッカー, 名前, 組入比率]`）。検索欄を使ったときだけ読む
+- 銘柄検索の索引は `rows/search.json`（`[順位, ティッカー, 名前, 組入比率, 公表値モードの順位, 公表値モードの組入比率]`）。
+  検索欄を使ったときだけ読む
 - 国コードは国旗の絵文字から作る（🇯🇵 → JP）
 - 積み上げ棒は上位7項目（`MIX_TOP`）に色を付け、残りは「その他」にまとめる（色が8色まで）
 - ロゴは `logos/` にファイルがある銘柄だけ `img` を出す。無い銘柄（大半）で 404 を量産しないため
@@ -242,7 +293,7 @@ python tools/logos.py --out logos --top 0    # 全銘柄
 ```
 pip install -r tools/requirements.txt
 python tools/build.py --out-dir history
-python tools/nav.py --out nav.json
+python tools/nav.py --out nav.json --history history
 python tools/render.py
 python -m http.server
 ```
@@ -258,5 +309,7 @@ python -m http.server
   ファイル全体は免責文の生 HTML のせいで XML として壊れているので、Holdings シートだけ切り出してパースする
 - 株価・時価総額・為替: Yahoo Finance の非公式 API（yfinance 経由）
 - 基準価額: 投資信託協会の CSV（`nav.py` の `TOUSHIN_URL`）
+- TTM: 三菱UFJ銀行の公表相場（三菱UFJリサーチ&コンサルティングのサイト、`nav.py` の `MUFG_TTM_URL`）。
+  過去の日付のページは当日分がまだ無いとトップページへ転送されるので、ページの日付を確かめる
 
 データ元の規約が再配布や公開目的の利用を認めていないため、個人利用に留める。

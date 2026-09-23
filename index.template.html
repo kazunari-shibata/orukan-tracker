@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>オルカンの構成銘柄一覧</title>
 <meta name="robots" content="noindex, nofollow">
+<script>
+  // 表示モード（速報値 / 公表値）は描画の前に決めて、切り替わる前の中身が一瞬見えないようにする
+  try { if (localStorage.getItem('mode') === 'pub') document.documentElement.dataset.mode = 'pub'; } catch {}
+</script>
 <style>
   :root {
     /* ライト固定。OS がダークでもスクロールバー等を明るく保つ */
@@ -33,7 +37,7 @@
   .navnow b { font-size:1.6rem; font-weight:650; letter-spacing:-0.01em; }
   .navunit { color:var(--sub); font-size:.85rem; margin-left:2px; }
   .chglabel { color:var(--sub); font-size:.82rem; margin-left:12px; }
-  .navnow #navchg { font-size:.95rem; margin-left:5px; font-weight:600; }
+  .navnow .navchg { font-size:.95rem; margin-left:5px; font-weight:600; }
   /* 右側は期間ボタンと、その期間の騰落率（ボタンの下に右寄せ） */
   .navside { display:flex; flex-direction:column; align-items:flex-end; gap:6px; align-self:flex-start; }
   .rangeperf { font-variant-numeric:tabular-nums; line-height:1.2; }
@@ -192,7 +196,19 @@
   .pager .gap { color:var(--dim); min-width:auto; padding:5px 2px; }
   .secttl { font-size:1rem; font-weight:650; margin-top:24px; margin-bottom:12px; }
   /* ページの先頭はすでに .wrap の余白があるので、最初の見出しの上は空けない */
-  .wrap > .secttl:first-child { margin-top:0; }
+  .wrap > .secttl:first-child, .modebar + .secttl { margin-top:0; }
+  /* 表示モード。速報値（Yahoo の最新の終値と推計）と公表値（保有ファイルと公表された基準価額）。
+     両方の中身を HTML に入れておき、html の data-mode でどちらかを隠す */
+  html[data-mode="pub"] .m-live, html:not([data-mode="pub"]) .m-pub { display:none; }
+  .mix > .m-live, .mix > .m-pub { display:contents; }
+  .modebar { display:flex; flex-wrap:wrap; align-items:center; gap:6px 12px; margin-bottom:20px; }
+  .modes { display:flex; gap:4px; }
+  .modes button {
+    font:inherit; font-size:.8rem; color:var(--sub); cursor:pointer;
+    background:var(--panel); border:1px solid var(--line); border-radius:6px; padding:4px 11px;
+  }
+  .modes button[aria-pressed="true"] { color:var(--panel); background:var(--accent); border-color:var(--accent); }
+  .modenote { color:var(--dim); font-size:.75rem; }
   .copyright { margin-top:72px; color:var(--dim); font-size:.72rem; text-align:center; }
 
   /* タブレット・スマホは列が多く収まりきらないので、企業名を削らず最大幅で止め、
@@ -216,6 +232,13 @@
 </head>
 <body data-generated="">
 <div class="wrap">
+  <div class="modebar">
+    <div class="modes" id="modes" role="group" aria-label="表示">
+      <button type="button" data-mode="live" aria-pressed="true">速報値</button>
+      <button type="button" data-mode="pub" aria-pressed="false">公表値</button>
+    </div>
+    <div class="modenote"><!--ssg:modebar--><!--/ssg:modebar--></div>
+  </div>
   <h2 class="secttl">基準価額</h2>
 
   <section class="nav" id="nav">
@@ -260,6 +283,8 @@
       <tbody id="tb"><!--ssg:rows--><!--/ssg:rows--></tbody>
     </table>
   </div>
+  <!-- 公表値モードの1ページ目。モードを切り替えたときに #tb へ入れる -->
+  <template id="tbpub"><!--ssg:rowspub--><!--/ssg:rowspub--></template>
   <div class="stickyhead" id="stickyhead" aria-hidden="true" hidden><table></table></div>
   <nav class="pager" id="pager" aria-label="ページ" data-size="100"></nav>
 
@@ -269,7 +294,7 @@
 <script>
 // これは index.html のひな形。表・更新日時・基準価額の数字は、Pages のビルドで
 // tools/render.py が書き込んで index.html にする（Actions で生成して GitHub Pages に出す）。
-// ここで描くのはチャート（nav.json）とページ送りだけ。
+// ここで描くのはチャート（nav.json）とページ送り、表示モードの切り替えだけ。
 // 日付は YYYY/M/D で統一する
 const fmtDate = v => {
   const d = v instanceof Date ? v : new Date(`${v}T00:00:00`);
@@ -277,11 +302,19 @@ const fmtDate = v => {
 };
 
 const RANGES = [['1か月', 21], ['6か月', 126], ['1年', 252], ['全期間', Infinity]];
-let NAV = null, navRange = 252;   // 初期表示は1年
+let NAV = null, navView = null, navRange = 252;   // 初期表示は1年
+
+// 速報値モードは、公表値の後ろに推計値を1点足す（日付は null。読み取り欄に「推計」と出す）
+function navSeries() {
+  const est = mode === 'live' && NAV.estimate;
+  return est ? { values: [...NAV.values, est.value], dates: [...NAV.dates, null] }
+             : { values: NAV.values, dates: NAV.dates };
+}
 
 function drawNav() {
-  const n = Math.min(NAV.values.length, navRange);
-  const vals = NAV.values.slice(-n), dates = NAV.dates.slice(-n);
+  const s = navSeries();
+  const n = Math.min(s.values.length, navRange);
+  const vals = s.values.slice(-n), dates = s.dates.slice(-n);
   const lo = Math.min(...vals), hi = Math.max(...vals), span = hi - lo || 1;
   const W = 1000, H = 132, pad = 6;
   const x = i => (i / (vals.length - 1)) * W;
@@ -321,13 +354,14 @@ function bootNav(d) {
     navRange = Number(b.dataset.n);
     document.querySelectorAll('#ranges button')
       .forEach(o => o.setAttribute('aria-pressed', o === b));
-    view = drawNav();
+    navView = drawNav();
   }));
 
-  let view = drawNav();
+  navView = drawNav();
   const svg = document.getElementById('chart'), out = document.getElementById('readout');
   svg.addEventListener('pointermove', e => {
     const r = svg.getBoundingClientRect();
+    const view = navView;
     const i = Math.round(((e.clientX - r.left) / r.width) * (view.vals.length - 1));
     const v = view.vals[i]; if (v == null) return;
     svg.querySelector('#cursor').setAttribute('opacity', '1');
@@ -335,7 +369,7 @@ function bootNav(d) {
     svg.querySelector('#cursor').setAttribute('x2', view.x(i));
     out.hidden = false;
     out.style.left = `${(i / (view.vals.length - 1)) * 100}%`;
-    out.textContent = `${fmtDate(view.dates[i])}  ${v.toLocaleString('ja-JP')}円`;
+    out.textContent = `${view.dates[i] ? fmtDate(view.dates[i]) : '推計'}  ${v.toLocaleString('ja-JP')}円`;
   });
   svg.addEventListener('pointerleave', () => {
     out.hidden = true; svg.querySelector('#cursor').setAttribute('opacity', '0');
@@ -348,10 +382,16 @@ document.getElementById('year').textContent = new Date().getFullYear();
 // tools/render.py が書き出した rows/<ページ>.json を読み込む。
 // 国・地域で絞り込んだときは rows/c/<国コード>/<ページ>.json。順位は全体の順位のまま出す。
 // 状態は URL の #page=N / #country=JP&page=N で持つ（戻る・リンクでも開ける）。
+// 行データは速報値モード（rows）と公表値モード（pub）の両方が入っていて、並び順もモードごとに違う。
 const pager = document.getElementById('pager');
 const PAGE_SIZE = Number(pager.dataset.size) || 100;
 const countrySelect = document.getElementById('country');
-const pageRows = { '/1': document.getElementById('tb').innerHTML };
+const rowsKey = (m, country, page) => `${m}:${country}:${page}`;
+const pageRows = {
+  [rowsKey('live', '', 1)]: document.getElementById('tb').innerHTML,
+  [rowsKey('pub', '', 1)]: document.getElementById('tbpub').innerHTML,
+};
+let mode = document.documentElement.dataset.mode === 'pub' ? 'pub' : 'live';
 let current = { country: '', page: 1 };
 
 const countryInfo = code => {
@@ -386,13 +426,15 @@ function drawPager() {
 }
 
 async function showPage({ country, page }, scroll, rank) {
-  const key = `${country}/${page}`;
+  const key = rowsKey(mode, country, page);
   if (!pageRows[key]) {
     try {
       const path = country ? `rows/c/${country}/${page}.json` : `rows/${page}.json`;
       const r = await fetch(`${path}?v=${encodeURIComponent(GENERATED)}`);
       if (!r.ok) throw new Error(r.status);
-      pageRows[key] = (await r.json()).rows;
+      const d = await r.json();
+      pageRows[rowsKey('live', country, page)] = d.rows;
+      pageRows[rowsKey('pub', country, page)] = d.pub ?? d.rows;
     } catch {
       return;   // 読めなければ今のページのまま
     }
@@ -465,8 +507,9 @@ async function loadSearchIndex() {
   if (!searchIndex) {
     try {
       const r = await fetch(`rows/search.json?v=${encodeURIComponent(GENERATED)}`);
-      searchIndex = (await r.json()).map(([rank, ticker, name, weight]) =>
-        ({ rank, ticker, name, weight, kt: norm(ticker), kn: norm(name) }));
+      searchIndex = (await r.json()).map(([rank, ticker, name, weight, pubRank, pubWeight]) =>
+        ({ live: { rank, weight }, pub: { rank: pubRank ?? rank, weight: pubWeight ?? weight },
+           ticker, name, kt: norm(ticker), kn: norm(name) }));
     } catch {
       searchIndex = [];
     }
@@ -483,7 +526,8 @@ async function runSearch() {
   // （"nestle" で NESTLEIND のティッカーより、組入比率の大きい NESTLE SA を先に出す）
   const score = x => x.kt === term ? 0 : x.kt.startsWith(term) || x.kn.startsWith(term) ? 1
     : x.kn.includes(term) ? 2 : 9;
-  hits = list.map(x => [score(x), x]).filter(([sc]) => sc < 9)
+  // 順位と組入比率は今のモードのもの
+  hits = list.map(x => [score(x), { ...x, ...x[mode] }]).filter(([sc]) => sc < 9)
     .sort((a, b) => a[0] - b[0] || a[1].rank - b[1].rank).slice(0, 20).map(([, x]) => x);
   results.innerHTML = hits.length
     ? hits.map((x, i) => `<li><button type="button" role="option" data-rank="${x.rank}"`
@@ -528,12 +572,26 @@ results.addEventListener('click', e => {
 });
 document.addEventListener('click', e => { if (!searchBox.contains(e.target)) results.hidden = true; });
 
+// 表示モードの切り替え。選んだモードは次に開いたときも使う
+const modeButtons = document.querySelectorAll('#modes button');
+function setMode(next) {
+  mode = next;
+  document.documentElement.dataset.mode = next;
+  modeButtons.forEach(b => b.setAttribute('aria-pressed', b.dataset.mode === next));
+  try { localStorage.setItem('mode', next); } catch {}
+  results.hidden = true;
+  if (NAV) navView = drawNav();
+  showPage(current, false);
+}
+modeButtons.forEach(b => b.addEventListener('click', () => { if (b.dataset.mode !== mode) setMode(b.dataset.mode); }));
+modeButtons.forEach(b => b.setAttribute('aria-pressed', b.dataset.mode === mode));
+
 // 生成物のバージョン。nav.json と rows/ もこれで引くので、更新がない限りキャッシュが効く。
 const GENERATED = document.body.dataset.generated || '';
 drawPager();
 {
   const first = stateFromHash();
-  if (first.country || first.page !== 1) showPage(first, false);
+  if (first.country || first.page !== 1 || mode !== 'live') showPage(first, false);
 }
 fetch('nav.json?v=' + encodeURIComponent(GENERATED))
   .then(r => r.json()).then(bootNav).catch(() => {});

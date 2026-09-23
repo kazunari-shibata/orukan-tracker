@@ -124,8 +124,15 @@ def parse_holdings(path, raw=None):
 JST = timezone(timedelta(hours=9))
 
 # 履歴 CSV の列。render.py もこの順で読む。
+# base_ で始まる列は保有ファイルの値（公表値モード用）。base_prev_price はその前の日付の
+# 保有ファイルの株価、base_market_cap_usd は時価総額を保有ファイルの株価と為替で引き直した値。
 CSV_FIELDS = ["rank", "symbol", "ticker", "name", "sector", "country", "currency",
-              "price", "prev_close", "market_cap_usd", "base_weight", "weight", "stale"]
+              "price", "prev_close", "market_cap_usd", "base_weight", "weight", "stale",
+              "base_price", "base_prev_price", "base_market_cap_usd"]
+
+# 評価額の水準（meta の levels）を残す日数。基準価額の推計が、公表済みの基準価額が
+# 使った相場の日までさかのぼるのに使う。年末年始の連休をまたげる長さにしてある。
+LEVELS_KEEP = 30
 
 
 def fetch_quotes_batch(units, mismatched, retry=False, stamps=None, nocap=None):
@@ -251,6 +258,47 @@ def fetch_fx(currencies, yf):
     return out
 
 
+def previous_day(out_dir, day):
+    """day より前の日付で最新の (meta, {symbol: CSV の行})。無ければ (None, {})。"""
+    days = sorted(p.name[:-len(".csv")] for p in out_dir.glob("????-??-??.csv")
+                  if p.name[:-len(".csv")] < day)
+    if not days:
+        return None, {}
+    try:
+        meta = json.loads((out_dir / f"{days[-1]}.meta.json").read_text())
+        with open(out_dir / f"{days[-1]}.csv", newline="", encoding="utf-8") as f:
+            return meta, {r["symbol"]: r for r in csv.DictReader(f)}
+    except (OSError, ValueError):
+        return None, {}
+
+
+def latest_levels(out_dir):
+    """直近の meta.json に残っている評価額の水準。同じ日の再実行なら今日の分を引き継ぐ。"""
+    metas = sorted(out_dir.glob("????-??-??.meta.json"))
+    try:
+        return json.loads(metas[-1].read_text()).get("levels") or {} if metas else {}
+    except (OSError, ValueError):
+        return {}
+
+
+def chain_levels(levels, holdings_day, prices_day, ratio):
+    """評価額の水準を米国の日付ごとにつなぐ。{日付: 水準}。
+
+    ratio は保有ファイルの日付の終値から、最新の終値までの評価額の変化（total / fund_total）。
+    水準は日付どうしの比にだけ意味がある。保有ファイルの日付の水準が無ければ（キャッシュが
+    消えた、実行が飛んだ）そこから数え直し、比べられない古い日付は捨てる。
+    """
+    if not holdings_day or not prices_day or prices_day < holdings_day:
+        return levels
+    if holdings_day not in levels:
+        levels = {holdings_day: 1.0}
+    levels = dict(levels)
+    # 保有ファイルがもう最新の終値の日付なら、つなぐものが無い
+    if prices_day != holdings_day:
+        levels[prices_day] = round(levels[holdings_day] * ratio, 8)
+    return dict(sorted(levels.items())[-LEVELS_KEEP:])
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--holdings", default=HOLDINGS_URL,
@@ -336,6 +384,13 @@ def main():
     print(f"[orukan] まとめ取得 {len(units) - len(missing)} 銘柄（取り直し {len(gaps)} 件）/ "
           f"個別取得 {len(retry)} 銘柄", file=sys.stderr)
 
+    generated = datetime.now(timezone.utc)
+    day = generated.astimezone(JST).date().isoformat()
+    # 公表値モードの前日比は、前の日付の保有ファイルの株価と比べる。iShares の更新が
+    # 止まって保有ファイルが前回と同じ日付なら、前回の比較相手をそのまま引き継ぐ。
+    prev_meta, prev_rows = previous_day(args.out_dir, day)
+    same_file = bool(prev_meta) and prev_meta.get("holdingsAsOf") == as_of
+
     rows, mv_delta, stale, suspect = [], 0.0, [], {}
     for r in picks:
         sym = r["_sym"]
@@ -365,6 +420,10 @@ def main():
         mv = qty * price / fx
         mv_delta += mv - base_mv
         loc = r.get("Location", "")
+        prev = prev_rows.get(r["_key"], {})
+        base_prev = num(prev.get("base_prev_price" if same_file else "base_price"))
+        # 発行済株式数は変わらないとみなし、時価総額を保有ファイルの株価と為替に引き直す
+        base_mcap = mcap * r["_local_price"] / price / fx_file if mcap and not is_stale else None
         rows.append({
             "ticker": r["Ticker"],
             "symbol": r["_key"],
@@ -377,6 +436,9 @@ def main():
             "market_cap_usd": round(mcap / fx) if mcap else None,
             "base_weight": num(r.get("Weight (%)")) or 0.0,
             "stale": is_stale,
+            "base_price": round(r["_local_price"], 4),
+            "base_prev_price": round(base_prev, 4) if base_prev else None,
+            "base_market_cap_usd": round(base_mcap) if base_mcap else None,
             "_mv": mv,
         })
 
@@ -388,10 +450,9 @@ def main():
     for i, row in enumerate(rows, 1):
         row["rank"] = i
 
-    generated = datetime.now(timezone.utc)
-    day = generated.astimezone(JST).date().isoformat()
     prices_as_of, us_market_state = us_price_stamp(
         stamps, [r["_sym"] for r in picks if r["_sym"] and r.get("Location") == "United States"])
+    levels = chain_levels(latest_levels(args.out_dir), as_of, prices_as_of, total / fund_total)
     meta = {
         "date": day,
         "generatedAt": generated.isoformat(timespec="seconds"),
@@ -405,6 +466,8 @@ def main():
         "pricesAsOf": prices_as_of,
         "usMarketState": us_market_state,
         "fx": {k: round(v, 4) for k, v in sorted(fx_live.items())},
+        # 米国の日付ごとの評価額の水準。nav.py が基準価額の推計に使う（chain_levels 参照）
+        "levels": levels,
     }
     args.out_dir.mkdir(parents=True, exist_ok=True)
     with open(args.out_dir / f"{day}.csv", "w", newline="", encoding="utf-8") as f:
