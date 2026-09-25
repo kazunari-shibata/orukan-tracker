@@ -14,6 +14,7 @@
 | `tools/cron/` | 更新を時刻どおりに始める Cloudflare Worker |
 | `tools/build.py` | 組入比率の推計。`history/<日付>.csv` と `.meta.json` を書く |
 | `tools/nav.py` | 基準価額の推移と、最新の終値での推計。`nav.json` を書く |
+| `tools/notify.py` | 答え合わせの結果と要確認のことを Slack に送る（Secret `SLACK_WEBHOOK_URL` の Incoming Webhook） |
 | `tools/render.py` | `index.template.html` を埋めて `index.html` と `rows/` を書く |
 | `tools/symbols.py` | iShares のティッカー/取引所 → Yahoo のシンボル、取引所 → 通貨と除数 |
 | `tools/labels.py` | 国・業種の日本語名と国旗（表示用） |
@@ -34,6 +35,11 @@ Actions が毎回作り直す。
 6. `history/` を `history-<run_id>` として保存し直す
 7. `render.py` でページを作り、`logos/` を `_site/` に足す
 8. `upload-pages-artifact` → `deploy-pages` で GitHub Pages に出す
+9. build ジョブの最後に `notify.py` が答え合わせの結果を Slack に送る（途中で失敗した日も、失敗したことを送る）
+   - 要確認として出すもの: 実行ログ（`logs/run.log`）の `::warning::`、取引時間中の株価、保有ファイル・株価・
+     基準価額の日付が古い、前回の推計がキャッシュに無い、`meta.json` の `issues`（株価が取れない・離れすぎ・
+     通貨違い・時価総額が無い銘柄）のうち前回から増えたもの、上位100銘柄でロゴが無いもの
+   - 各ステップの出力を `| tee` で残すので、ジョブに `shell: bash`（pipefail 付き）を指定している
 
 前日比（順位の上げ下げ）に前回の CSV が要るが、毎日のデータは git にもファイルにも残さず
 Actions のキャッシュにだけ置く。キャッシュが無い日は前日比なしで出す。
@@ -114,7 +120,7 @@ iShares の保有銘柄ファイル（数量・為替・評価額）を土台に
 ## 推計の答え合わせ
 
 直前の推計を、同じ相場の日の公表データと1回ずつ比べる。長く貯めはしない（キャッシュの2日ぶんで足りる）。
-結果は Actions の実行画面に `::notice::` で出る。
+結果は Actions の実行画面に `::notice::` で出て、`notify.py` が Slack にも送る。
 
 - 組入比率（`build.py` の `check_weights`）: 前回の CSV の `weight` と順位を、今回の保有ファイルの
   `Weight (%)` と順位で比べ、`meta.json` の `check` に入れる。前回の `pricesAsOf` が今回の

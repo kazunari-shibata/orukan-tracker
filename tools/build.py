@@ -463,7 +463,7 @@ def main():
     prev_meta, prev_rows = previous_day(args.out_dir, day)
     same_file = bool(prev_meta) and prev_meta.get("holdingsAsOf") == as_of
 
-    rows, mv_delta, stale, suspect = [], 0.0, [], {}
+    rows, mv_delta, stale, suspect, failed = [], 0.0, [], {}, {}
     for r in picks:
         sym = r["_sym"]
         base_mv = num(r.get("Market Value")) or 0.0
@@ -485,6 +485,8 @@ def main():
             suspect[sym] = round(price / r["_local_price"], 2)
             price = prev_close = mcap = None
         is_stale = price is None
+        if is_stale and sym and sym not in suspect:
+            failed[sym] = num(r.get("Weight (%)")) or 0.0
         if is_stale:
             price = r["_local_price"]
             stale.append(r["_key"])
@@ -545,6 +547,17 @@ def main():
         "levels": levels,
         # 前回の推計の答え合わせ（check_weights 参照）
         "check": check_weights(prev_meta, prev_rows, as_of, rows),
+        # 手当てが要るかもしれないもの。notify.py が前回から増えたものを Slack に出す。
+        # Yahoo で引けない取引所（マレーシア株など）の銘柄は毎日同じなので入れない
+        "issues": {
+            # Yahoo のシンボルはあるのに株価が取れなかった銘柄 {シンボル: 保有ファイルの比率}
+            # （通貨が違って使わなかった銘柄は mismatched に出るので除く）
+            "priceMissing": dict(sorted(((s, w) for s, w in failed.items() if s not in mismatched),
+                                        key=lambda kv: -kv[1])),
+            "suspect": suspect,                 # 保有ファイルの株価と離れすぎて使わなかった（倍率）
+            "mismatched": mismatched,           # 建値の通貨が想定と違った
+            "noMarketCap": [s for s in nocap if s in units],   # 株価はあるが時価総額が無い
+        },
     }
     args.out_dir.mkdir(parents=True, exist_ok=True)
     with open(args.out_dir / f"{day}.csv", "w", newline="", encoding="utf-8") as f:

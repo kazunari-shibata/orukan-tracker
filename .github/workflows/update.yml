@@ -19,6 +19,10 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+    # shell: bash を明示すると pipefail が付く。| tee で失敗を握りつぶさないように
+    defaults:
+      run:
+        shell: bash
     steps:
       - uses: actions/checkout@v7
 
@@ -39,8 +43,11 @@ jobs:
           key: history-${{ github.run_id }}
           restore-keys: history-
 
+      # 各ステップの出力は logs/run.log にも残す。notify.py が ::warning:: と失敗の理由を拾う
       - name: 推計を計算
-        run: python tools/build.py --out-dir history
+        run: |
+          mkdir -p logs
+          python tools/build.py --out-dir history 2>&1 | tee -a logs/run.log
 
       # 前日比は株価の日付が変わった直近の CSV と比べる。週末や連休をまたげるだけ残す
       - name: 古い推計を捨てる
@@ -55,7 +62,7 @@ jobs:
       # nav.py は基準価額の推計を history/nav-estimates.json に残し、翌日以降に答え合わせする。
       # キャッシュに入れるため、保存より前に動かす
       - name: 基準価額を取得
-        run: python tools/nav.py --out _site/nav.json --history history
+        run: python tools/nav.py --out _site/nav.json --history history 2>&1 | tee -a logs/run.log
 
       - name: 推計をキャッシュに保存
         uses: actions/cache/save@v6
@@ -67,12 +74,21 @@ jobs:
         run: |
           mkdir -p _site
           python tools/render.py --history history --nav _site/nav.json \
-            --page _site/index.html --rows _site/rows
+            --page _site/index.html --rows _site/rows 2>&1 | tee -a logs/run.log
           cp -R logos _site/
 
       - uses: actions/upload-pages-artifact@v5
         with:
           path: _site
+
+      # 答え合わせの結果を Slack に送る。途中で失敗した日も、失敗したことを送る
+      - name: Slack に通知
+        if: ${{ !cancelled() }}
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          JOB_STATUS: ${{ job.status }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: python tools/notify.py --history history --nav _site/nav.json --log logs/run.log
 
   deploy:
     needs: build
