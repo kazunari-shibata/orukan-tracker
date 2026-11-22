@@ -29,7 +29,7 @@ Actions が毎回作り直す。
 
 1. 06:20 JST に Cloudflare Worker `orukan-cron` が `workflow_dispatch` を叩く（下記）
 2. 前回の `history/` を Actions のキャッシュから復元する（`history-` プレフィックスで最新を拾う）
-3. `build.py` が当日の CSV を書く
+3. `build.py --top 100` が保有ファイルの組入比率上位100銘柄の当日 CSV を書く
 4. 最新7日ぶんだけ残して古い CSV を捨てる（週末や連休をまたいで前日比を出すため。下の「前日比と NEW」）
 5. `nav.py`（`--history history` で推計と答え合わせも）が `nav.json` と `history/nav-estimates.json` を書く
 6. `history/` を `history-<run_id>` として保存し直す
@@ -52,10 +52,10 @@ Actions のキャッシュにだけ置く。キャッシュが無い日は前日
 iShares の保有銘柄ファイル（数量・為替・評価額）を土台に、株価だけ Yahoo の直近値に差し替える。
 
 1. 保有ファイルの全行の `Market Value` を合計して `fund_total`（差し替え前のファンド総額）にする
-2. `Asset Class == "Equity"` かつ `Weight (%) > 0` の行を組入比率の大きい順に並べる
+2. `Asset Class == "Equity"` かつ `Weight (%) > 0` の行を組入比率の大きい順に並べ、日次更新では上位100銘柄を使う
 3. 各行の現地通貨建て株価を `Price × FX Rate` で出す（`Currency` 列は全銘柄 USD 換算済みなので使えない）
 4. 株価を Yahoo の値に差し替えて `mv = Quantity × price / fx` を出す
-5. 差額の合計を `fund_total` に足して `total` にし、`weight = mv / total × 100` とする
+5. 対象銘柄の差額を `fund_total` に足して `total` にし、`weight = mv / total × 100` とする。対象外は元の評価額のまま
 6. `weight` の大きい順に並べ直して順位を振る
 
 社名の日本語化や、同じ会社の複数クラス株の名寄せはしない。保有ファイルの1行を1銘柄として載せる。
@@ -97,7 +97,7 @@ iShares の保有銘柄ファイル（数量・為替・評価額）を土台に
   入れる（`acwi_levels`）。保有ファイルの日付までは、同じ保有ファイルの Historical シートにある
   ACWI の `Non-FV NAV`（各市場の終値で計算した NAV。`NAV per Share` は米国の引けに合わせて
   海外株を補正しているのでオルカンと合わない）の直近30取引日（`LEVELS_KEEP`）、
-  そこから最新の終値までは `total / fund_total`。
+  そこから最新の終値までは `total / fund_total`。日次更新で差し替える株価・為替は上位100銘柄ぶん。
   ACWI は年2回分配してその日の NAV が下がるが、オルカンは分配しないので、権利落ち日の行の
   `Ex-Dividends` を足し戻す（オルカンの受け取る配当は源泉税のぶん少ないので、わずかに上振れる）。
   過去の水準をためないので、キャッシュが消えた日や連休明けでも推計を出せる。
@@ -136,7 +136,7 @@ iShares の保有銘柄ファイル（数量・為替・評価額）を土台に
 ## 株価の取得
 
 `query2.finance.yahoo.com/v7/finance/quote` に 150 件ずつ投げる（`QUOTE_CHUNK`）。
-認証（crumb）は `yfinance.data.YfData` に任せている。全銘柄（約2,200件）でも十数回で済む。
+認証（crumb）は `yfinance.data.YfData` に任せている。日次更新の上位100銘柄と為替は1回に収まる。
 
 - 為替も同じまとめ取得で拾う（`JPY=X` など）。JPY は基準価額の推計に使うので日本株が無くても要る
 - Yahoo はたまに応答から数件落とすので、欠けた分だけもう一度まとめて取る
@@ -235,14 +235,11 @@ base_price, base_prev_price, base_market_cap_usd
 ## ページ生成（`render.py`）
 
 `index.template.html` の `<!--ssg:名前--> 〜 <!--/ssg:名前-->` を埋める。
-マーカーが無ければ止まる。差し込み口は `modebar`、`navhead`、`rows`、`rowspub`、`countries`、`mix`。
+マーカーが無ければ止まる。差し込み口は `scope`、`modebar`、`navhead`、`rows`、`rowspub`、`mix`。
 
 - 表は100銘柄ずつ（`PAGE_SIZE`）。1ページ目だけ `index.html` に直接書き、
   全ページぶんの行 HTML を `rows/<ページ>.json` に書く（2ページ目以降はブラウザが読む）
-- 国・地域で絞ったページは `rows/c/<国コード>/<ページ>.json`。順位は全体の順位のまま。
-  国が減ったときに古いファイルが残らないよう、毎回作り直す
-- 銘柄検索の索引は `rows/search.json`（`[順位, ティッカー, 名前, 組入比率, 公表値モードの順位, 公表値モードの組入比率]`）。
-  検索欄を使ったときだけ読む
+- 構成比は掲載銘柄を集計し、比率はファンド全体を分母にする。上位銘柄に絞ったときは見出しに対象を出す
 - 国コードは国旗の絵文字から作る（🇯🇵 → JP）
 - 積み上げ棒は上位7項目（`MIX_TOP`）に色を付け、残りは「その他」にまとめる（色が8色まで）
 - ロゴは `logos/` にファイルがある銘柄だけ `img` を出す。無い銘柄（大半）で 404 を量産しないため
@@ -333,7 +330,7 @@ python tools/logos.py --out logos --top 0    # 全銘柄
 
 ```
 pip install -r tools/requirements.txt
-python tools/build.py --out-dir history
+python tools/build.py --out-dir history --top 100
 python tools/nav.py --out nav.json --history history
 python tools/render.py
 python -m http.server

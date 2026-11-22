@@ -112,11 +112,10 @@
   /* ロゴは自前配信。取得できていない銘柄は頭文字のバッジにフォールバックする
      （img の onerror で中身を消すと ::after の頭文字が見える） */
   /* ロゴの列は横スクロールしても左端に残す（右の列を見ているときも、どの行の会社か分かるように）。
-     下の列が透けないよう、背景は行の縞や検索のハイライトと同じ色を不透明で塗る */
+     下の列が透けないよう、背景は行の縞と同じ色を不透明で塗る */
   /* ロゴと企業名の間隔はロゴの列の右の余白で取る（横スクロールしたとき、隣の列がロゴに接して見えないように） */
   th.lg, td.lg { position:sticky; left:0; z-index:1; padding-right:9px; background:var(--panel); }
   tbody tr:nth-child(even) td.lg { background:color-mix(in srgb, var(--line) 30%, var(--panel)); }
-  tbody tr.hit td.lg { background:color-mix(in srgb, var(--accent) 14%, var(--panel)); }
   .logo {
     position:relative; display:inline-block; width:22px; height:22px;
     vertical-align:middle; border-radius:4px; overflow:hidden;
@@ -147,50 +146,6 @@
   }
   .stickyhead table { table-layout:fixed; }
   .stickyhead th { border-bottom:0; }
-  /* 銘柄検索。候補は表の上に重ねて出す */
-  .filters { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:10px; }
-  .search { position:relative; flex:1 1 240px; max-width:360px; }
-  .search input, #country {
-    width:100%; padding:8px 12px; font:inherit; font-size:.85rem;
-    color:var(--text); background:var(--panel); border:1px solid var(--line); border-radius:8px;
-  }
-  /* Safari は select の縦の padding を効かせず、flex の stretch も無視して
-     中身の高さだけで描くので、入力欄より縦に細くなる。見た目を自前で作って高さをそろえる
-     （appearance:none で矢印も消えるので、矢印も自前で描く） */
-  #country {
-    appearance:none; -webkit-appearance:none;
-    width:auto; max-width:100%; padding-right:30px; cursor:pointer;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%23666f7b' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-    background-repeat:no-repeat; background-position:right 11px center; background-size:10px 6px;
-  }
-  .search input:focus, #country:focus { outline:none; border-color:var(--accent); }
-  /* iOS Safari は 16px 未満の入力欄に触れるとページごと拡大する。
-     タッチ端末だけ 16px にして拡大を止める（マウスの端末は今までどおり小さいまま） */
-  @media (pointer:coarse) {
-    .search input, #country { font-size:16px; }
-  }
-  .results {
-    position:absolute; z-index:5; top:calc(100% + 4px); left:0; width:min(100%, 480px);
-    max-height:60vh; overflow-y:auto; list-style:none; padding:4px;
-    background:var(--panel); border:1px solid var(--line); border-radius:10px;
-    box-shadow:0 8px 24px rgb(0 0 0 / .08);
-  }
-  .results button {
-    display:flex; align-items:baseline; gap:10px; width:100%; padding:8px 10px;
-    font:inherit; font-size:.85rem; color:var(--text); text-align:left;
-    background:none; border:0; border-radius:6px; cursor:pointer;
-  }
-  .results button:hover, .results button[aria-selected="true"] {
-    background:color-mix(in srgb, var(--accent) 8%, transparent);
-  }
-  .results .r { min-width:3.6em; color:var(--dim); font-variant-numeric:tabular-nums; }
-  .results .n { flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-weight:600; }
-  .results .t { color:var(--dim); font-size:.75rem; }
-  .results .w { font-variant-numeric:tabular-nums; }
-  .results .none { padding:8px 10px; color:var(--dim); font-size:.85rem; }
-  /* 検索で飛んだ行を少しのあいだ目立たせる */
-  tbody tr.hit td { background:color-mix(in srgb, var(--accent) 14%, transparent); }
-  tbody tr td { transition:background .6s; }
   /* 100銘柄ずつのページ送り。JS が中身を作る */
   .pager {
     display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:6px;
@@ -264,18 +219,10 @@
     </div>
   </section>
 
-  <h2 class="secttl">構成比</h2>
+  <h2 class="secttl">構成比<!--ssg:scope--><!--/ssg:scope--></h2>
   <div class="mix" id="mix"><!--ssg:mix--><!--/ssg:mix--></div>
 
-  <h2 class="secttl" id="holdings">構成銘柄</h2>
-  <div class="filters">
-    <div class="search" id="search">
-      <input type="search" id="q" placeholder="銘柄名・ティッカーで検索（例: nvidia, 7203）"
-             autocomplete="off" spellcheck="false" aria-label="銘柄を検索" aria-controls="results">
-      <ul class="results" id="results" role="listbox" hidden></ul>
-    </div>
-    <select id="country" aria-label="国・地域で絞り込む"><!--ssg:countries--><!--/ssg:countries--></select>
-  </div>
+  <h2 class="secttl" id="holdings">構成銘柄<!--ssg:scope--><!--/ssg:scope--></h2>
   <div class="tablewrap">
     <table>
       <thead>
@@ -297,7 +244,7 @@
   <!-- 公表値モードの1ページ目。モードを切り替えたときに #tb へ入れる -->
   <template id="tbpub"><!--ssg:rowspub--><!--/ssg:rowspub--></template>
   <div class="stickyhead" id="stickyhead" aria-hidden="true" hidden><table></table></div>
-  <nav class="pager" id="pager" aria-label="ページ" data-size="100"></nav>
+  <nav class="pager" id="pager" aria-label="ページ" data-pages="1"></nav>
 
   <footer class="copyright">© <span id="year">2026</span> Kazunari Shibata</footer>
 </div>
@@ -391,41 +338,33 @@ document.getElementById('year').textContent = new Date().getFullYear();
 
 // 100銘柄ずつのページ送り。1ページ目は HTML に書き込み済みで、2ページ目以降は
 // tools/render.py が書き出した rows/<ページ>.json を読み込む。
-// 国・地域で絞り込んだときは rows/c/<国コード>/<ページ>.json。順位は全体の順位のまま出す。
-// 状態は URL の #page=N / #country=JP&page=N で持つ（戻る・リンクでも開ける）。
+// 状態は URL の #page=N で持つ（戻る・リンクでも開ける）。
 // 行データは速報値モード（rows）と公表値モード（pub）の両方が入っていて、並び順もモードごとに違う。
 const pager = document.getElementById('pager');
-const PAGE_SIZE = Number(pager.dataset.size) || 100;
-const countrySelect = document.getElementById('country');
-const rowsKey = (m, country, page) => `${m}:${country}:${page}`;
+const pages = Number(pager.dataset.pages) || 1;
 const pageRows = {
-  [rowsKey('live', '', 1)]: document.getElementById('tb').innerHTML,
-  [rowsKey('pub', '', 1)]: document.getElementById('tbpub').innerHTML,
+  1: {
+    rows: document.getElementById('tb').innerHTML,
+    pub: document.getElementById('tbpub').innerHTML,
+  },
 };
 let mode = document.documentElement.dataset.mode === 'pub' ? 'pub' : 'live';
-let current = { country: '', page: 1 };
+let currentPage = 1;
 
-const countryInfo = code => {
-  const opt = [...countrySelect.options].find(o => o.value === code) || countrySelect.options[0];
-  return { code: opt.value, pages: Number(opt.dataset.pages) || 1 };
-};
-const stateFromHash = () => {
+const pageFromHash = () => {
   const params = new URLSearchParams(location.hash.slice(1));
-  const info = countryInfo(params.get('country') || '');
-  const page = Math.min(Math.max(Number(params.get('page')) || 1, 1), info.pages);
-  return { country: info.code, page };
+  const page = Number(params.get('page'));
+  return Number.isInteger(page) ? Math.min(Math.max(page, 1), pages) : 1;
 };
-const hashFor = (country, page) => country ? `#country=${country}&page=${page}` : `#page=${page}`;
 
 function drawPager() {
-  const { country, page } = current;
-  const { pages } = countryInfo(country);
+  const page = currentPage;
   let html = '';
   if (pages > 1) {
     // 先頭・末尾と、今のページの前後だけ番号を出す（間は … で詰める）
     const nums = [...new Set([1, page - 1, page, page + 1, pages])]
       .filter(n => n >= 1 && n <= pages).sort((a, b) => a - b);
-    const link = (n, label, attrs = '') => `<a href="${hashFor(country, n)}" ${attrs}>${label}</a>`;
+    const link = (n, label, attrs = '') => `<a href="#page=${n}" ${attrs}>${label}</a>`;
     if (page > 1) html += link(page - 1, '前へ', 'rel="prev"');
     nums.forEach((n, i) => {
       if (i && n - nums[i - 1] > 1) html += '<span class="gap">…</span>';
@@ -436,46 +375,28 @@ function drawPager() {
   pager.innerHTML = html;
 }
 
-async function showPage({ country, page }, scroll, rank) {
-  const key = rowsKey(mode, country, page);
-  if (!pageRows[key]) {
+async function showPage(page, scroll) {
+  if (!pageRows[page]) {
     try {
-      const path = country ? `rows/c/${country}/${page}.json` : `rows/${page}.json`;
-      const r = await fetch(`${path}?v=${encodeURIComponent(GENERATED)}`);
+      const r = await fetch(`rows/${page}.json?v=${encodeURIComponent(GENERATED)}`);
       if (!r.ok) throw new Error(r.status);
-      const d = await r.json();
-      pageRows[rowsKey('live', country, page)] = d.rows;
-      pageRows[rowsKey('pub', country, page)] = d.pub ?? d.rows;
+      pageRows[page] = await r.json();
     } catch {
       return;   // 読めなければ今のページのまま
     }
   }
-  current = { country, page };
-  countrySelect.value = country;
-  document.getElementById('tb').innerHTML = pageRows[key];
+  currentPage = page;
+  const { rows, pub } = pageRows[page];
+  document.getElementById('tb').innerHTML = mode === 'pub' ? (pub ?? rows) : rows;
   drawPager();
   syncStickyHead();
-  if (rank) highlightRow(rank);
-  else if (scroll) document.getElementById('holdings').scrollIntoView();
+  if (scroll) document.getElementById('holdings').scrollIntoView();
 }
 
-// 検索で選んだ銘柄。ページの切り替え（hashchange）を待ってからその行へ移る
-let pendingRank = null;
 window.addEventListener('hashchange', () => {
-  const next = stateFromHash(), rank = pendingRank;
-  pendingRank = null;
-  if (next.country !== current.country || next.page !== current.page) showPage(next, true, rank);
-  else if (rank) highlightRow(rank);
+  const next = pageFromHash();
+  if (next !== currentPage) showPage(next, true);
 });
-countrySelect.addEventListener('change', () => { location.hash = hashFor(countrySelect.value, 1); });
-
-function highlightRow(rank) {
-  const tr = document.querySelector(`#tb tr[data-rank="${rank}"]`);
-  if (!tr) return;
-  tr.scrollIntoView({ block: 'center' });
-  tr.classList.add('hit');
-  setTimeout(() => tr.classList.remove('hit'), 2400);
-}
 
 // 表の見出し行を画面上端に固定する（.stickyhead の CSS の説明を参照）
 const tableWrap = document.querySelector('.tablewrap');
@@ -505,84 +426,6 @@ window.addEventListener('scroll', queueStickyHead, { passive: true });
 window.addEventListener('resize', queueStickyHead);
 tableWrap.addEventListener('scroll', queueStickyHead, { passive: true });
 
-// 銘柄検索。索引（rows/search.json）は検索欄を使ったときに初めて読む
-const searchBox = document.getElementById('search');
-const q = document.getElementById('q');
-const results = document.getElementById('results');
-const esc = v => String(v).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
-// 大文字小文字・全角半角・記号の違いを無視して比べる（"Amazon.com" と "amazoncom" を同じにする）
-const norm = v => v.normalize('NFKC').toLowerCase().replace(/[\s.\-&,'()]/g, '');
-let searchIndex = null, hits = [], searchTimer = 0;
-
-async function loadSearchIndex() {
-  if (!searchIndex) {
-    try {
-      const r = await fetch(`rows/search.json?v=${encodeURIComponent(GENERATED)}`);
-      searchIndex = (await r.json()).map(([rank, ticker, name, weight, pubRank, pubWeight]) =>
-        ({ live: { rank, weight }, pub: { rank: pubRank ?? rank, weight: pubWeight ?? weight },
-           ticker, name, kt: norm(ticker), kn: norm(name) }));
-    } catch {
-      searchIndex = [];
-    }
-  }
-  return searchIndex;
-}
-
-async function runSearch() {
-  const term = norm(q.value);
-  if (!term) { results.hidden = true; return; }
-  const list = await loadSearchIndex();
-  if (norm(q.value) !== term) return;   // 読み込み中に入力が進んでいたら捨てる
-  // ティッカー完全一致 → ティッカーか名前の前方一致 → 名前の部分一致、同じなら順位順
-  // （"nestle" で NESTLEIND のティッカーより、組入比率の大きい NESTLE SA を先に出す）
-  const score = x => x.kt === term ? 0 : x.kt.startsWith(term) || x.kn.startsWith(term) ? 1
-    : x.kn.includes(term) ? 2 : 9;
-  // 順位と組入比率は今のモードのもの
-  hits = list.map(x => [score(x), { ...x, ...x[mode] }]).filter(([sc]) => sc < 9)
-    .sort((a, b) => a[0] - b[0] || a[1].rank - b[1].rank).slice(0, 20).map(([, x]) => x);
-  results.innerHTML = hits.length
-    ? hits.map((x, i) => `<li><button type="button" role="option" data-rank="${x.rank}"`
-        + ` aria-selected="${i === 0}"><span class="r">${x.rank.toLocaleString('ja-JP')}位</span>`
-        + `<span class="n">${esc(x.name)}</span><span class="t">${esc(x.ticker)}</span>`
-        + `<span class="w">${x.weight.toFixed(3)}%</span></button></li>`).join('')
-    : '<li class="none">見つかりませんでした</li>';
-  results.hidden = false;
-}
-
-function pickResult(rank) {
-  results.hidden = true;
-  q.blur();
-  // 検索は全銘柄が対象なので、絞り込みを解いて全体のページへ移る
-  const page = Math.ceil(rank / PAGE_SIZE);
-  if (!current.country && page === current.page) { highlightRow(rank); return; }
-  pendingRank = rank;
-  location.hash = hashFor('', page);
-}
-
-q.addEventListener('input', () => { clearTimeout(searchTimer); searchTimer = setTimeout(runSearch, 80); });
-q.addEventListener('focus', () => { if (q.value) runSearch(); });
-q.addEventListener('keydown', e => {
-  const buttons = [...results.querySelectorAll('button')];
-  const at = buttons.findIndex(b => b.getAttribute('aria-selected') === 'true');
-  if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
-    if (!buttons.length) return;
-    e.preventDefault();
-    const next = (at + (e.key === 'ArrowDown' ? 1 : -1) + buttons.length) % buttons.length;
-    buttons.forEach((b, i) => b.setAttribute('aria-selected', i === next));
-    buttons[next].scrollIntoView({ block: 'nearest' });
-  } else if (e.key === 'Enter') {
-    e.preventDefault();
-    if (buttons[at]) pickResult(Number(buttons[at].dataset.rank));
-  } else if (e.key === 'Escape') {
-    results.hidden = true;
-  }
-});
-results.addEventListener('click', e => {
-  const b = e.target.closest('button');
-  if (b) pickResult(Number(b.dataset.rank));
-});
-document.addEventListener('click', e => { if (!searchBox.contains(e.target)) results.hidden = true; });
-
 // 表示モードの切り替え。選んだモードは次に開いたときも使う
 const modeButtons = document.querySelectorAll('#modes button');
 function setMode(next) {
@@ -590,9 +433,8 @@ function setMode(next) {
   document.documentElement.dataset.mode = next;
   modeButtons.forEach(b => b.setAttribute('aria-pressed', b.dataset.mode === next));
   try { localStorage.setItem('mode', next); } catch {}
-  results.hidden = true;
   if (NAV) navView = drawNav();
-  showPage(current, false);
+  showPage(currentPage, false);
 }
 modeButtons.forEach(b => b.addEventListener('click', () => { if (b.dataset.mode !== mode) setMode(b.dataset.mode); }));
 modeButtons.forEach(b => b.setAttribute('aria-pressed', b.dataset.mode === mode));
@@ -630,8 +472,8 @@ if (matchMedia('(hover: none)').matches) {
 const GENERATED = document.body.dataset.generated || '';
 drawPager();
 {
-  const first = stateFromHash();
-  if (first.country || first.page !== 1 || mode !== 'live') showPage(first, false);
+  const first = pageFromHash();
+  if (first !== 1 || mode !== 'live') showPage(first, false);
 }
 fetch('nav.json?v=' + encodeURIComponent(GENERATED))
   .then(r => r.json()).then(bootNav).catch(() => {});

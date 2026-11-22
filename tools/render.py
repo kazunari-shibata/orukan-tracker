@@ -86,7 +86,7 @@ def render_rows(data, rows, logos):
         initial = r["name"].strip()[:1].upper()
         name_title = f'{e(r["name"])}（{e(r["ticker"])}）'
         out.append(
-            f'<tr data-rank="{r["rank"]}">'
+            '<tr>'
             f'<td class="num-rank">{r["rank"]}{rank_mark(r)}</td>'
             # ロゴは横スクロールしても左端に残す列なので、企業名とは別のセルにする。
             # 企業名は … で切れることがあり、ロゴだけ見えている状態でも社名が分かるよう、
@@ -145,6 +145,8 @@ def render_modebar(data, nav):
     text = (f'速報値は {t.month}/{t.day} {t.hour}:{t.minute:02d} JST 時点の推計、'
             f'公表値は {md(data.get("holdingsAsOf"))} 時点の保有銘柄'
             + (f'と {md(nav["asOf"])} の基準価額' if nav else '') + 'の公表データ。')
+    if nav and nav.get("estimate") and data.get("universe", {}).get("securities", 0) > len(data["rows"]):
+        text += f'基準価額の速報推計には上位{len(data["rows"]):,}銘柄の値動きを反映。'
     return escape(text)
 
 
@@ -156,31 +158,9 @@ def fill(html, name, content):
 
 
 def country_code(r):
-    """国旗の絵文字から ISO の2文字コードを取り出す（🇯🇵 -> JP）。URL とファイル名に使う。"""
+    """国・地域の集計に使うコードを国旗の絵文字から取り出す（🇯🇵 -> JP）。"""
     code = "".join(chr(ord(c) - 0x1F1E6 + ord("A")) for c in r["flag"] if 0x1F1E6 <= ord(c) <= 0x1F1FF)
     return code or re.sub(r"[^A-Za-z]", "", r["country"]).upper()[:12] or "XX"
-
-
-def countries(rows):
-    """[(コード, 国旗, 日本語名, 銘柄数)] を銘柄数の多い順に。"""
-    seen = {}
-    for r in rows:
-        code = country_code(r)
-        if code not in seen:
-            seen[code] = [code, r["flag"], r["countryJa"], 0]
-        seen[code][3] += 1
-    return sorted(seen.values(), key=lambda c: (-c[3], c[2]))
-
-
-def render_countries(rows):
-    """国・地域の絞り込み欄の選択肢。data-pages と data-count はページ送りが使う。"""
-    total = len(rows)
-    out = [f'<option value="" data-pages="{-(-total // PAGE_SIZE)}" data-count="{total}">'
-           f'すべての国・地域（{total:,}）</option>']
-    for code, flag, name, n in countries(rows):
-        out.append(f'<option value="{code}" data-pages="{-(-n // PAGE_SIZE)}" data-count="{n}"'
-                   f' data-name="{escape(name)}">{flag} {escape(name)}（{n:,}）</option>')
-    return "".join(out)
 
 
 MIX_TOP = 7   # 積み上げ棒は上位7項目に色を付け、残りは「その他」にまとめる（色は8色まで）
@@ -223,34 +203,18 @@ def render_page(data, live, pub, n, logos):
 
 
 def write_pages(data, logos, out_dir):
-    """全ページぶんの行 HTML を rows/<ページ>.json に書き出す（中身は render_page）。
-
-    国・地域で絞り込んだページも rows/c/<国コード>/<ページ>.json に書く（順位は全体の順位のまま）。
-
-    あわせて、銘柄検索用の索引 rows/search.json
-    （[順位, ティッカー, 名前, 組入比率, 公表値モードの順位, 公表値モードの組入比率]）も書く。
-    検索欄を使ったときにだけブラウザが読む。
-    """
+    """全ページぶんの行 HTML を rows/<ページ>.json に書き出す（中身は render_page）。"""
     rows, pub = data["rows"], data["pubRows"]
     pages = max(1, -(-len(rows) // PAGE_SIZE))
     out_dir.mkdir(parents=True, exist_ok=True)
     for n in range(1, pages + 1):
         (out_dir / f"{n}.json").write_text(render_page(data, rows, pub, n, logos))
-    # 国・地域ごとのページ。国が減ったときに古いファイルが残らないよう、毎回作り直す
+    # 以前の国・地域別ページを取り除く
     shutil.rmtree(out_dir / "c", ignore_errors=True)
-    for code, *_ in countries(rows):
-        mine = [r for r in rows if country_code(r) == code]
-        mine_pub = [r for r in pub if country_code(r) == code]
-        (out_dir / "c" / code).mkdir(parents=True)
-        for n in range(1, -(-len(mine) // PAGE_SIZE) + 1):
-            (out_dir / "c" / code / f"{n}.json").write_text(render_page(data, mine, mine_pub, n, logos))
 
-    index = [[r["rank"], r["ticker"], r["name"], round(r["weight"], 3),
-              r["pubRank"], round(r["baseWeight"] or 0, 3)] for r in rows]
-    (out_dir / "search.json").write_text(json.dumps(index, ensure_ascii=False, separators=(",", ":")))
-    # 銘柄数が減ってページが減ったら、余ったページを消す
+    # 銘柄数が減って余ったページや、以前の検索索引を消す
     for p in out_dir.glob("*.json"):
-        if p.stem != "search" and not (p.stem.isdigit() and 1 <= int(p.stem) <= pages):
+        if not (p.stem.isdigit() and 1 <= int(p.stem) <= pages):
             p.unlink()
     return pages
 
@@ -327,7 +291,6 @@ def load_data(history):
 
     pub = []
     for i, r in enumerate(pub_order(rows), 1):
-        r["pubRank"] = i
         pub.append({**r, "rank": i, "weight": r["baseWeight"] or 0.0, "price": r["basePrice"],
                     "prevClose": r["basePrevPrice"], "marketCapUsd": r["baseMarketCapUsd"],
                     "stale": False})
@@ -348,17 +311,19 @@ def main():
     nav = json.loads(args.nav.read_text()) if args.nav.exists() else None
 
     html = args.template.read_text()
+    count = len(data["rows"])
+    scope = f"（上位{count:,}銘柄）" if data.get("universe", {}).get("securities", 0) > count else ""
+    html = fill(html, "scope", scope)
     html = fill(html, "modebar", render_modebar(data, nav))
     html = fill(html, "navhead", render_navhead(nav))
     logos = {p.stem for p in (ROOT / "logos").glob("*.png")}
     html = fill(html, "rows", render_rows(data, data["rows"][:PAGE_SIZE], logos))
     html = fill(html, "rowspub", render_rows(data, data["pubRows"][:PAGE_SIZE], logos))
     pages = write_pages(data, logos, args.rows)
-    html = fill(html, "countries", render_countries(data["rows"]))
+    html = re.sub(r'(<nav\b[^>]*\bid="pager"[^>]*\bdata-pages=")\d+',
+                  lambda m: f"{m[1]}{pages}", html, count=1)
     html = fill(html, "mix", f'<div class="m-live">{render_mix(data["rows"])}</div>'
                              f'<div class="m-pub">{render_mix(data["pubRows"])}</div>')
-    html = re.sub(r'<nav class="pager" id="pager"[^>]*>',
-                  f'<nav class="pager" id="pager" aria-label="ページ" data-size="{PAGE_SIZE}">', html, count=1)
     # 基準価額が無いときは欄ごと隠す（チャートは JS が nav.json から描く）
     html = re.sub(r'<section class="nav" id="nav"(?: hidden)?>',
                   '<section class="nav" id="nav">' if nav else '<section class="nav" id="nav" hidden>',

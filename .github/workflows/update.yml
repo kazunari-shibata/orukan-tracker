@@ -47,7 +47,7 @@ jobs:
       - name: 推計を計算
         run: |
           mkdir -p logs
-          python tools/build.py --out-dir history 2>&1 | tee -a logs/run.log
+          python tools/build.py --out-dir history --top 100 2>&1 | tee -a logs/run.log
 
       # 前日比は株価の日付が変わった直近の CSV と比べる。週末や連休をまたげるだけ残す
       - name: 古い推計を捨てる
