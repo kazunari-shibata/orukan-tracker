@@ -8,7 +8,7 @@ IP を 403 で弾くので使わない。値は同じ（2018-10-31〜の全営�
 投資信託協会のほうが反映が遅いことがある。
 
 --history に build.py の出力先を渡すと、最新の終値で計算した基準価額の推計も入れる
-（ページの速報値モード用。estimate() 参照）。
+（ページに出す推計。estimate() 参照）。
 
   python tools/nav.py --out nav.json --history history
 """
@@ -174,7 +174,7 @@ def main():
     ap.add_argument("--src", default=TOUSHIN_URL, help="投資信託協会の CSV の URL かローカルパス")
     ap.add_argument("--out", required=True)
     ap.add_argument("--history", type=Path,
-                    help="build.py の出力先。渡すと最新の終値で基準価額を推計する（速報値モード用）")
+                    help="build.py の出力先。渡すと最新の終値で基準価額を推計する（ページに出す値）")
     args = ap.parse_args()
 
     try:
@@ -218,8 +218,8 @@ def main():
                                          **{k: out["estimate"][k] for k in
                                             ("value", "pricesAsOf", "baseAsOf", "ttm", "usdjpy")}})
         except Exception as e:
-            # 推計が出せなくても公表値は出す。ページの速報値モードは公表値に落とす
-            print(f"::warning::[nav] 基準価額を推計できなかったので、速報値モードも公表値を出します: {e}",
+            # 推計が出せなくても公表値は出す。ページは公表値に落とす
+            print(f"::warning::[nav] 基準価額を推計できなかったので、ページには公表値を出します: {e}",
                   file=sys.stderr)
     Path(args.out).parent.mkdir(parents=True, exist_ok=True)
     Path(args.out).write_text(json.dumps(out, ensure_ascii=False, separators=(",", ":")))

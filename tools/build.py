@@ -155,11 +155,9 @@ def parse_historical(raw):
 JST = timezone(timedelta(hours=9))
 
 # 履歴 CSV の列。render.py もこの順で読む。
-# base_ で始まる列は保有ファイルの値（公表値モード用）。base_prev_price はその前の日付の
-# 保有ファイルの株価、base_market_cap_usd は時価総額を保有ファイルの株価と為替で引き直した値。
+# base_weight は保有ファイルの組入比率。画面には出さず、組入比率の答え合わせ（check_weights）に使う。
 CSV_FIELDS = ["rank", "symbol", "ticker", "name", "sector", "country", "currency",
-              "price", "prev_close", "market_cap_usd", "base_weight", "weight", "stale",
-              "base_price", "base_prev_price", "base_market_cap_usd"]
+              "price", "prev_close", "market_cap_usd", "base_weight", "weight", "stale"]
 
 # 評価額の水準（meta の levels）に入れる米国の取引日数。基準価額の推計が、公表済みの基準価額が
 # 使った相場の日までさかのぼるのに使う。年末年始の連休をまたげる長さにしてある。
@@ -458,10 +456,7 @@ def main():
 
     generated = datetime.now(timezone.utc)
     day = generated.astimezone(JST).date().isoformat()
-    # 公表値モードの前日比は、前の日付の保有ファイルの株価と比べる。iShares の更新が
-    # 止まって保有ファイルが前回と同じ日付なら、前回の比較相手をそのまま引き継ぐ。
-    prev_meta, prev_rows = previous_day(args.out_dir, day)
-    same_file = bool(prev_meta) and prev_meta.get("holdingsAsOf") == as_of
+    prev_meta, prev_rows = previous_day(args.out_dir, day)   # 組入比率の答え合わせ用
 
     rows, mv_delta, stale, suspect, failed = [], 0.0, [], {}, {}
     for r in picks:
@@ -494,10 +489,6 @@ def main():
         mv = qty * price / fx
         mv_delta += mv - base_mv
         loc = r.get("Location", "")
-        prev = prev_rows.get(r["_key"], {})
-        base_prev = num(prev.get("base_prev_price" if same_file else "base_price"))
-        # 発行済株式数は変わらないとみなし、時価総額を保有ファイルの株価と為替に引き直す
-        base_mcap = mcap * r["_local_price"] / price / fx_file if mcap and not is_stale else None
         rows.append({
             "ticker": r["Ticker"],
             "symbol": r["_key"],
@@ -510,9 +501,6 @@ def main():
             "market_cap_usd": round(mcap / fx) if mcap else None,
             "base_weight": num(r.get("Weight (%)")) or 0.0,
             "stale": is_stale,
-            "base_price": round(r["_local_price"], 4),
-            "base_prev_price": round(base_prev, 4) if base_prev else None,
-            "base_market_cap_usd": round(base_mcap) if base_mcap else None,
             "_mv": mv,
         })
 

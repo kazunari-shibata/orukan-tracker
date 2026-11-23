@@ -5,10 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>オルカンの構成銘柄一覧</title>
 <meta name="robots" content="noindex, nofollow">
-<script>
-  // 表示モード（速報値 / 公表値）は描画の前に決めて、切り替わる前の中身が一瞬見えないようにする
-  try { if (localStorage.getItem('mode') === 'pub') document.documentElement.dataset.mode = 'pub'; } catch {}
-</script>
 <style>
   :root {
     /* ライト固定。OS がダークでもスクロールバー等を明るく保つ */
@@ -62,26 +58,6 @@
     background:var(--text); color:var(--panel); font-size:.78rem; line-height:1.4;
     padding:5px 9px; border-radius:6px; pointer-events:none;
   }
-  /* 国・地域と業種の比率。左右2列（スマホは縦に積む）で、各列は横の積み上げ棒1本＋凡例。色は上位7項目を青の濃淡、その他を灰色 */
-  .mix { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
-  .mixrow { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:14px 18px; }
-  .mixrow h3 { font-size:.85rem; font-weight:600; color:var(--text); margin-bottom:6px; }
-  /* 区切りは 2px の隙間。flex-grow に比率を入れて、隙間を引いた残りを按分する */
-  .stack { display:flex; gap:2px; height:12px; }
-  .stack i { flex-basis:0; min-width:2px; }
-  .stack i:first-child { border-radius:4px 0 0 4px; }
-  .stack i:last-child { border-radius:0 4px 4px 0; }
-  /* 大きい順に濃い青 → 薄い青。その他だけ灰色 */
-  .s1 { background:#1a4f8f; } .s2 { background:#2d6fc0; } .s3 { background:#4f8fdc; }
-  .s4 { background:#75a9e8; } .s5 { background:#97bfee; } .s6 { background:#b5d2f4; }
-  .s7 { background:#d0e3f8; } .sother { background:#dcdfe4; }
-  .mixlegend {
-    list-style:none; display:flex; flex-wrap:wrap; gap:2px 14px; margin-top:7px;
-    font-size:.85rem; color:var(--sub);
-  }
-  .mixlegend li { white-space:nowrap; }
-  .mixlegend b { font-weight:600; color:var(--text); font-variant-numeric:tabular-nums; }
-  .sw { display:inline-block; width:8px; height:8px; border-radius:2px; margin-right:5px; vertical-align:1px; }
   /* 列幅は中身なりに決めたうえで、余った幅を各列に配分する（table-layout:auto）。
      nowrap なので中身より狭くはならず、狭い画面では overflow-x で横に流れる。 */
   .tablewrap {
@@ -161,19 +137,9 @@
   .pager .gap { color:var(--dim); min-width:auto; padding:5px 2px; }
   .secttl { font-size:1rem; font-weight:650; margin-top:24px; margin-bottom:12px; }
   /* ページの先頭はすでに .wrap の余白があるので、最初の見出しの上は空けない */
-  .wrap > .secttl:first-child, .modebar + .secttl { margin-top:0; }
-  /* 表示モード。速報値（Yahoo の最新の終値と推計）と公表値（保有ファイルと公表された基準価額）。
-     両方の中身を HTML に入れておき、html の data-mode でどちらかを隠す */
-  html[data-mode="pub"] .m-live, html:not([data-mode="pub"]) .m-pub { display:none; }
-  .mix > .m-live, .mix > .m-pub { display:contents; }
-  .modebar { display:flex; flex-wrap:wrap; align-items:center; gap:6px 12px; margin-bottom:20px; }
-  .modes { display:flex; gap:4px; }
-  .modes button {
-    font:inherit; font-size:.8rem; color:var(--sub); cursor:pointer;
-    background:var(--panel); border:1px solid var(--line); border-radius:6px; padding:4px 11px;
-  }
-  .modes button[aria-pressed="true"] { color:var(--panel); background:var(--accent); border-color:var(--accent); }
-  .modenote { color:var(--dim); font-size:.75rem; }
+  .wrap > .secttl:first-child { margin-top:0; }
+  /* 数字がいつの値か・どう推計したか。基準価額の枠のすぐ下に置く */
+  .asof { color:var(--dim); font-size:.75rem; margin-top:-10px; }
   .copyright { margin-top:72px; color:var(--dim); font-size:.72rem; text-align:center; }
 
   /* タブレット・スマホは列が多く収まりきらないので、企業名を削らず最大幅で止め、
@@ -191,19 +157,11 @@
     .nav { padding:14px 14px 8px; }
     /* 期間ボタンが価格の下に回るので、同じ行の右端に騰落率を置く */
     .navside { flex-direction:row; align-items:center; justify-content:space-between; width:100%; }
-    .mix { grid-template-columns:1fr; }
   }
 </style>
 </head>
 <body data-generated="">
 <div class="wrap">
-  <div class="modebar">
-    <div class="modes" id="modes" role="group" aria-label="表示">
-      <button type="button" data-mode="live" aria-pressed="true">速報値</button>
-      <button type="button" data-mode="pub" aria-pressed="false">公表値</button>
-    </div>
-    <div class="modenote"><!--ssg:modebar--><!--/ssg:modebar--></div>
-  </div>
   <h2 class="secttl">基準価額</h2>
 
   <section class="nav" id="nav">
@@ -218,9 +176,7 @@
       <div class="readout" id="readout" hidden></div>
     </div>
   </section>
-
-  <h2 class="secttl">構成比<!--ssg:scope--><!--/ssg:scope--></h2>
-  <div class="mix" id="mix"><!--ssg:mix--><!--/ssg:mix--></div>
+  <p class="asof"><!--ssg:asof--><!--/ssg:asof--></p>
 
   <h2 class="secttl" id="holdings">構成銘柄<!--ssg:scope--><!--/ssg:scope--></h2>
   <div class="tablewrap">
@@ -241,8 +197,6 @@
       <tbody id="tb"><!--ssg:rows--><!--/ssg:rows--></tbody>
     </table>
   </div>
-  <!-- 公表値モードの1ページ目。モードを切り替えたときに #tb へ入れる -->
-  <template id="tbpub"><!--ssg:rowspub--><!--/ssg:rowspub--></template>
   <div class="stickyhead" id="stickyhead" aria-hidden="true" hidden><table></table></div>
   <nav class="pager" id="pager" aria-label="ページ" data-pages="1"></nav>
 
@@ -252,7 +206,7 @@
 <script>
 // これは index.html のひな形。表・更新日時・基準価額の数字は、Pages のビルドで
 // tools/render.py が書き込んで index.html にする（Actions で生成して GitHub Pages に出す）。
-// ここで描くのはチャート（nav.json）とページ送り、表示モードの切り替えだけ。
+// ここで描くのはチャート（nav.json）とページ送りだけ。
 // 日付は YYYY/M/D で統一する
 const fmtDate = v => {
   const d = v instanceof Date ? v : new Date(`${v}T00:00:00`);
@@ -262,9 +216,9 @@ const fmtDate = v => {
 const RANGES = [['1か月', 21], ['6か月', 126], ['1年', 252], ['全期間', Infinity]];
 let NAV = null, navView = null, navRange = 252;   // 初期表示は1年
 
-// 速報値モードは、公表値の後ろに推計値を1点足す（日付は null。読み取り欄に「推計」と出す）
+// 公表値の推移の後ろに推計値を1点足す（日付は null。読み取り欄に「推計」と出す）
 function navSeries() {
-  const est = mode === 'live' && NAV.estimate;
+  const est = NAV.estimate;
   return est ? { values: [...NAV.values, est.value], dates: [...NAV.dates, null] }
              : { values: NAV.values, dates: NAV.dates };
 }
@@ -339,16 +293,9 @@ document.getElementById('year').textContent = new Date().getFullYear();
 // 100銘柄ずつのページ送り。1ページ目は HTML に書き込み済みで、2ページ目以降は
 // tools/render.py が書き出した rows/<ページ>.json を読み込む。
 // 状態は URL の #page=N で持つ（戻る・リンクでも開ける）。
-// 行データは速報値モード（rows）と公表値モード（pub）の両方が入っていて、並び順もモードごとに違う。
 const pager = document.getElementById('pager');
 const pages = Number(pager.dataset.pages) || 1;
-const pageRows = {
-  1: {
-    rows: document.getElementById('tb').innerHTML,
-    pub: document.getElementById('tbpub').innerHTML,
-  },
-};
-let mode = document.documentElement.dataset.mode === 'pub' ? 'pub' : 'live';
+const pageRows = { 1: { rows: document.getElementById('tb').innerHTML } };
 let currentPage = 1;
 
 const pageFromHash = () => {
@@ -386,8 +333,7 @@ async function showPage(page, scroll) {
     }
   }
   currentPage = page;
-  const { rows, pub } = pageRows[page];
-  document.getElementById('tb').innerHTML = mode === 'pub' ? (pub ?? rows) : rows;
+  document.getElementById('tb').innerHTML = pageRows[page].rows;
   drawPager();
   syncStickyHead();
   if (scroll) document.getElementById('holdings').scrollIntoView();
@@ -426,20 +372,7 @@ window.addEventListener('scroll', queueStickyHead, { passive: true });
 window.addEventListener('resize', queueStickyHead);
 tableWrap.addEventListener('scroll', queueStickyHead, { passive: true });
 
-// 表示モードの切り替え。選んだモードは次に開いたときも使う
-const modeButtons = document.querySelectorAll('#modes button');
-function setMode(next) {
-  mode = next;
-  document.documentElement.dataset.mode = next;
-  modeButtons.forEach(b => b.setAttribute('aria-pressed', b.dataset.mode === next));
-  try { localStorage.setItem('mode', next); } catch {}
-  if (NAV) navView = drawNav();
-  showPage(currentPage, false);
-}
-modeButtons.forEach(b => b.addEventListener('click', () => { if (b.dataset.mode !== mode) setMode(b.dataset.mode); }));
-modeButtons.forEach(b => b.setAttribute('aria-pressed', b.dataset.mode === mode));
-
-// ホバーできない端末（スマホ）では、title の付いた箇所（構成銘柄の企業名、構成比の積み上げ棒）をタップすると吹き出しで出す。
+// ホバーできない端末（スマホ）では、title の付いた箇所（構成銘柄のロゴと企業名）をタップすると吹き出しで出す。
 // リンクやボタンは押したときの動作を優先する。
 if (matchMedia('(hover: none)').matches) {
   const tip = document.createElement('div');
@@ -456,7 +389,6 @@ if (matchMedia('(hover: none)').matches) {
     tip.textContent = el.title;
     tip.hidden = false;
     // 上に出す。画面の上端にかかるなら下に出す。どちらも画面からはみ出さないように寄せる
-    // （「その他」の内訳は長いので、下に出すと画面の下端を越えることがある）
     const r = el.getBoundingClientRect(), w = tip.offsetWidth, h = tip.offsetHeight;
     const fit = (v, max) => Math.max(8, Math.min(v, max - 8));
     tip.style.left = fit(r.left + r.width / 2 - w / 2, innerWidth - w) + 'px';
@@ -473,7 +405,7 @@ const GENERATED = document.body.dataset.generated || '';
 drawPager();
 {
   const first = pageFromHash();
-  if (first !== 1 || mode !== 'live') showPage(first, false);
+  if (first !== 1) showPage(first, false);
 }
 fetch('nav.json?v=' + encodeURIComponent(GENERATED))
   .then(r => r.json()).then(bootNav).catch(() => {});
