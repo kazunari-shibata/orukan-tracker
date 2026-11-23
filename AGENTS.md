@@ -14,7 +14,7 @@
 | `tools/cron/` | 更新を時刻どおりに始める Cloudflare Worker |
 | `tools/build.py` | 組入比率の推計。`history/<日付>.csv` と `.meta.json` を書く |
 | `tools/nav.py` | 基準価額の推移と、最新の終値での推計。`nav.json` を書く |
-| `tools/notify.py` | 答え合わせの結果と要確認のことを Slack に送る（Secret `SLACK_WEBHOOK_URL` の Incoming Webhook） |
+| `tools/notify.py` | 失敗・要確認・大きな値動きがあった日だけ Slack に送る（Secret `SLACK_WEBHOOK_URL` の Incoming Webhook） |
 | `tools/render.py` | `index.template.html` を埋めて `index.html` と `rows/` を書く |
 | `tools/symbols.py` | iShares のティッカー/取引所 → Yahoo のシンボル、取引所 → 通貨と除数 |
 | `tools/labels.py` | 国・業種の日本語名と国旗（表示用） |
@@ -35,7 +35,10 @@ Actions が毎回作り直す。
 6. `history/` を `history-<run_id>` として保存し直す
 7. `render.py` でページを作り、`logos/` を `_site/` に足す
 8. `upload-pages-artifact` → `deploy-pages` で GitHub Pages に出す
-9. build ジョブの最後に `notify.py` が答え合わせの結果を Slack に送る（途中で失敗した日も、失敗したことを送る）
+9. build ジョブの最後に `notify.py` が、知らせることがあった日だけ Slack に送る。何も無い日は送らない
+   - 途中で失敗した日は、失敗したことと理由
+   - 大きな値動き: 掲載銘柄の前日比が ±10%（`MOVE_PCT`）以上、基準価額の推計の前日比が ±3%（`NAV_PCT`）以上。
+     株価の日付（`pricesAsOf`）が前回から変わった日だけ見る（週末や祝日に同じ知らせを繰り返さない）
    - 要確認として出すもの: 実行ログ（`logs/run.log`）の `::warning::`、取引時間中の株価、保有ファイル・株価・
      基準価額の日付が古い、前回の推計がキャッシュに無い、`meta.json` の `issues`（株価が取れない・離れすぎ・
      通貨違い・時価総額が無い銘柄）のうち前回から増えたもの、上位100銘柄でロゴが無いもの
@@ -97,7 +100,7 @@ iShares の保有銘柄ファイル（数量・為替・評価額）を土台に
 - TTM は三菱UFJ銀行の公表相場（`nav.py` の `MUFG_TTM_URL`）の米ドルの (TTS + TTB) / 2。
   オルカンは当日の TTM で円に直すので、公表日の TTM で割って戻す
 - 推計できない（TTM が取れない、水準が足りない、公表値から15%以上離れた）日は `::warning::` を出し、
-  ページには公表値を出す（先頭の説明にもそう出す）
+  ページには公表値を出す（基準価額の枠の下の説明にもそう出す）
 
 2023-12〜2026-09 の556営業日で、ACWI の Non-FV NAV を評価額の代わりに使ったバックテストでは、
 公表値との差の中央値が 0.13%、9割の日が 0.39% 以内、前日比の向きの一致が 91.5%。
@@ -111,7 +114,7 @@ iShares の保有銘柄ファイル（数量・為替・評価額）を土台に
 ## 推計の答え合わせ
 
 直前の推計を、同じ相場の日の公表データと1回ずつ比べる。長く貯めはしない（キャッシュの2日ぶんで足りる）。
-結果は Actions の実行画面に `::notice::` で出て、`notify.py` が Slack にも送る。
+結果は Actions の実行画面に `::notice::` で出る（Slack には送らない。毎日送っていたが、見るものが少ないのでやめた）。
 
 - 組入比率（`build.py` の `check_weights`）: 前回の CSV の `weight` と順位を、今回の保有ファイルの
   `Weight (%)` と順位で比べ、`meta.json` の `check` に入れる。前回の `pricesAsOf` が今回の
@@ -232,6 +235,10 @@ price, prev_close, market_cap_usd, base_weight, weight, stale
 - ロゴは `logos/` にファイルがある銘柄だけ `img` を出す。無い銘柄（大半）で 404 を量産しないため
 - ロゴは企業名とは別の列にして、横スクロールしても左端に残す（`position:sticky`）。
   右の列を見ているときも、どの行の会社か分かるようにするため
+- 構成銘柄の表は見出しを押すと、表示中のページの行をブラウザで並べ替える。並べ替える値は `render.py` が
+  セルの `data-v` に入れる元の値（表示の「4.98兆ドル」ではなく数値）。株価は通貨がばらばらで比べられないので
+  並べ替えない。値の無いセルは下に寄せ、同じ値どうしは順位の順。ページ送りがある掲載数にすると、
+  並べ替えはそのページの中だけになる（全件で並べ替えるなら作り直す）
 - 構成銘柄の表で `title`（ホバー、スマホはタップで吹き出し）を付けるのはロゴと企業名だけ
   （社名全体とティッカー）。ほかのセルには付けない
 

@@ -81,7 +81,7 @@ jobs:
         with:
           path: _site
 
-      # 答え合わせの結果を Slack に送る。途中で失敗した日も、失敗したことを送る
+      # 失敗・要確認・大きな値動きがあった日だけ Slack に送る（何も無い日は送らない）
       - name: Slack に通知
         if: ${{ !cancelled() }}
         env:

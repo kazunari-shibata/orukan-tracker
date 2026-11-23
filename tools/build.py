@@ -1,15 +1,16 @@
 #!/usr/bin/env python3
 """ACWI（iShares MSCI ACWI ETF）の上位銘柄スナップショットを生成する。
 
-iShares の保有銘柄ファイル（数量・為替・基準時価総額）を土台に、
-Yahoo Finance の直近株価で時価総額とウェイトを引き直して JSON に書き出す。
-1 日 1 回（06:20 JST）実行する想定。
+iShares の保有銘柄ファイル（数量・為替・評価額）を土台に、
+Yahoo Finance の直近株価で評価額と組入比率を引き直す。
+1 日 1 回（06:20 JST）、上位100銘柄で実行する想定。
 
-  python tools/build.py --out-dir history
+  python tools/build.py --out-dir history --top 100
 
-結果は日付（日本時間）ごとの CSV（全銘柄の推計）と、同名の .meta.json
-（保有ファイルの日付・為替など）に書き出す。同じ日に再実行すると上書きする。
-この CSV が履歴として git に残り、表示用の HTML は render.py がそこから作る。
+結果は日付（日本時間）ごとの CSV（掲載する銘柄の推計）と、同名の .meta.json
+（保有ファイルの日付・為替・基準価額の推計用の水準・答え合わせなど）に書き出す。
+同じ日に再実行すると上書きする。git には入れず Actions のキャッシュに置き、
+表示用の HTML は render.py がそこから作る。
 """
 import argparse
 import csv
@@ -273,7 +274,7 @@ def fetch_fx(currencies, yf):
 
     まとめ取得で為替が欠けたときの予備。日足の直近の終値を使う。
     """
-    # JPY は保有銘柄に日本株がなくても要る（時価総額を円で表示するため）。
+    # JPY は保有銘柄に日本株がなくても要る（基準価額の推計に使うため）。
     pairs = {c: f"{c}=X" for c in set(currencies) | {"JPY"} if c != "USD"}
     out = {"USD": 1.0}
     if not pairs:

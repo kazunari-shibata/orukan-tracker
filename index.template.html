@@ -72,6 +72,14 @@
     border-bottom:1px solid var(--line);
   }
   td { border-bottom:1px solid var(--line); font-variant-numeric:tabular-nums; }
+  /* 並べ替えのボタン。見た目は見出しの文字のまま。並べている列だけ色と ▲▼ を付ける */
+  th button {
+    font:inherit; letter-spacing:inherit; color:inherit; background:none; border:0; padding:0; cursor:pointer;
+  }
+  th button:hover { color:var(--text); }
+  th[aria-sort] button { color:var(--accent); }
+  th[aria-sort="ascending"] button::after { content:" ▲"; }
+  th[aria-sort="descending"] button::after { content:" ▼"; }
   tbody tr:last-child td { border-bottom:0; }
   /* 行を追いやすいよう、1行おきにごく薄く色を付ける */
   tbody tr:nth-child(even) { background:color-mix(in srgb, var(--line) 30%, transparent); }
@@ -183,15 +191,17 @@
     <table>
       <thead>
         <tr>
-          <th class="num-rank">順位</th>
+          <!-- data-sort の付いた列は見出しを押すと並べ替える。num は大きい順、text は名前の順から始める。
+               株価は通貨がばらばらで比べられないので並べ替えない -->
+          <th class="num-rank"><button type="button" data-sort="num" data-first="asc">順位</button></th>
           <th class="lg"></th>
-          <th class="co">企業名</th>
-          <th>組入比率</th>
-          <th>時価総額</th>
+          <th class="co"><button type="button" data-sort="text">企業名</button></th>
+          <th><button type="button" data-sort="num">組入比率</button></th>
+          <th><button type="button" data-sort="num">時価総額</button></th>
           <th>株価</th>
-          <th>前日比</th>
-          <th class="sectorcell">業種</th>
-          <th class="flagcell">国・地域</th>
+          <th><button type="button" data-sort="num">前日比</button></th>
+          <th class="sectorcell"><button type="button" data-sort="text">業種</button></th>
+          <th class="flagcell"><button type="button" data-sort="text">国・地域</button></th>
         </tr>
       </thead>
       <tbody id="tb"><!--ssg:rows--><!--/ssg:rows--></tbody>
@@ -334,6 +344,7 @@ async function showPage(page, scroll) {
   }
   currentPage = page;
   document.getElementById('tb').innerHTML = pageRows[page].rows;
+  sortRows();
   drawPager();
   syncStickyHead();
   if (scroll) document.getElementById('holdings').scrollIntoView();
@@ -348,7 +359,8 @@ window.addEventListener('hashchange', () => {
 const tableWrap = document.querySelector('.tablewrap');
 const stickyHead = document.getElementById('stickyhead');
 const stickyTable = stickyHead.querySelector('table');
-stickyTable.innerHTML = tableWrap.querySelector('thead').outerHTML;
+const copyHead = () => { stickyTable.innerHTML = tableWrap.querySelector('thead').outerHTML; };
+copyHead();
 function syncStickyHead() {
   const box = tableWrap.getBoundingClientRect();
   const thead = tableWrap.querySelector('thead');
@@ -371,6 +383,45 @@ const queueStickyHead = () => {
 window.addEventListener('scroll', queueStickyHead, { passive: true });
 window.addEventListener('resize', queueStickyHead);
 tableWrap.addEventListener('scroll', queueStickyHead, { passive: true });
+
+// 見出しを押すと、表示中のページの行を並べ替える。もう一度押すと逆順。順位の見出しで元の並びに戻る。
+// 値は render.py がセルの data-v に入れた元の値（表示の「4.98兆ドル」などではなく数値）。
+// 値の無いセル（—）は向きに関係なく下に寄せ、同じ値どうしは順位の順にする。
+let sortCol = null, sortDir = null;
+function sortRows() {
+  if (sortCol == null) return;
+  const tb = document.getElementById('tb');
+  const th = tableWrap.querySelectorAll('thead th')[sortCol];
+  const text = th.querySelector('button').dataset.sort === 'text';
+  const sign = sortDir === 'asc' ? 1 : -1;
+  const val = tr => tr.cells[sortCol].dataset.v ?? '';
+  const rank = tr => Number(tr.cells[0].dataset.v);
+  const rows = [...tb.rows].sort((a, b) => {
+    const va = val(a), vb = val(b);
+    if ((va === '') !== (vb === '')) return va === '' ? 1 : -1;
+    const c = va === '' ? 0 : text ? va.localeCompare(vb, 'ja') : Number(va) - Number(vb);
+    return c * sign || rank(a) - rank(b);
+  });
+  tb.append(...rows);
+}
+function setSort(col) {
+  const btn = tableWrap.querySelectorAll('thead th')[col].querySelector('button');
+  const first = btn.dataset.first || (btn.dataset.sort === 'text' ? 'asc' : 'desc');
+  sortDir = col === sortCol ? (sortDir === 'asc' ? 'desc' : 'asc') : first;
+  sortCol = col;
+  tableWrap.querySelectorAll('thead th').forEach((th, i) => {
+    if (i === col) th.setAttribute('aria-sort', sortDir === 'asc' ? 'ascending' : 'descending');
+    else th.removeAttribute('aria-sort');
+  });
+  sortRows();
+  copyHead();
+  syncStickyHead();
+}
+// 固定表示の見出し（複製）も押せるように、列の位置で元の見出しに読み替える
+[tableWrap, stickyHead].forEach(el => el.addEventListener('click', e => {
+  const btn = e.target.closest('th button');
+  if (btn) setSort([...btn.closest('tr').children].indexOf(btn.closest('th')));
+}));
 
 // ホバーできない端末（スマホ）では、title の付いた箇所（構成銘柄のロゴと企業名）をタップすると吹き出しで出す。
 // リンクやボタンは押したときの動作を優先する。

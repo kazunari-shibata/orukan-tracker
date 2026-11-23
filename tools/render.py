@@ -77,6 +77,8 @@ def rank_mark(r):
 
 
 def render_rows(data, rows, logos):
+    """表の行 HTML。並べ替えに使う列のセルには、表示の文字ではなく元の値を data-v に入れる
+    （値が無いセルは空。ブラウザは空のセルを並び順に関係なく下に寄せる）。"""
     e = lambda v: escape(str(v if v is not None else ""))
     out = []
     for r in rows:
@@ -84,7 +86,7 @@ def render_rows(data, rows, logos):
         name_title = f'{e(r["name"])}（{e(r["ticker"])}）'
         out.append(
             '<tr>'
-            f'<td class="num-rank">{r["rank"]}{rank_mark(r)}</td>'
+            f'<td class="num-rank" data-v="{r["rank"]}">{r["rank"]}{rank_mark(r)}</td>'
             # ロゴは横スクロールしても左端に残す列なので、企業名とは別のセルにする。
             # 企業名は … で切れることがあり、ロゴだけ見えている状態でも社名が分かるよう、
             # どちらもマウスを乗せる（スマホはタップする）と全体とティッカーが見えるようにする
@@ -94,15 +96,15 @@ def render_rows(data, rows, logos):
             + (f'<img src="logos/{e(r["symbol"])}.png" alt="" loading="lazy" decoding="async"'
                ' onerror="this.remove()">' if r["symbol"] in logos else '')
             + '</span></td>'
-            f'<td class="co" title="{name_title}">'
+            f'<td class="co" title="{name_title}" data-v="{e(r["name"])}">'
             f'<span class="nm">{e(r["name"])}</span></td>'
-            f'<td>{r["weight"]:.3f}%</td>'
-            f'<td>{fmt_cap(r.get("marketCapUsd"))}</td>'
+            f'<td data-v="{r["weight"]}">{r["weight"]:.3f}%</td>'
+            f'<td data-v="{e(r.get("marketCapUsd"))}">{fmt_cap(r.get("marketCapUsd"))}</td>'
             f'<td>{fmt_price(r.get("price"))}'
             f'<span class="ccy">{e(r["currency"])}</span></td>'
-            f'<td class="{cls(r.get("chg1d") or 0)}">{delta(r.get("chg1d"))}</td>'
-            f'<td class="sectorcell">{e(r["sector"])}</td>'
-            f'<td class="flagcell">{r["flag"]}'
+            f'<td class="{cls(r.get("chg1d") or 0)}" data-v="{e(r.get("chg1d"))}">{delta(r.get("chg1d"))}</td>'
+            f'<td class="sectorcell" data-v="{e(r["sector"])}">{e(r["sector"])}</td>'
+            f'<td class="flagcell" data-v="{e(r["countryJa"])}">{r["flag"]}'
             f'<span class="cname">{e(r["countryJa"])}</span></td>'
             "</tr>"
         )

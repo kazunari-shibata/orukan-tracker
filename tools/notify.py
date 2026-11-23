@@ -1,10 +1,15 @@
 #!/usr/bin/env python3
-"""毎日の更新の結果（推計の答え合わせと、手当てが要りそうなこと）を Slack に送る。
+"""知らせることがあった日だけ、Slack に送る。毎日の答え合わせの結果は送らない（Actions の実行画面に出る）。
 
-build.py が meta.json に、nav.py が nav.json に入れた check と issues、実行ログ（--log）の
-::warning:: を読んで、Incoming Webhook に投げる。
+送るのは次のどれかがあった日:
+  - 更新が途中で失敗した（失敗の理由と実行画面へのリンク。JOB_STATUS、RUN_URL）
+  - 手当てが要りそうなこと（実行ログ --log の ::warning::、データの日付が古い、meta.json の issues の
+    うち前回から増えたもの、上位の銘柄でロゴが無いもの）
+  - 掲載している銘柄の前日比が ±MOVE_PCT% 以上
+  - 基準価額の推計の前日比が ±NAV_PCT% 以上
+値動きの2つは、株価の日付（pricesAsOf）が前回から変わった日だけ見る。週末や祝日の実行は前回と
+同じ終値なので、同じ知らせを何度も送らないため。
 Webhook の URL は環境変数 SLACK_WEBHOOK_URL（Actions の Secret）。無ければ送らずに文面だけ出す。
-更新が途中で失敗した日も、失敗したことと理由、実行画面へのリンクを送る（JOB_STATUS、RUN_URL）。
 
   python tools/notify.py --history history --nav _site/nav.json --log logs/run.log
 """
@@ -17,7 +22,6 @@ import urllib.request
 from datetime import date, datetime
 from pathlib import Path
 
-from build import CHECK_TOP
 from logos import MIN_PX
 from nav import JST
 
@@ -26,6 +30,8 @@ PAGE_URL = "https://kazunari-shibata.github.io/orukan-tracker/"
 LOGOS_TOP = 100          # この順位までの銘柄は、ロゴを調べていなければ知らせる
 # データの日付がこれより古ければ、取得元の更新が止まっているとみなす（日数。連休をまたげるだけ空ける）
 STALE_DAYS = {"holdings": 5, "prices": 4, "nav": 6}
+MOVE_PCT = 10            # 掲載している銘柄の前日比がこれ以上（絶対値、%）なら知らせる
+NAV_PCT = 3              # 基準価額の推計の前日比がこれ以上（絶対値、%）なら知らせる
 
 
 def load_json(path):
@@ -45,40 +51,32 @@ def age(day, today):
     return (date.fromisoformat(today) - date.fromisoformat(day)).days
 
 
-def nav_lines(nav):
-    lines = ["*基準価額*"]
-    if not nav:
-        return lines + ["• 取得できませんでした"]
-    est = nav.get("estimate")
-    if est:
-        lines.append(f"• 今日の推計: *{est['value']:,}円* （{md(est['pricesAsOf'])}の終値で計算）")
-    else:
-        lines.append("• 今日の推計: 出せませんでした")
-    check = nav.get("check")
-    if not check:
-        return lines + ["• 答え合わせ: 今日はなし"]
-    published = check["published"]
-    lines.append(f"• 答え合わせ: {md(check['navDate'])}の公表値 {published:,}円 に対して")
-    for e in check["estimates"]:
-        lines.append(f"　　{md(e['madeOn'])}の推計 {e['value']:,}円 → "
-                     f"{e['value'] - published:+,}円（{e['diff']:+.2f}%）のずれ")
-    return lines
+def mover_lines(csv_path):
+    """前日比が ±MOVE_PCT% 以上の銘柄。動いた大きさの順。株価を差し替えられなかった行は除く。"""
+    try:
+        with open(csv_path, newline="", encoding="utf-8") as f:
+            rows = list(csv.DictReader(f))
+    except OSError:
+        return []
+    moves = []
+    for r in rows:
+        try:
+            chg = (float(r["price"]) / float(r["prev_close"]) - 1) * 100
+        except (KeyError, ValueError, ZeroDivisionError):
+            continue
+        if r.get("stale") != "1" and abs(chg) >= MOVE_PCT:
+            moves.append((chg, r))
+    moves.sort(key=lambda m: -abs(m[0]))
+    return [f"{r['name']}（{r['ticker']}、{r['rank']}位）: *{chg:+.2f}%*" for chg, r in moves]
 
 
-def weight_lines(meta):
-    lines = ["*組入比率*"]
-    if not meta:
-        return lines + ["• 今日の推計を出せませんでした"]
-    check = meta.get("check")
-    if not check:
-        return lines + ["• 答え合わせ: 今日はなし"]
-    top, whole = check[f"top{CHECK_TOP}"], check["all"]
-    return lines + [
-        f"{md(check['estimatedOn'])}の推計を、iShares の {md(check['pricesAsOf'])}の実際の比率と比べると",
-        f"• 上位{CHECK_TOP}銘柄: 比率のずれ 合計 {top['absSum']:.3f}% ／ 順位がぴったり {top['rankMatch']:.0f}%",
-        f"• 全{whole['n']:,}銘柄: 比率のずれ 合計 {whole['absSum']:.3f}% ／ 順位のずれ 中央値 {whole['rankGapMedian']}位",
-        f"• 一番ずれた銘柄: {whole['absMaxSymbol']}（{whole['absMax']:.4f}%）",
-    ]
+def nav_move_line(nav):
+    """基準価額の推計の前日比が ±NAV_PCT% 以上なら、その1行。"""
+    est = (nav or {}).get("estimate")
+    if not est or abs(est["chg"]) < NAV_PCT:
+        return None
+    return (f"基準価額の推計 *{est['value']:,}円*（前日比 {est['chgAmount']:+,}円、*{est['chg']:+.2f}%*。"
+            f"{md(est['pricesAsOf'])}の終値で計算）")
 
 
 def some(items, n=5):
@@ -176,15 +174,27 @@ def main():
     nav = load_json(args.nav)
 
     issues = issue_lines(meta, prev_meta, nav, args.history, today, log)
+    # 値動きは、株価の日付が前回から変わった日だけ見る（週末や祝日に同じ知らせを繰り返さない）
+    moves, nav_move = [], None
+    if status == "success" and meta and meta.get("pricesAsOf") != (prev_meta or {}).get("pricesAsOf"):
+        moves = mover_lines(args.history / f"{meta['date']}.csv")
+        nav_move = nav_move_line(nav)
+
     if status != "success":
         lines = [f":rotating_light: *オルカン推計 {md(today)}　更新が途中で失敗しました*",
                  "ページは更新されていません。", "", "*ログの最後のほう（失敗の手がかり）*", *failure_lines(log)]
-    else:
+    elif issues or moves or nav_move:
         lines = [f":bar_chart: *オルカン推計 {md(today)}*"]
+    else:
+        print("[notify] 知らせることが無いので送りません", file=sys.stderr)
+        return
+    if nav_move or moves:
+        lines += ["", ":chart_with_upwards_trend: *大きく動きました*"]
+        lines += [f"• {nav_move}"] if nav_move else []
+        if moves:
+            lines += [f"前日比が ±{MOVE_PCT}% 以上の銘柄（{len(moves)}件）", *(f"• {m}" for m in moves)]
     if issues:
         lines += ["", f":warning: *要確認（{len(issues)}件）*", *(f"• {s}" for s in issues)]
-    if status == "success":
-        lines += ["", *nav_lines(nav), "", *weight_lines(meta)]
     lines += ["", f"<{PAGE_URL}|ページを見る>" + (f" ／ <{run_url}|実行画面>" if run_url else "")]
     text = "\n".join(lines)
     print(text, file=sys.stderr)
