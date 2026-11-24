@@ -229,6 +229,35 @@ def fetch_quotes_batch(units, mismatched, retry=False, stamps=None, nocap=None):
     return out
 
 
+ACWI_ETF = "ACWI"
+
+
+def rest_return(picks, quotes, holdings_day, prices_day):
+    """上位銘柄以外がどれだけ動いたとみなすかを、ACWI ETF の前日比で出す。(変化率, 理由)。
+
+    上位100銘柄はファンドの半分ほどで、残りを保有ファイルの評価額のまま置くと、相場全体が
+    大きく動いた日に推計が大きく外れる（2026-11-23 は ACWI の Non-FV NAV が +3.2% のところ
+    残りを動かさずに +2.4%）。1年分を比べると、残りを ETF の動きで動かすのが一番合った。
+
+    ETF の前日終値が保有ファイルの日付の終値のときだけ使う。保有ファイルの米国株の株価と
+    Yahoo の前日終値が揃っているかで確かめる（祝日をまたいでも暦を持たずに済む）。
+    揃わなければ（保有ファイルが2日以上古いなど）残りは動かさず、理由を返す。
+    株価の日付が保有ファイルの日付と同じなら、残りも保有ファイルのままで合っている。
+    """
+    if prices_day == holdings_day:
+        return 0.0, None
+    price, prev = (quotes.get(ACWI_ETF) or (None, None, None))[:2]
+    if not price or not prev:
+        return 0.0, "ACWI ETF の株価が取れなかった"
+    us = [(r["_local_price"], quotes[r["_sym"]][1]) for r in picks
+          if r.get("Location") == "United States" and (quotes.get(r["_sym"]) or (None, None))[1]]
+    same = sum(abs(p / f - 1) < 0.0005 for f, p in us)
+    if not us or same * 2 < len(us):
+        return 0.0, (f"Yahoo の前日終値が {holdings_day} の終値ではない"
+                     f"（保有ファイルの米国株の株価と一致 {same}/{len(us)} 銘柄）")
+    return price / prev - 1, None
+
+
 def us_price_stamp(stamps, us_symbols):
     """米国株の株価がいつの値かを、多数決で決める。
 
@@ -423,7 +452,8 @@ def main():
     # 為替も同じまとめ取得で取る。JPY は基準価額の推計に使うので日本株がなくても要る。
     fx_pairs = {f"{c}=X": c for c in ({p["_ccy"] for p in picks} | {"JPY"}) - {"USD"}}
     mismatched = {}
-    wanted = {**units, **{s: (c, 1) for s, c in fx_pairs.items()}}
+    # 上位銘柄以外の値動きに ACWI ETF を使う（rest_return）。同じまとめ取得に1銘柄足すだけ
+    wanted = {**units, **{s: (c, 1) for s, c in fx_pairs.items()}, ACWI_ETF: ("USD", 1)}
     stamps, nocap = {}, {}
     quotes = fetch_quotes_batch(wanted, mismatched, stamps=stamps, nocap=nocap)
     # Yahoo はたまに応答から数件落とす（毎回違う銘柄・為替）。欠けた分だけもう一度まとめて取る。
@@ -459,7 +489,7 @@ def main():
     day = generated.astimezone(JST).date().isoformat()
     prev_meta, prev_rows = previous_day(args.out_dir, day)   # 組入比率の答え合わせ用
 
-    rows, mv_delta, stale, suspect, failed = [], 0.0, [], {}, {}
+    rows, mv_delta, stale, failed = [], 0.0, [], {}
     for r in picks:
         sym = r["_sym"]
         base_mv = num(r.get("Market Value")) or 0.0
@@ -475,13 +505,9 @@ def main():
         price = float(price) if price else None
         prev_close = float(prev_close) if prev_close else None
         mcap = float(mcap) if mcap else None
-        # 保有ファイルの株価と大きく離れていたら、単位の違いや Yahoo 側の不整合とみなす
-        # （エジプト株は iShares の評価額と Yahoo の株価が4割ほど違う）。為替と同じ基準。
-        if price is not None and abs(price / r["_local_price"] - 1) > 0.25:
-            suspect[sym] = round(price / r["_local_price"], 2)
-            price = prev_close = mcap = None
+        # 保有ファイルの株価と大きく離れていても捨てない（NVDA が1日で3割上がった日に捨てて外した）
         is_stale = price is None
-        if is_stale and sym and sym not in suspect:
+        if is_stale and sym:
             failed[sym] = num(r.get("Weight (%)")) or 0.0
         if is_stale:
             price = r["_local_price"]
@@ -505,7 +531,16 @@ def main():
             "_mv": mv,
         })
 
-    total = fund_total + mv_delta
+    # 上位銘柄以外（株式のみ。現金や先物は動かさない）は ACWI ETF と同じだけ動いたとみなす
+    prices_as_of, us_market_state = us_price_stamp(
+        stamps, [r["_sym"] for r in picks if r["_sym"] and r.get("Location") == "United States"])
+    rest_mv = (sum(num(r.get("Market Value")) or 0.0 for r in equities)
+               - sum(num(r.get("Market Value")) or 0.0 for r in picks))
+    rest_chg, rest_why = rest_return(picks, quotes, as_of, prices_as_of)
+    if rest_why:
+        print(f"::warning::[orukan] {rest_why}ので、上位{len(picks)}銘柄以外は保有ファイルの"
+              "評価額のまま推計します", file=sys.stderr)
+    total = fund_total + mv_delta + rest_mv * rest_chg
     for row in rows:
         row["weight"] = round(row.pop("_mv") / total * 100, 5)
 
@@ -513,8 +548,6 @@ def main():
     for i, row in enumerate(rows, 1):
         row["rank"] = i
 
-    prices_as_of, us_market_state = us_price_stamp(
-        stamps, [r["_sym"] for r in picks if r["_sym"] and r.get("Location") == "United States"])
     levels = acwi_levels(parse_historical(raw), as_of, prices_as_of, total / fund_total)
     if not levels:
         print(f"::warning::[orukan] Historical シートに {as_of} の Non-FV NAV が無いので、"
@@ -534,6 +567,9 @@ def main():
         "fx": {k: round(v, 4) for k, v in sorted(fx_live.items())},
         # 米国の日付ごとの評価額の水準。nav.py が基準価額の推計に使う（acwi_levels 参照）
         "levels": levels,
+        # 上位銘柄以外の値動き（rest_return）。share は保有ファイルでの比率
+        "rest": {"share": round(rest_mv / fund_total * 100, 2), "chg": round(rest_chg * 100, 3),
+                 "skipped": rest_why},
         # 前回の推計の答え合わせ（check_weights 参照）
         "check": check_weights(prev_meta, prev_rows, as_of, rows),
         # 手当てが要るかもしれないもの。notify.py が前回から増えたものを Slack に出す。
@@ -543,7 +579,6 @@ def main():
             # （通貨が違って使わなかった銘柄は mismatched に出るので除く）
             "priceMissing": dict(sorted(((s, w) for s, w in failed.items() if s not in mismatched),
                                         key=lambda kv: -kv[1])),
-            "suspect": suspect,                 # 保有ファイルの株価と離れすぎて使わなかった（倍率）
             "mismatched": mismatched,           # 建値の通貨が想定と違った
             "noMarketCap": [s for s in nocap if s in units],   # 株価はあるが時価総額が無い
         },
@@ -569,9 +604,6 @@ def main():
     if mismatched:
         print(f"[orukan] 建値の通貨が想定と違うため使わなかった: "
               f"{', '.join(f'{k}({v})' for k, v in mismatched.items())}", file=sys.stderr)
-    if suspect:
-        print(f"[orukan] 保有ファイルの株価と離れすぎているため使わなかった（倍率）: "
-              f"{', '.join(f'{k}({v})' for k, v in suspect.items())}", file=sys.stderr)
     # 株価は取れたのに時価総額だけ無い銘柄。GitHub Actions でだけ起きていて手元では再現しないので、
     # 応答にどの項目が入っていたかを出して原因を探る（sharesOutstanding があれば株価から計算できる）
     nocap = {s: keys for s, keys in nocap.items() if s in units}

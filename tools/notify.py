@@ -104,10 +104,6 @@ def issue_lines(meta, prev_meta, nav, history, today, log):
             weights = cur["priceMissing"]
             out.append(f"株価を取れなくなった銘柄 {len(missing)}件（比率 計{sum(weights[s] for s in missing):.2f}%。"
                        f"保有ファイルの株価で代用）: {some(missing)}")
-        if suspect := new.get("suspect"):
-            ratio = cur["suspect"]
-            out.append(f"保有ファイルと株価が離れすぎていて使わなかった銘柄 {len(suspect)}件: "
-                       f"{some(f'{s}（×{ratio[s]}）' for s in suspect)}")
         if mismatched := new.get("mismatched"):
             ccy = cur["mismatched"]
             out.append(f"建値の通貨が想定と違った銘柄 {len(mismatched)}件（symbols.py の確認を）: "

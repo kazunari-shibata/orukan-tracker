@@ -143,8 +143,10 @@ def render_asof(data, nav):
     text += '。'
     count = len(data["rows"])
     if data.get("universe", {}).get("securities", 0) > count:
-        text += (f'株価は上位{count:,}銘柄だけ最新の値に差し替え、残りは'
-                 f' {md(data.get("holdingsAsOf"))} 時点の保有銘柄の値のまま。')
+        rest = data.get("rest") or {}
+        how = ('ACWI ETF と同じだけ動いたとみなした' if "chg" in rest and not rest.get("skipped")
+               else f'{md(data.get("holdingsAsOf"))} 時点の保有銘柄の値のまま')
+        text += f'株価は上位{count:,}銘柄だけ最新の値に差し替え、残りは{how}。'
     if nav and not nav.get("estimate"):
         text += f'基準価額は推計できなかったため {md(nav["asOf"])} の公表値。'
     return escape(text)
