@@ -163,8 +163,11 @@
     th, td { padding:9px 8px; font-size:.85rem; }
     .co .nm { max-width:13em; }   /* スマホは画面が狭いので、タブレットより詰める */
     .nav { padding:14px 14px 8px; }
-    /* 期間ボタンが価格の下に回るので、同じ行の右端に騰落率を置く */
-    .navside { flex-direction:row; align-items:center; justify-content:space-between; width:100%; }
+    /* 騰落率が同じ行に収まらない幅では、まとまりごと次の行に送る */
+    .navside { flex-direction:row; flex-wrap:wrap; align-items:center; width:100%; }
+    .ranges { flex-wrap:wrap; }
+    .ranges button, .rangeperf { white-space:nowrap; }
+    .rangeperf { margin-left:auto; }
   }
 </style>
 </head>
