@@ -163,11 +163,17 @@
     th, td { padding:9px 8px; font-size:.85rem; }
     .co .nm { max-width:13em; }   /* スマホは画面が狭いので、タブレットより詰める */
     .nav { padding:14px 14px 8px; }
-    /* 騰落率が同じ行に収まらない幅では、まとまりごと次の行に送る */
-    .navside { flex-direction:row; flex-wrap:wrap; align-items:center; width:100%; }
-    .ranges { flex-wrap:wrap; }
+    /* 期間を切り替えても、騰落率はボタンの右に置く */
+    .navside { flex-direction:row; align-items:center; width:100%; }
     .ranges button, .rangeperf { white-space:nowrap; }
     .rangeperf { display:flex; align-items:center; margin-left:auto; }
+  }
+  @media (max-width:400px) {
+    .nav { padding-inline:8px; }
+    .navside { gap:4px; }
+    .ranges { gap:2px; }
+    .ranges button { padding-inline:clamp(2px, calc(10vw - 30px), 8px); }
+    .rangeperf #rangechg { margin-left:3px; }
   }
 </style>
 </head>
